@@ -1,0 +1,465 @@
+{
+  "info": {
+    "name": "Web RSUD Haji API",
+    "_postman_id": "b9ad9c80-d683-4f9e-a276-c95c2726f41b",
+    "description": "Collection CRUD API untuk Admin, Dokter, Jadwal Dokter, Artikel, Layanan, Banner, dan Kontak.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000/api"
+    }
+  ],
+  "item": [
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Get Admin List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/admin"
+          }
+        },
+        {
+          "name": "Create Admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"admin_baru\",\n  \"password\": \"password123\",\n  \"nama_admin\": \"Admin Baru\"\n}"
+            },
+            "url": "{{baseUrl}}/admin"
+          }
+        },
+        {
+          "name": "Get Admin By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/admin/1"
+          }
+        },
+        {
+          "name": "Update Admin",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nama_admin\": \"Admin Utama Update\"\n}"
+            },
+            "url": "{{baseUrl}}/admin/1"
+          }
+        },
+        {
+          "name": "Delete Admin",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/admin/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dokter",
+      "item": [
+        {
+          "name": "Get Dokter List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/dokter"
+          }
+        },
+        {
+          "name": "Create Dokter",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nama_dokter\": \"dr. Rizky\",\n  \"spesialis\": \"Jantung\",\n  \"foto_dokter\": \"dokter/rizky.jpg\",\n  \"id_admin\": 1\n}"
+            },
+            "url": "{{baseUrl}}/dokter"
+          }
+        },
+        {
+          "name": "Get Dokter By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/dokter/1"
+          }
+        },
+        {
+          "name": "Update Dokter",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"spesialis\": \"Penyakit Dalam\"\n}"
+            },
+            "url": "{{baseUrl}}/dokter/1"
+          }
+        },
+        {
+          "name": "Delete Dokter",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/dokter/1"
+          }
+        },
+        {
+          "name": "Get Dokter Admin Options",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/dokter-admin-options"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Jadwal Dokter",
+      "item": [
+        {
+          "name": "Get Jadwal Dokter List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/jadwal-dokter"
+          }
+        },
+        {
+          "name": "Create Jadwal Dokter",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id_dokter\": 1,\n  \"hari\": \"Rabu\",\n  \"jam_mulai\": \"08:00\",\n  \"jam_selesai\": \"12:00\",\n  \"poli\": \"Poli Umum\",\n  \"id_admin\": 1\n}"
+            },
+            "url": "{{baseUrl}}/jadwal-dokter"
+          }
+        },
+        {
+          "name": "Get Jadwal Dokter By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/jadwal-dokter/1"
+          }
+        },
+        {
+          "name": "Update Jadwal Dokter",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jam_mulai\": \"09:00\",\n  \"jam_selesai\": \"13:00\"\n}"
+            },
+            "url": "{{baseUrl}}/jadwal-dokter/1"
+          }
+        },
+        {
+          "name": "Delete Jadwal Dokter",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/jadwal-dokter/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Artikel",
+      "item": [
+        {
+          "name": "Get Artikel List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/artikel"
+          }
+        },
+        {
+          "name": "Create Artikel",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"judul\": \"Tips Kesehatan\",\n  \"isi_artikel\": \"Isi artikel contoh\",\n  \"gambar_artikel\": \"artikel/tips.jpg\",\n  \"kategori\": \"Edukasi\",\n  \"tanggal\": \"2026-04-01\",\n  \"id_admin\": 1\n}"
+            },
+            "url": "{{baseUrl}}/artikel"
+          }
+        },
+        {
+          "name": "Get Artikel By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/artikel/1"
+          }
+        },
+        {
+          "name": "Update Artikel",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"kategori\": \"Kesehatan\"\n}"
+            },
+            "url": "{{baseUrl}}/artikel/1"
+          }
+        },
+        {
+          "name": "Delete Artikel",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/artikel/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Layanan",
+      "item": [
+        {
+          "name": "Get Layanan List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/layanan"
+          }
+        },
+        {
+          "name": "Create Layanan",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nama_layanan\": \"Pemeriksaan Umum\",\n  \"kategori\": \"Rawat Jalan\",\n  \"deskripsi\": \"Layanan pemeriksaan umum\",\n  \"gambar_layanan\": \"layanan/umum.jpg\",\n  \"id_admin\": 1\n}"
+            },
+            "url": "{{baseUrl}}/layanan"
+          }
+        },
+        {
+          "name": "Get Layanan By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/layanan/1"
+          }
+        },
+        {
+          "name": "Update Layanan",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deskripsi\": \"Layanan pemeriksaan umum terbaru\"\n}"
+            },
+            "url": "{{baseUrl}}/layanan/1"
+          }
+        },
+        {
+          "name": "Delete Layanan",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/layanan/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Banner",
+      "item": [
+        {
+          "name": "Get Banner List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/banner"
+          }
+        },
+        {
+          "name": "Create Banner",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"judul\": \"Promo Kesehatan\",\n  \"gambar_banner\": \"banner/promo.jpg\",\n  \"deskripsi\": \"Diskon konsultasi\",\n  \"id_admin\": 1\n}"
+            },
+            "url": "{{baseUrl}}/banner"
+          }
+        },
+        {
+          "name": "Get Banner By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/banner/1"
+          }
+        },
+        {
+          "name": "Update Banner",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deskripsi\": \"Promo terbaru bulan ini\"\n}"
+            },
+            "url": "{{baseUrl}}/banner/1"
+          }
+        },
+        {
+          "name": "Delete Banner",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/banner/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Kontak",
+      "item": [
+        {
+          "name": "Get Kontak List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/kontak"
+          }
+        },
+        {
+          "name": "Create Kontak",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"telepon\": \"0211234567\",\n  \"email\": \"info@rsudhaji.local\",\n  \"alamat\": \"Jl. Sehat Selalu No. 10\",\n  \"whatsapp\": \"081234567890\",\n  \"link_maps\": \"https://maps.google.com/?q=rsudhaji\",\n  \"id_admin\": 1\n}"
+            },
+            "url": "{{baseUrl}}/kontak"
+          }
+        },
+        {
+          "name": "Get Kontak By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/kontak/1"
+          }
+        },
+        {
+          "name": "Update Kontak",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"cs@rsudhaji.local\"\n}"
+            },
+            "url": "{{baseUrl}}/kontak/1"
+          }
+        },
+        {
+          "name": "Delete Kontak",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/kontak/1"
+          }
+        }
+      ]
+    }
+  ]
+}
