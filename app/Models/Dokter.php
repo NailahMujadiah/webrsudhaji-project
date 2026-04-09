@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Dokter extends Model
 {
@@ -33,5 +34,18 @@ class Dokter extends Model
     public function jadwalDokter(): HasMany
     {
         return $this->hasMany(JadwalDokter::class, 'id_dokter', 'id_dokter');
+    }
+
+    public function getFotoDokterUrlAttribute(): ?string
+    {
+        if (empty($this->foto_dokter)) {
+            return null;
+        }
+
+        if (Str::startsWith($this->foto_dokter, ['http://', 'https://'])) {
+            return $this->foto_dokter;
+        }
+
+        return asset('storage/' . $this->foto_dokter);
     }
 }

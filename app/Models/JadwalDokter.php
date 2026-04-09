@@ -11,6 +11,15 @@ class JadwalDokter extends Model
     protected $primaryKey = 'id_jadwal';
     public $timestamps = false;
 
+    protected $fillable = [
+        'id_dokter',
+        'hari',
+        'jam_mulai',
+        'jam_selesai',
+        'poli',
+        'id_admin',
+    ];
+
     /**
      * Get the dokter that owns this schedule
      */
