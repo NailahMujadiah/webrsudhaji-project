@@ -27,7 +27,17 @@ Route::get('/daftar-dokter', function () {
     return Inertia::render('daftarDokter');
 });
 
-Route::inertia('/', 'welcome', [
+Route::get('/detail-dokter', fn() => Inertia::render('detaildokter'))->name('dokter.detail');
+
+Route::get('/edukasi', function () {
+    return Inertia::render('edukasi');
+});
+
+Route::get('/layanan-fasilitas', function () {
+    return Inertia::render('layananFasilitas');
+});
+
+Route::inertia('/', 'beranda', [
     'canRegister' => Features::enabled(Features::registration()),
 ])->name('home');
 
