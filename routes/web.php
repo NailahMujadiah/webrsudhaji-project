@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Management\AdminLayananController;
 use App\Http\Controllers\Admin\Management\AdminKontakController;
 use App\Http\Controllers\Admin\Management\AdminJadwalDokterController;
 use App\Http\Controllers\DokterController;
+use App\Models\Dokter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -25,6 +26,27 @@ Route::get('/profil', function () {
 
 Route::get('/daftar-dokter', function () {
     return Inertia::render('daftarDokter');
+});
+
+Route::get('/struktur-organisasi', function () {
+    $direksi = Dokter::query()
+        ->select('id_dokter', 'nama_dokter', 'spesialis', 'foto_dokter')
+        ->orderByDesc('id_dokter')
+        ->limit(4)
+        ->get()
+        ->map(static function (Dokter $dokter): array {
+            return [
+                'id_dokter' => $dokter->id_dokter,
+                'nama_dokter' => $dokter->nama_dokter,
+                'jabatan' => $dokter->spesialis,
+                'foto_url' => $dokter->foto_dokter_url,
+            ];
+        })
+        ->values();
+
+    return Inertia::render('strukturOrganisasi', [
+        'direksi' => $direksi,
+    ]);
 });
 
 Route::get('/detail-dokter', fn() => Inertia::render('detaildokter'))->name('dokter.detail');
