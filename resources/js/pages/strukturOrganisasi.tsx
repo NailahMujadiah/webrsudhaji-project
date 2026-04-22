@@ -1,5 +1,7 @@
 import { Head, Link } from '@inertiajs/react';
 import { useState } from 'react';
+import Navbar from '@/components/navbar';
+import Footer from '@/components/footer';
 
 const tabsConfig = [
     { id: 1, label: 'Struktur Organisasi dan SK' },
@@ -36,85 +38,77 @@ const viceDirectors = [
 
 function ProfilDireksiTab() {
     const [activeViceDirectorId, setActiveViceDirectorId] = useState<number | null>(null);
-    const activeViceDirector = viceDirectors.find((viceDirector) => viceDirector.id === activeViceDirectorId) ?? null;
+    const activeViceDirector = viceDirectors.find((vd) => vd.id === activeViceDirectorId) ?? null;
 
     return (
         <div className="p-6">
-            <div className="group bg-white border border-[#E5E7E9] rounded shadow-md p-6 text-center max-w-3xl mx-auto transition duration-300 ease-out hover:-translate-y-1 hover:border-gray-300 hover:shadow-xl">
+            {/* Direktur Utama */}
+            <div className="group bg-white border border-[#E5E7E9] rounded-2xl shadow-md p-6 text-center max-w-xs mx-auto transition duration-300 hover:-translate-y-1 hover:shadow-xl">
                 <img
                     src="/images/struktur-organisasi/dokter.jpg"
-                    className="mx-auto aspect-[3/4] w-44 rounded-lg border-2 border-[#E5E7E9] object-cover transition duration-300 ease-out group-hover:scale-[1.02] sm:w-52"
+                    className="mx-auto aspect-[3/4] w-36 rounded-lg border-2 border-[#E5E7E9] object-cover transition duration-300 group-hover:scale-[1.02]"
                     alt="Direktur"
                 />
                 <h3 className="mt-4 font-semibold text-gray-800">Dr. AAA</h3>
-                <p className="text-green-600 font-medium">
-                    Direktur RSUD Haji Makassar
-                </p>
+                <p className="text-green-600 text-sm font-medium">Direktur RSUD Haji Makassar</p>
             </div>
 
+            {/* Wakil Direktur */}
             <div
-                className="mt-8 rounded-2xl border border-[#E5E7E9] bg-[#F8F9FA] p-4 shadow-sm"
+                className="mt-8 rounded-2xl border border-[#E5E7E9] bg-[#F8F9FA] p-6 shadow-sm"
                 onMouseLeave={() => setActiveViceDirectorId(null)}
             >
-                <div className="text-center">
-                    <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gray-500">Wakil Direktur</p>
-                    <h3 className="mt-1 text-xl font-bold text-gray-800">
-                        {activeViceDirector ? 'Fokus pada kartu aktif' : 'Arahkan kursor ke salah satu kartu'}
+                <div className="text-center mb-6">
+                    <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">Wakil Direktur</p>
+                    <h3 className="mt-1 text-lg font-bold text-gray-800">
+                        {activeViceDirector ? activeViceDirector.name : 'Arahkan kursor ke salah satu kartu'}
                     </h3>
-                    <p className="mt-2 text-sm text-gray-500">
-                        {activeViceDirector
-                            ? 'Kartu aktif berada di tengah dan informasi tambahan ditampilkan di bawahnya.'
-                            : 'Saat kursor masuk ke salah satu kartu, kartu tersebut akan diperbesar dan yang lain disembunyikan.'}
-                    </p>
                 </div>
 
                 {!activeViceDirector ? (
-                    <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3">
-                        {viceDirectors.map((viceDirector) => (
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                        {viceDirectors.map((vd) => (
                             <button
-                                key={viceDirector.id}
+                                key={vd.id}
                                 type="button"
-                                onMouseEnter={() => setActiveViceDirectorId(viceDirector.id)}
-                                onFocus={() => setActiveViceDirectorId(viceDirector.id)}
-                                className="group rounded-2xl border border-[#E5E7E9] bg-white p-4 text-center shadow-md transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-green-400"
+                                onMouseEnter={() => setActiveViceDirectorId(vd.id)}
+                                onFocus={() => setActiveViceDirectorId(vd.id)}
+                                className="group rounded-2xl border border-[#E5E7E9] bg-white p-4 text-center shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-green-400"
                             >
                                 <img
                                     src="/images/struktur-organisasi/dokter.jpg"
-                                    className="mx-auto aspect-[3/4] w-32 rounded-lg border-2 border-[#E5E7E9] object-cover transition duration-300 ease-out group-hover:scale-[1.03] sm:w-36"
-                                    alt={viceDirector.role}
+                                    className="mx-auto aspect-[3/4] w-28 rounded-lg border-2 border-[#E5E7E9] object-cover transition duration-300 group-hover:scale-[1.03]"
+                                    alt={vd.role}
                                 />
-                                <h4 className="mt-3 font-semibold text-gray-800">{viceDirector.name}</h4>
-                                <p className="text-green-600 text-sm font-medium">{viceDirector.role}</p>
+                                <h4 className="mt-3 font-semibold text-gray-800 text-sm">{vd.name}</h4>
+                                <p className="text-green-600 text-xs font-medium mt-1 line-clamp-2">{vd.role}</p>
                             </button>
                         ))}
                     </div>
                 ) : (
-                    <div className="mt-6">
-                        <div className="mx-auto max-w-xl rounded-2xl border border-[#E5E7E9] bg-white p-6 text-center shadow-xl transition duration-300 ease-out">
+                    <div className="mt-2">
+                        <div className="mx-auto max-w-sm rounded-2xl border border-[#E5E7E9] bg-white p-6 text-center shadow-xl">
                             <img
                                 src="/images/struktur-organisasi/dokter.jpg"
-                                className="mx-auto aspect-[3/4] w-40 rounded-lg border-2 border-[#E5E7E9] object-cover transition duration-300 ease-out sm:w-48"
+                                className="mx-auto aspect-[3/4] w-36 rounded-lg border-2 border-[#E5E7E9] object-cover"
                                 alt={activeViceDirector.role}
                             />
-                            <h4 className="mt-4 text-lg font-semibold text-gray-800">{activeViceDirector.name}</h4>
-                            <p className="text-green-600 font-medium">{activeViceDirector.role}</p>
-                            <p className="mt-3 text-sm text-gray-500">
-                                {activeViceDirector.focus}
-                            </p>
+                            <h4 className="mt-4 text-base font-semibold text-gray-800">{activeViceDirector.name}</h4>
+                            <p className="text-green-600 text-sm font-medium mt-1">{activeViceDirector.role}</p>
                         </div>
 
-                        <div className="mt-6 grid gap-3 md:grid-cols-3">
-                            <div className="rounded-xl bg-white p-4 shadow-sm">
-                                <p className="text-xs uppercase tracking-wide text-gray-500">Bidang</p>
-                                <p className="mt-1 text-sm font-semibold text-gray-800">{activeViceDirector.field}</p>
+                        <div className="mt-4 grid gap-3 md:grid-cols-3">
+                            <div className="rounded-xl bg-white p-4 shadow-sm h-24 flex flex-col justify-between">
+                                <p className="text-xs uppercase tracking-wide text-gray-400">Bidang</p>
+                                <p className="text-sm font-semibold text-gray-800 line-clamp-2">{activeViceDirector.field}</p>
                             </div>
-                            <div className="rounded-xl bg-white p-4 shadow-sm">
-                                <p className="text-xs uppercase tracking-wide text-gray-500">Fokus</p>
-                                <p className="mt-1 text-sm font-semibold text-gray-800">{activeViceDirector.focus}</p>
+                            <div className="rounded-xl bg-white p-4 shadow-sm h-24 flex flex-col justify-between">
+                                <p className="text-xs uppercase tracking-wide text-gray-400">Fokus</p>
+                                <p className="text-sm font-semibold text-gray-800 line-clamp-2">{activeViceDirector.focus}</p>
                             </div>
-                            <div className="rounded-xl bg-white p-4 shadow-sm">
-                                <p className="text-xs uppercase tracking-wide text-gray-500">Peran</p>
-                                <p className="mt-1 text-sm font-semibold text-gray-800">{activeViceDirector.responsibility}</p>
+                            <div className="rounded-xl bg-white p-4 shadow-sm h-24 flex flex-col justify-between">
+                                <p className="text-xs uppercase tracking-wide text-gray-400">Peran</p>
+                                <p className="text-sm font-semibold text-gray-800 line-clamp-2">{activeViceDirector.responsibility}</p>
                             </div>
                         </div>
                     </div>
@@ -127,46 +121,44 @@ function ProfilDireksiTab() {
 const tabContents: Record<number, React.ReactNode> = {
     1: (
         <div className="p-6">
-            <h3 className="text-xl font-bold mb-4">Struktur Organisasi RSUD Haji</h3>
-            <p className="text-slate-600 mb-4">Berikut adalah struktur organisasi rumah sakit kami:</p>
-            
-            <div className="mb-6 overflow-hidden rounded border border-slate-300 bg-slate-100 shadow-sm">
+            <h3 className="text-xl font-bold mb-4 text-slate-800">Struktur Organisasi RSUD Haji</h3>
+            <p className="text-slate-500 text-sm mb-4">Berikut adalah struktur organisasi rumah sakit kami:</p>
+            <div className="mb-6 overflow-hidden rounded-xl border border-slate-200 shadow-sm">
                 <iframe
                     src="/pdfs/Struktur%20RSUD%20Haji%20Makassar.pdf"
                     title="Struktur Organisasi RSUD Haji"
                     className="h-[700px] w-full"
                 />
             </div>
-            
-            <h4 className="font-semibold mb-3 text-slate-900">Daftar Struktur:</h4>
-            <ul className="space-y-3 list-disc list-inside text-slate-700">
-                <li>Direktur Utama</li>
-                <li>Wakil Direktur Pelayanan</li>
-                <li>Wakil Direktur Penunjang</li>
-                <li>Kepala Instalasi Rawat Jalan</li>
-                <li>Kepala Instalasi Rawat Inap</li>
-                <li>Kepala Sub Bagian Umum</li>
+            <h4 className="font-semibold mb-3 text-slate-800">Daftar Struktur:</h4>
+            <ul className="space-y-2 text-sm text-slate-600">
+                {['Direktur Utama', 'Wakil Direktur Pelayanan', 'Wakil Direktur Penunjang', 'Kepala Instalasi Rawat Jalan', 'Kepala Instalasi Rawat Inap', 'Kepala Sub Bagian Umum'].map((item, i) => (
+                    <li key={i} className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-green-600 shrink-0" />
+                        {item}
+                    </li>
+                ))}
             </ul>
         </div>
     ),
     2: <ProfilDireksiTab />,
     3: (
         <div className="p-6">
-            <h3 className="text-xl font-bold mb-4">Daftar Unit Kerja</h3>
-            <p className="text-slate-600 mb-4">Unit-unit kerja di RSUD Haji:</p>
-            <div className="grid grid-cols-2 gap-3">
-                <div className="bg-blue-50 p-3 rounded border border-blue-200">
-                    <p className="font-semibold text-blue-900">Rawat Jalan</p>
-                </div>
-                <div className="bg-green-50 p-3 rounded border border-green-200">
-                    <p className="font-semibold text-green-900">Rawat Inap</p>
-                </div>
-                <div className="bg-purple-50 p-3 rounded border border-purple-200">
-                    <p className="font-semibold text-purple-900">Laboratorium</p>
-                </div>
-                <div className="bg-orange-50 p-3 rounded border border-orange-200">
-                    <p className="font-semibold text-orange-900">Farmasi</p>
-                </div>
+            <h3 className="text-xl font-bold mb-2 text-slate-800">Daftar Unit Kerja</h3>
+            <p className="text-slate-500 text-sm mb-6">Unit-unit kerja di RSUD Haji Makassar:</p>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                {[
+                    { label: 'Rawat Jalan', color: 'bg-blue-50 border-blue-200 text-blue-900' },
+                    { label: 'Rawat Inap', color: 'bg-green-50 border-green-200 text-green-900' },
+                    { label: 'Laboratorium', color: 'bg-purple-50 border-purple-200 text-purple-900' },
+                    { label: 'Farmasi', color: 'bg-orange-50 border-orange-200 text-orange-900' },
+                    { label: 'Radiologi', color: 'bg-pink-50 border-pink-200 text-pink-900' },
+                    { label: 'IGD', color: 'bg-red-50 border-red-200 text-red-900' },
+                ].map((unit, i) => (
+                    <div key={i} className={`p-4 rounded-xl border font-semibold text-sm ${unit.color}`}>
+                        {unit.label}
+                    </div>
+                ))}
             </div>
         </div>
     ),
@@ -177,50 +169,45 @@ export default function StrukturOrganisasi() {
 
     return (
         <>
-            <Head title="Struktur Organisasi" />
+            <Head title="Struktur Organisasi - RSUD Haji Makassar" />
+            <Navbar />
 
-            <div className="min-h-screen bg-white text-slate-900 dark:bg-white dark:text-slate-900">
-                <nav className="flex items-center justify-between bg-teal-700 px-6 py-3 text-white">
-                    <Link href="/" className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-full bg-white" />
-                        <span className="font-semibold">RSUD Haji Makassar</span>
-                    </Link>
+            <main className="min-h-screen bg-[#BAEBD4] py-12 px-6 lg:px-20">
+                <div className="max-w-6xl mx-auto">
 
-                    <ul className="hidden gap-6 text-sm md:flex">
-                        <li><Link href="/profil">Profil</Link></li>
-                        <li><Link href="/daftar-dokter">Layanan &amp; Fasilitas</Link></li>
-                        <li><Link href="/daftar-dokter">Dokter Kami</Link></li>
-                        <li><Link href="/struktur-organisasi">Edukasi</Link></li>
-                        <li><Link href="/struktur-organisasi">Kontak</Link></li>
-                    </ul>
-                </nav>
-
-                <div className="mx-auto mt-6 max-w-6xl rounded bg-green-200 p-6">
-                    <div className="rounded bg-green-400 py-3 text-center text-lg font-bold text-white">
-                        STRUKTUR ORGANISASI
+                    {/* Judul */}
+                    <div className="mb-6">
+                        <h1 className="text-3xl font-extrabold text-slate-800">Struktur Organisasi</h1>
+                        <div className="w-12 h-1 bg-green-600 rounded mt-2" />
                     </div>
 
-                    <div className="mt-4 flex flex-wrap">
+                    {/* Tab Buttons */}
+                    <div className="flex flex-wrap gap-2 mb-4">
                         {tabsConfig.map((tab) => (
                             <button
-                                key={tab.label}
+                                key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
                                 type="button"
-                                className={[
-                                    'px-4 py-2 text-sm font-medium',
-                                    activeTab === tab.id ? 'bg-yellow-400' : 'bg-gray-200',
-                                ].join(' ')}
+                                className={`px-5 py-2 rounded-full text-sm font-semibold transition ${
+                                    activeTab === tab.id
+                                        ? 'bg-[#2D8A5B] text-white'
+                                        : 'bg-white text-slate-600 border border-slate-300 hover:bg-slate-50'
+                                }`}
                             >
                                 {tab.label}
                             </button>
                         ))}
                     </div>
 
-                    <div className="mt-4 rounded bg-white border border-gray-300 min-h-96">
+                    {/* Konten Tab */}
+                    <div className="rounded-2xl bg-white shadow-sm border border-slate-100 min-h-96">
                         {tabContents[activeTab]}
                     </div>
+
                 </div>
-            </div>
+            </main>
+
+            <Footer />
         </>
     );
 }
