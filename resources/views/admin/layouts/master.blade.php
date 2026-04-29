@@ -15,7 +15,7 @@
             <li class="nav-item">
                 @php($currentAdmin = Auth::guard('admin')->user())
                 @if (!empty($currentAdmin->foto_admin))
-                    <img src="{{ asset('storage/' . $currentAdmin->foto_admin) }}" alt="Foto Admin" class="img-circle mr-2" style="width: 32px; height: 32px; object-fit: cover;">
+                    <img src="{{ $currentAdmin->foto_admin_url }}" alt="Foto Admin" class="img-circle mr-2" style="width: 32px; height: 32px; object-fit: cover;">
                 @else
                     <span class="mr-2 text-muted"><i class="fas fa-user-circle"></i></span>
                 @endif
@@ -88,6 +88,13 @@
                         <a href="{{ route('admin.dokter.index') }}" class="nav-link {{ request()->routeIs('admin.dokter.*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-user-md"></i>
                             <p>Dokter</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.profil-direksi.index') }}" class="nav-link {{ request()->routeIs('admin.profil-direksi.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-id-badge"></i>
+                            <p>Profil Direksi</p>
                         </a>
                     </li>
 

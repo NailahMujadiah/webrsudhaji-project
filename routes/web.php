@@ -9,8 +9,9 @@ use App\Http\Controllers\Admin\Management\AdminDokterController;
 use App\Http\Controllers\Admin\Management\AdminLayananController;
 use App\Http\Controllers\Admin\Management\AdminKontakController;
 use App\Http\Controllers\Admin\Management\AdminJadwalDokterController;
+use App\Http\Controllers\Admin\Management\AdminProfilDireksiController;
 use App\Http\Controllers\DokterController;
-use App\Models\Dokter;
+use App\Models\Position;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -29,23 +30,46 @@ Route::get('/daftar-dokter', function () {
 });
 
 Route::get('/struktur-organisasi', function () {
-    $direksi = Dokter::query()
-        ->select('id_dokter', 'nama_dokter', 'spesialis', 'foto_dokter')
-        ->orderByDesc('id_dokter')
-        ->limit(4)
+    $positions = Position::query()
+        ->with('profile')
+        ->orderBy('parent_id')
+        ->orderBy('sort_order')
+        ->orderBy('id')
         ->get()
-        ->map(static function (Dokter $dokter): array {
+        ->map(static function (Position $position): array {
             return [
-                'id_dokter' => $dokter->id_dokter,
-                'nama_dokter' => $dokter->nama_dokter,
-                'jabatan' => $dokter->spesialis,
-                'foto_url' => $dokter->foto_dokter_url,
+                'id' => $position->id,
+                'code' => $position->code,
+                'name' => $position->name,
+                'parent_id' => $position->parent_id,
+                'sort_order' => $position->sort_order,
+                'profile' => $position->profile ? [
+                    'id' => $position->profile->id,
+                    'position_id' => $position->profile->position_id,
+                    'nama_pejabat' => $position->profile->nama_pejabat,
+                    'foto_url' => $position->profile->foto_profil_url,
+                    'deskripsi_singkat' => $position->profile->deskripsi_singkat,
+                    'is_active' => $position->profile->is_active,
+                    'nama_display' => $position->profile->nama_display,
+                ] : null,
             ];
         })
         ->values();
 
+    $director = $positions->firstWhere('code', 'director');
+    $viceDirectors = $director
+        ? $positions->where('parent_id', $director['id'])->values()->map(static function (array $viceDirector) use ($positions): array {
+            $viceDirector['children'] = $positions->where('parent_id', $viceDirector['id'])->values()->all();
+
+            return $viceDirector;
+        })->values()->all()
+        : [];
+
     return Inertia::render('strukturOrganisasi', [
-        'direksi' => $direksi,
+        'organization' => [
+            'director' => $director,
+            'viceDirectors' => $viceDirectors,
+        ],
     ]);
 });
 
@@ -118,6 +142,10 @@ Route::middleware('auth:admin')->group(function () {
         'names' => 'admin.jadwal',
         'parameters' => ['jadwal_dokter' => 'id_jadwal'],
     ])->except(['show']);
+
+    Route::get('admin/profil-direksi', [AdminProfilDireksiController::class, 'index'])->name('admin.profil-direksi.index');
+    Route::get('admin/profil-direksi/{id}/edit', [AdminProfilDireksiController::class, 'edit'])->name('admin.profil-direksi.edit');
+    Route::put('admin/profil-direksi/{id}', [AdminProfilDireksiController::class, 'update'])->name('admin.profil-direksi.update');
 });
 
 Route::get('/dokter', [DokterController::class, 'index']);
