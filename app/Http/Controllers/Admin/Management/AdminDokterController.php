@@ -14,6 +14,11 @@ use Illuminate\Http\RedirectResponse;
 
 class AdminDokterController extends Controller
 {
+    private function mediaDisk(): string
+    {
+        return (string) config('filesystems.media_disk', 'public');
+    }
+
     public function index(): View
     {
         $admin = Auth::guard('admin')->user();
@@ -44,7 +49,7 @@ class AdminDokterController extends Controller
 
         if ($request->hasFile('foto_dokter')) {
             $fileName = $this->buildReadableFileName($request->file('foto_dokter')->getClientOriginalExtension(), 'dokter', $validated['nama_dokter']);
-            $validated['foto_dokter'] = $request->file('foto_dokter')->storeAs('dokter', $fileName, 'public');
+            $validated['foto_dokter'] = $request->file('foto_dokter')->storeAs('dokter', $fileName, $this->mediaDisk());
         }
 
         Dokter::create([
@@ -82,12 +87,12 @@ class AdminDokterController extends Controller
         ]);
 
         if ($request->hasFile('foto_dokter')) {
-            if (! empty($dokter->foto_dokter) && Storage::disk('public')->exists($dokter->foto_dokter)) {
-                Storage::disk('public')->delete($dokter->foto_dokter);
+            if (! empty($dokter->foto_dokter) && Storage::disk($this->mediaDisk())->exists($dokter->foto_dokter)) {
+                Storage::disk($this->mediaDisk())->delete($dokter->foto_dokter);
             }
 
             $fileName = $this->buildReadableFileName($request->file('foto_dokter')->getClientOriginalExtension(), 'dokter', $validated['nama_dokter']);
-            $validated['foto_dokter'] = $request->file('foto_dokter')->storeAs('dokter', $fileName, 'public');
+            $validated['foto_dokter'] = $request->file('foto_dokter')->storeAs('dokter', $fileName, $this->mediaDisk());
         }
 
         $dokter->update($validated);
@@ -104,8 +109,8 @@ class AdminDokterController extends Controller
         $this->authorize('belongsToAdmin', $dokter);
 
         DB::transaction(function () use ($dokter) {
-            if (! empty($dokter->foto_dokter) && Storage::disk('public')->exists($dokter->foto_dokter)) {
-                Storage::disk('public')->delete($dokter->foto_dokter);
+            if (! empty($dokter->foto_dokter) && Storage::disk($this->mediaDisk())->exists($dokter->foto_dokter)) {
+                Storage::disk($this->mediaDisk())->delete($dokter->foto_dokter);
             }
 
             $dokter->jadwalDokter()->delete();

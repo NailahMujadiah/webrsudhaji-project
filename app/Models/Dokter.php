@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Dokter extends Model
@@ -43,9 +44,31 @@ class Dokter extends Model
         }
 
         if (Str::startsWith($this->foto_dokter, ['http://', 'https://'])) {
-            return $this->foto_dokter;
+            return $this->normalizeSupabasePublicUrl($this->foto_dokter);
         }
 
-        return asset('storage/' . $this->foto_dokter);
+        $url = Storage::disk((string) config('filesystems.media_disk', 'public'))->url($this->foto_dokter);
+
+        return $this->normalizeSupabasePublicUrl($url);
+    }
+
+    private function normalizeSupabasePublicUrl(string $url): string
+    {
+        if (! Str::contains($url, '/storage/v1/s3/')) {
+            return $url;
+        }
+
+        $supabaseUrl = rtrim((string) env('SUPABASE_URL'), '/');
+        $bucket = trim((string) env('AWS_BUCKET'));
+
+        if ($supabaseUrl === '' || $bucket === '') {
+            return $url;
+        }
+
+        $prefix = $supabaseUrl . '/storage/v1/object/public/' . $bucket . '/';
+        $path = parse_url($url, PHP_URL_PATH) ?: '';
+        $path = preg_replace('#^/storage/v1/s3/' . preg_quote($bucket, '#') . '/#', '', $path) ?? ltrim($path, '/');
+
+        return $prefix . ltrim($path, '/');
     }
 }

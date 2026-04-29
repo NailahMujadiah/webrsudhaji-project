@@ -18,7 +18,7 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th>No</th>
                             <th>Nama Dokter</th>
                             <th>Spesialis</th>
                             <th>Foto</th>
