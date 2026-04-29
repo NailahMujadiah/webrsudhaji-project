@@ -18,11 +18,13 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th>No</th>
                             <th>Judul</th>
-                            <th>Media</th>
-                            <th>Kategori</th>
-                            <th>Tanggal</th>
+                            <th>Slug</th>
+                            <th>Thumbnail</th>
+                            <th>ID Kategori</th>
+                            <th>Status</th>
+                            <th>Published At</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -31,15 +33,25 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $artikel->judul }}</td>
+                                <td><code>{{ $artikel->slug }}</code></td>
                                 <td>
-                                    @if($artikel->gambar_artikel)
-                                        <img src="{{ $artikel->gambar_artikel_url }}" alt="{{ $artikel->judul }}" style="width: 56px; height: 40px; object-fit: cover; border-radius: 6px;">
+                                    @if($artikel->thumbnail)
+                                        <img src="{{ $artikel->thumbnail_url }}" alt="{{ $artikel->judul }}" style="width: 56px; height: 40px; object-fit: cover; border-radius: 6px;">
                                     @else
                                         <span class="badge badge-secondary">Tidak ada</span>
                                     @endif
                                 </td>
-                                <td><span class="badge badge-info">{{ $artikel->kategori }}</span></td>
-                                <td>{{ \Carbon\Carbon::parse($artikel->tanggal)->format('d/m/Y') }}</td>
+                                <td>
+                                    <span class="badge badge-info">{{ $artikel->id_kategori ?? '-' }}. {{ $artikel->kategori_label }}</span>
+                                </td>
+                                <td>
+                                    @if($artikel->status === 'published')
+                                        <span class="badge badge-success">Published</span>
+                                    @else
+                                        <span class="badge badge-secondary">Draft</span>
+                                    @endif
+                                </td>
+                                <td>{{ optional($artikel->published_at)->format('d/m/Y H:i') ?? '-' }}</td>
                                 <td>
                                     <a href="{{ route('admin.artikel.edit', $artikel->id_artikel) }}" class="btn btn-sm btn-warning">
                                         <i class="fas fa-edit"></i>
@@ -55,7 +67,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center">Tidak ada data artikel</td>
+                                <td colspan="8" class="text-center">Tidak ada data artikel</td>
                             </tr>
                         @endforelse
                     </tbody>
