@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Inertia\Inertia;
 use App\Models\Admin;
 use App\Models\Dokter;
 use App\Models\JadwalDokter;
@@ -10,6 +10,37 @@ use Illuminate\Support\Facades\DB;
 
 class DokterController extends Controller
 {
+    public function indexWeb()
+{
+    $dokter = Dokter::orderByDesc('id_dokter')->get()->map(function ($item) {
+        return [
+            'id_dokter'   => $item->id_dokter,
+            'nama_dokter' => $item->nama_dokter,
+            'spesialis'   => $item->spesialis,
+            'foto_dokter' => $item->foto_dokter_url,
+        ];
+    });
+
+    return Inertia::render('daftar-dokter', [
+        'dokters' => $dokter,
+    ]);
+}
+
+public function showWeb(int $id)
+{
+    $dokter = Dokter::with('jadwalDokter')->findOrFail($id);
+
+    return Inertia::render('detail-dokter', [
+        'dokter' => [
+            'id_dokter'   => $dokter->id_dokter,
+            'nama_dokter' => $dokter->nama_dokter,
+            'spesialis'   => $dokter->spesialis,
+            'foto_dokter' => $dokter->foto_dokter_url,
+            'jadwal'      => $dokter->jadwalDokter,
+        ],
+    ]);
+}
+
     public function index()
     {
         $dokter = Dokter::query()
