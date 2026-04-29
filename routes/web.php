@@ -24,9 +24,8 @@ Route::get('/profil', function () {
     return Inertia::render('profil');
 });
 
-Route::get('/daftar-dokter', function () {
-    return Inertia::render('daftarDokter');
-});
+Route::get('/daftar-dokter', [DokterController::class, 'indexWeb'])->name('daftar-dokter');
+Route::get('/detail-dokter/{id}', [DokterController::class, 'showWeb'])->name('detail-dokter');
 
 Route::get('/struktur-organisasi', function () {
     $direksi = Dokter::query()
