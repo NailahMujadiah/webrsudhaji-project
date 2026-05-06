@@ -3,7 +3,35 @@ import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
 import { useState } from 'react';
 
+const fasilitasList = [
+    {
+        title: 'Pelayanan Rawat Inap',
+        desc: 'Kami akan memberikan pengobatan dan perawatan dengan suasana senyaman mungkin oleh tenaga profesional.',
+        img: '/images/rawatinap.jpg',
+        href: '/layanan-fasilitas',
+    },
+    {
+        title: 'IGD & Rawat Intensif',
+        desc: 'Pelayanan gawat darurat 24 jam dengan tenaga medis berpengalaman dan peralatan lengkap.',
+        img: '/images/igd.jpg',
+        href: '/layanan-fasilitas',
+    },
+    {
+        title: 'Fasilitas Penunjang',
+        desc: 'Laboratorium, radiologi, farmasi, dan fasilitas penunjang medis lainnya.',
+        img: '/images/fasilitas.jpg',
+        href: '/layanan-fasilitas',
+    },
+    {
+        title: 'Sarana & Prasarana',
+        desc: 'Gedung modern, ruang tunggu nyaman, parkir luas, dan fasilitas pendukung pasien.',
+        img: '/images/sarana.jpg',
+        href: '/layanan-fasilitas',
+    },
+];
+
 export default function beranda() {
+    const [activeIndex, setActiveIndex] = useState<number | null>(0);
     return (
         <>
             <Head title="Selamat Datang - RSUD Haji Makassar" />
@@ -88,138 +116,81 @@ export default function beranda() {
                 </section>
 
                 {/* Fasilitas dan Layanan */}
-                <section className="bg-[#BAEBD4] px-6 py-16 lg:px-20">
-                    <div className="mx-auto flex max-w-6xl flex-col items-start gap-12 lg:flex-row">
-                        {/* Kiri - Accordion */}
-                        <div className="flex-1">
-                            <h2 className="mb-2 text-3xl font-bold text-slate-800">
-                                Fasilitas dan Layanan
-                            </h2>
-                            <p className="mb-6 text-sm text-slate-500">
-                                Dalam upaya meningkatkan kualitas layanan, RSUD
-                                Haji memiliki fasilitas rawat inap, ICU dan UGD,
-                                laboratorium, perpustakaan dan fasilitas
-                                lainnya.
-                            </p>
+<section className="py-16 px-6 lg:px-20 bg-[#BAEBD4]">
+    <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-12 items-start">
 
-                            {/* Accordion Item Aktif */}
-                            <div className="border-b border-slate-300">
-                                <div className="flex cursor-pointer items-center justify-between py-4">
-                                    <span className="font-bold text-slate-800">
-                                        Pelayanan Rawat Inap
-                                    </span>
-                                    <span className="text-xl text-green-600">
-                                        ∨
-                                    </span>
-                                </div>
-                                <p className="pb-4 text-sm text-slate-500">
-                                    Kami akan memberikan pengobatan dan
-                                    perawatan dengan suasana senyaman mungkin
-                                    oleh tenaga profesional
-                                </p>
-                            </div>
+        {/* Kiri - Accordion */}
+        <div className="flex-1">
+            <h2 className="text-3xl font-bold text-slate-800 mb-2">Fasilitas dan Layanan</h2>
+            <p className="text-slate-600 text-sm mb-6">
+                Dalam upaya meningkatkan kualitas layanan, RSUD Haji memiliki fasilitas rawat inap, ICU dan UGD, laboratorium, perpustakaan dan fasilitas lainnya.
+            </p>
 
-                            {/* Accordion Item Lain */}
-                            {[
-                                'IGD & Rawat Intensif',
-                                'Fasilitas Penunjang',
-                                'Sarana & Prasarana',
-                            ].map((item, i) => (
-                                <div
-                                    key={i}
-                                    className="flex cursor-pointer items-center justify-between border-b border-slate-300 py-4 hover:text-green-600"
-                                >
-                                    <span className="font-medium text-slate-700">
-                                        {item}
-                                    </span>
-                                    <span className="text-slate-400">›</span>
-                                </div>
-                            ))}
+            <div className="flex flex-col">
+                {fasilitasList.map((item, i) => (
+                    <div key={i} className="border-b border-slate-400">
+                        <button
+                            onClick={() => setActiveIndex(activeIndex === i ? null : i)}
+                            className="w-full flex justify-between items-center py-4 text-left hover:text-green-700 transition"
+                        >
+                            <span className={`font-semibold ${activeIndex === i ? 'text-green-700' : 'text-slate-800'}`}>
+                                {item.title}
+                            </span>
+                            <span className="text-green-600 font-bold text-lg">
+                                {activeIndex === i ? '∨' : '›'}
+                            </span>
+                        </button>
 
-                            {/* Tombol */}
-                            <div className="mt-8">
-                                <a
-                                    href="/layanan-fasilitas"
-                                    className="inline-flex items-center gap-2 rounded-lg bg-green-700 px-6 py-3 font-semibold text-white transition hover:bg-green-800"
-                                >
-                                    Lihat Semua Fasilitas dan Layanan{' '}
-                                    <span>→</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        {/* Kanan - Gambar */}
-                        <div className="flex-1">
-                            <img
-                                src="/images/fasilitas.jpg"
-                                alt="Fasilitas RSUD Haji"
-                                className="h-80 w-full rounded-2xl object-cover shadow-lg lg:h-full"
-                            />
-                        </div>
+                        {activeIndex === i && (
+                            <p className="text-slate-600 text-sm pb-4">{item.desc}</p>
+                        )}
                     </div>
-                </section>
+                ))}
+            </div>
 
-                {/* Grid Menu Utama */}
-                <section className="mx-auto max-w-7xl px-6 pb-32">
-                    <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-                        {/* Card Pendaftaran */}
-                        <div className="group rounded-2xl border border-slate-100 bg-white p-8 shadow-sm transition duration-300 hover:shadow-xl">
-                            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-green-100 text-2xl text-green-600 transition group-hover:bg-green-600 group-hover:text-white">
-                                📝
-                            </div>
-                            <h3 className="mb-2 text-xl font-bold text-slate-800">
-                                Pendaftaran Pasien
-                            </h3>
-                            <p className="mb-6 text-sm leading-relaxed text-slate-500">
-                                Input data pasien baru atau cek status antrean
-                                pendaftaran hari ini.
-                            </p>
-                            {/* <Link href={route('register')} className="text-green-600 font-bold text-sm hover:text-green-700 flex items-center gap-2">
-                                Mulai Daftar <span>&rarr;</span>
-                            </Link> */}
-                        </div>
+            <div className="mt-8">
+                <Link
+                    href="/layanan-fasilitas"
+                    className="inline-flex items-center gap-2 bg-green-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-800 transition"
+                >
+                    Lihat Semua Fasilitas dan Layanan {'→'}
+                </Link>
+            </div>
+        </div>
 
-                        {/* Card Cari Dokter */}
-                        <div className="group rounded-2xl border border-slate-100 bg-white p-8 shadow-sm transition duration-300 hover:shadow-xl">
-                            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-2xl text-blue-600 transition group-hover:bg-blue-600 group-hover:text-white">
-                                👨‍⚕️
-                            </div>
-                            <h3 className="mb-2 text-xl font-bold text-slate-800">
-                                Cari Dokter
-                            </h3>
-                            <p className="mb-6 text-sm leading-relaxed text-slate-500">
-                                Lihat daftar dokter spesialis yang bertugas dan
-                                cek jadwal praktik mereka.
-                            </p>
-                            <Link
-                                href="/daftar-dokter"
-                                className="flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-700"
-                            >
-                                Lihat Daftar <span>&rarr;</span>
-                            </Link>
-                        </div>
+        {/* Kanan - Gambar */}
+        <div className="flex-1 sticky top-24">
+            {activeIndex !== null ? (
+                <img
+                    src={fasilitasList[activeIndex].img}
+                    alt={fasilitasList[activeIndex].title}
+                    className="w-full rounded-2xl shadow-lg object-cover h-80 lg:h-[400px] transition duration-300"
+                />
+            ) : (
+                <div className="w-full rounded-2xl bg-white/40 h-80 lg:h-[400px] flex items-center justify-center">
+                    <p className="text-slate-400 text-sm">Pilih layanan untuk melihat gambar</p>
+                </div>
+            )}
+        </div>
 
-                        {/* Card Informasi RS */}
-                        <div className="group rounded-2xl border border-slate-100 bg-white p-8 shadow-sm transition duration-300 hover:shadow-xl">
-                            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-orange-100 text-2xl text-orange-600 transition group-hover:bg-orange-600 group-hover:text-white">
-                                🏥
-                            </div>
-                            <h3 className="mb-2 text-xl font-bold text-slate-800">
-                                Profil Rumah Sakit
-                            </h3>
-                            <p className="mb-6 text-sm leading-relaxed text-slate-500">
-                                Pelajari visi, misi, dan fasilitas unggulan yang
-                                tersedia di RSUD Haji Makassar.
-                            </p>
-                            <Link
-                                href="/profil"
-                                className="flex items-center gap-2 text-sm font-bold text-orange-600 hover:text-orange-700"
-                            >
-                                Selengkapnya <span>&rarr;</span>
-                            </Link>
-                        </div>
-                    </div>
-                </section>
+    </div>
+</section>
+
+                
+                {/* Video Section - YouTube Center */}
+<section className="bg-slate-50 pt-4 pb-16 flex justify-center">
+    <div className="w-full max-w-5xl aspect-video rounded-2xl overflow-hidden shadow-xl">
+
+        <iframe
+            className="w-full h-full"
+            src="https://www.youtube.com/embed/Yy3HJPLm0lE"
+            title="Video RSUD Haji"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+        />
+
+    </div>
+</section>
             </main>
 
             {/* 3. Footer di Paling Bawah */}
