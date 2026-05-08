@@ -1,7 +1,8 @@
-import { Head } from '@inertiajs/react'
+import { Head, Link } from '@inertiajs/react'
 import { useState } from 'react';
-import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
+import Footer from '@/components/footer';
+
 
 interface Dokter {
     id_dokter: number;

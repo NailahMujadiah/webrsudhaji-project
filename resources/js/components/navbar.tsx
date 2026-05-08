@@ -4,7 +4,7 @@ import { useState } from 'react';
 const layananMenu = [
     { label: 'Poliklinik', href: '/layanan/poliklinik' },
     { label: 'Layanan Unggulan', href: '/layanan-fasilitas#unggulan' },
-    { label: 'Layanan Rawat Jalan', href: '/layanan-fasilitas#rawat-jalan' },
+    { label: 'Layanan Rawat Jalan', href: '/layanan/rawat-jalan' },
     { label: 'Layanan Rawat Inap', href: '/layanan-fasilitas#rawat-inap' },
     { label: 'Layanan Rawat Intensif', href: '/layanan-fasilitas#rawat-intensif' },
     { label: 'Sarana dan Prasarana', href: '/layanan/sarana' },
