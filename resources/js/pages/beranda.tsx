@@ -1,7 +1,7 @@
-import { Head, Link } from '@inertiajs/react';
-import { useState } from 'react';
-import Footer from '@/components/footer';
+import { Head } from '@inertiajs/react'
 import Navbar from '@/components/navbar';
+import Footer from '@/components/footer';
+import { useState } from 'react';
 
 const fasilitasList = [
     {
@@ -30,7 +30,7 @@ const fasilitasList = [
     },
 ];
 
-export default function beranda() {
+export default function Beranda() {
     const [activeIndex, setActiveIndex] = useState<number | null>(0);
     return (
         <>
