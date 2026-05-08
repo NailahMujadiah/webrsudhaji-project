@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react';
 import { useState } from 'react';
 
 const layananMenu = [
-    { label: 'Poliklinik', href: '/layanan-fasilitas#poliklinik' },
+    { label: 'Poliklinik', href: '/layanan/poliklinik' },
     { label: 'Layanan Unggulan', href: '/layanan-fasilitas#unggulan' },
     { label: 'Layanan Rawat Jalan', href: '/layanan-fasilitas#rawat-jalan' },
     { label: 'Layanan Rawat Inap', href: '/layanan-fasilitas#rawat-inap' },
