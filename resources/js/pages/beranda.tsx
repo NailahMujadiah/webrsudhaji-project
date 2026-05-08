@@ -1,7 +1,7 @@
 import { Head, Link } from '@inertiajs/react';
-import Navbar from '@/components/navbar';
-import Footer from '@/components/footer';
 import { useState } from 'react';
+import Footer from '@/components/footer';
+import Navbar from '@/components/navbar';
 
 const fasilitasList = [
     {

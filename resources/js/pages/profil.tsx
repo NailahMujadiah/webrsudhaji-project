@@ -1,6 +1,6 @@
 import { Head } from '@inertiajs/react';
-import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
+import Navbar from '@/components/navbar';
 
 const pencapaian = [
     'Menjadi Rumah Sakit Umum milik Pemerintah Daerah Provinsi Sulawesi Selatan dengan Klasifikasi C berdasarkan Keputusan Departemen Kesehatan Republik Indonesia Nomor: 762/XII/1993.',

@@ -1,6 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
-import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
+import Navbar from '@/components/navbar';
 export default function Edukasi() {
     const categories = [
         {
