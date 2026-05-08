@@ -23,13 +23,15 @@ Route::get('/beranda', function () {
 
 Route::get('/profil', function () {
     return Inertia::render('profil');
-});Route::get('/layanan/poliklinik', fn() => Inertia::render('layanan/poliklinik'))->name('layanan.poliklinik');
-Route::get('/layanan/unggulan', fn() => Inertia::render('layanan/unggulan'))->name('layanan.unggulan');
-Route::get('/layanan/rawat-jalan', fn() => Inertia::render('layanan/rawat-jalan'))->name('layanan.rawat-jalan');
-Route::get('/layanan/rawat-inap', fn() => Inertia::render('layanan/rawat-inap'))->name('layanan.rawat-inap');
-Route::get('/layanan/rawat-intensif', fn() => Inertia::render('layanan/rawat-intensif'))->name('layanan.rawat-intensif');
-Route::get('/layanan/sarana', fn() => Inertia::render('layanan/sarana'))->name('layanan.sarana');
-Route::get('/layanan/penunjang', fn() => Inertia::render('layanan/penunjang'))->name('layanan.penunjang');
+});
+Route::get('/layanan/poliklinik', fn() => Inertia::render('Layanan/poliklinik'))->name('layanan-poliklinik');
+Route::get('/layanan/unggulan', fn() => Inertia::render('Layanan/layanan-unggulan'))->name('layanan-unggulan');
+Route::get('/layanan/rawat-jalan', fn() => Inertia::render('Layanan/layanan-rawat-jalan'))->name('layanan-rawat-jalan');
+Route::get('/layanan/rawat-inap', fn() => Inertia::render('Layanan/layanan-rawat-inap'))->name('layanan-rawat-inap');
+Route::get('/layanan/rawat-intensif', fn() => Inertia::render('Layanan/layanan-rawat-intensif'))->name('layanan-rawat-intensif');
+Route::get('/layanan/sarana', fn() => Inertia::render('Layanan/sarana-prasarana'))->name('sarana-prasarana');
+Route::get('/layanan/penunjang', fn() => Inertia::render('Layanan/fasilitas-penunjang'))->name('layanan-penunjang');
+
 
 
 

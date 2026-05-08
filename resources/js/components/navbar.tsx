@@ -2,13 +2,13 @@ import { Link } from '@inertiajs/react';
 import { useState } from 'react';
 
 const layananMenu = [
-    { label: 'Poliklinik', href: '/layanan-fasilitas#poliklinik' },
-    { label: 'Layanan Unggulan', href: '/layanan-fasilitas#unggulan' },
-    { label: 'Layanan Rawat Jalan', href: '/layanan-fasilitas#rawat-jalan' },
-    { label: 'Layanan Rawat Inap', href: '/layanan-fasilitas#rawat-inap' },
-    { label: 'Layanan Rawat Intensif', href: '/layanan-fasilitas#rawat-intensif' },
-    { label: 'Sarana dan Prasarana', href: '/layanan-fasilitas#sarana' },
-    { label: 'Fasilitas Penunjang', href: '/layanan-fasilitas#penunjang' },
+    { label: 'Poliklinik', href: '/layanan/poliklinik' },
+    { label: 'Layanan Unggulan', href: '/layanan/unggulan' },
+    { label: 'Layanan Rawat Jalan', href: '/layanan/rawat-jalan' },
+    { label: 'Layanan Rawat Inap', href: '/layanan/rawat-inap' },
+    { label: 'Layanan Rawat Intensif', href: '/layanan/rawat-intensif' },
+    { label: 'Sarana dan Prasarana', href: '/layanan/sarana' },
+    { label: 'Fasilitas Penunjang', href: '/layanan/penunjang' },
 ];
 
 const profilMenu = [
@@ -112,7 +112,7 @@ export default function Navbar() {
                     <Link href="/daftar-dokter" className="text-sm font-medium text-slate-600 hover:text-green-600 transition">Dokter Kami</Link>
                 </div>
 
-                {/* Hamburger Button (mobile only) */}
+                {/* Hamburger Button */}
                 <button
                     className="md:hidden flex items-center justify-center p-2 rounded-lg border border-slate-200 text-slate-600 hover:bg-green-50 hover:text-green-600 transition"
                     onClick={() => setMobileOpen(!mobileOpen)}
