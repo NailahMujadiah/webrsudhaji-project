@@ -30,7 +30,7 @@ const fasilitasList = [
     },
 ];
 
-export default function beranda() {
+export default function Beranda() {
     const [activeIndex, setActiveIndex] = useState<number | null>(0);
     return (
         <>
