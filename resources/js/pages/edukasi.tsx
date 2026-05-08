@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 import { Head } from '@inertiajs/react';
 import Navbar from '@/components/navbar';
+=======
+import { Head } from '@inertiajs/react'
+>>>>>>> 96f548a0a30fe9cb39bbf74a85e33d89cefc67fd
 import Footer from '@/components/footer';
+import Navbar from '@/components/navbar';
 export default function Edukasi() {
     const categories = [
         {
