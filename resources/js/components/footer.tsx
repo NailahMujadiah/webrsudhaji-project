@@ -32,7 +32,7 @@ export default function Footer() {
                         <div className="flex flex-col gap-3">
                             {[
                                 { icon: '🗓️', label: 'Visi dan Misi', href: '/profil' },
-                                { icon: '📋', label: 'Layanan Unggulan', href: '/layanan-fasilitas' },
+                                { icon: '📋', label: 'Layanan Unggulan', href: '/layanan-unggulan' },
                                 { icon: '🩺', label: 'Dokter Kami', href: '/daftar-dokter' },
                             ].map((item, i) => (
                                 <Link
