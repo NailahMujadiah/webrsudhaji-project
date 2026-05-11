@@ -1,4 +1,5 @@
 import { Head } from '@inertiajs/react'
+import { Link } from '@inertiajs/react'
 import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
 import { useState } from 'react';
