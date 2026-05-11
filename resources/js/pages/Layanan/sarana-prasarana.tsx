@@ -1,4 +1,3 @@
-import React from 'react';
 import { Head } from '@inertiajs/react';
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
@@ -40,7 +39,7 @@ export default function SaranaPrasarana() {
             <Head title="Sarana dan Prasarana - RSUD Haji Makassar" />
             <Navbar />
 
-            <main className="min-h-screen bg-slate-50">
+            <main className="min-h-screen bg-white">
                 {/* Hero */}
                 <section className="relative">
                     <img
@@ -49,7 +48,7 @@ export default function SaranaPrasarana() {
                         className="h-64 w-full object-cover lg:h-80"
                     />
                     <div className="absolute inset-0 bg-black/50" />
-                    <div className="absolute right-0 bottom-0 left-0 h-24 bg-gradient-to-t from-slate-50 to-transparent" />
+                    <div className="absolute right-0 bottom-0 left-0 h-24 bg-gradient-to-t from-white to-transparent" />
                     <div className="absolute bottom-8 left-6 lg:left-20">
                         <p className="mb-1 text-sm font-medium text-green-300">
                             Fasilitas Kami
@@ -73,7 +72,7 @@ export default function SaranaPrasarana() {
                 </section>
 
                 {/* Grid */}
-                <section className="bg-[#BAEBD4] px-6 py-16 lg:px-20">
+                <section className="bg-white px-6 py-16 lg:px-20">
                     <div className="mx-auto max-w-6xl">
                         <h2 className="mb-3 text-2xl font-bold text-slate-800">
                             Sarana dan Prasarana
