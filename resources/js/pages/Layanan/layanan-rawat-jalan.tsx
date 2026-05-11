@@ -91,7 +91,7 @@ export default function RawatJalan() {
                         className="w-full h-64 lg:h-80 object-cover"
                     />
                     <div className="absolute inset-0 bg-black/50" />
-                    <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-slate-50 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-slate-50 to-transparent" />
                     <div className="absolute bottom-8 left-6 lg:left-20">
                         <p className="text-green-300 text-sm font-medium mb-1">Layanan Kami</p>
                         <h1 className="text-3xl lg:text-5xl font-extrabold text-white drop-shadow-lg">Layanan Rawat Jalan</h1>

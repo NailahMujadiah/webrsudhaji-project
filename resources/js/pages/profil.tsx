@@ -30,7 +30,7 @@ export default function Profil() {
                     {/* Overlay gelap */}
                     <div className="absolute inset-0 bg-black/30" />
                     {/* Gradasi bawah ke putih */}
-                    <div className="absolute bottom-0 left-0 right-0 h-36 bg-gradient-to-t from-white to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 h-36 bg-linear-to-t from-white to-transparent" />
                     {/* Teks */}
                     <div className="absolute bottom-10 left-6 lg:left-20">
                         <p className="text-green-300 text-sm font-medium mb-1">Tentang Kami</p>
