@@ -1,4 +1,3 @@
-import React from 'react';
 import { Head } from '@inertiajs/react';
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
@@ -8,28 +7,28 @@ const facilities = [
         title: 'Tempat Parkir',
         description:
             'Area parkir luas dan nyaman untuk kendaraan pasien maupun pengunjung.',
-        images: ['/images/rsudhaji.jpg', '/images/medicalbody.png'],
+        images: ['/images/Parkir.jpg', '/images/Parkir-1.png'],
         icon: '🅿️',
     },
     {
         title: 'Ruang Tunggu Pasien',
         description:
             'Ruang tunggu bersih dan nyaman dilengkapi kursi serta pendingin ruangan.',
-        images: ['/images/medicalbody.png', '/images/rsudhaji.jpg'],
+        images: ['/images/Ruang-Tunggu.png', '/images/Ruang-Tunggu-1.png'],
         icon: '🪑',
     },
     {
         title: 'Perpustakaan',
         description:
             'Menyediakan berbagai koleksi bacaan dan referensi kesehatan.',
-        images: ['/images/bronscopy.png', '/images/brainstem.png'],
+        images: ['/images/Perpus.png', '/images/Perpus-1.png'],
         icon: '📚',
     },
     {
         title: 'Ruang Arsip',
         description:
             'Penyimpanan dokumen dan arsip rumah sakit yang tertata dengan baik.',
-        images: ['/images/brainstem.png', '/images/bronscopy.png'],
+        images: ['/images/Arsip.png', '/images/Arsip-1.png'],
         icon: '🗂️',
     },
 ];
@@ -40,7 +39,7 @@ export default function SaranaPrasarana() {
             <Head title="Sarana dan Prasarana - RSUD Haji Makassar" />
             <Navbar />
 
-            <main className="min-h-screen bg-slate-50">
+            <main className="min-h-screen bg-white">
                 {/* Hero */}
                 <section className="relative">
                     <img
@@ -49,7 +48,7 @@ export default function SaranaPrasarana() {
                         className="h-64 w-full object-cover lg:h-80"
                     />
                     <div className="absolute inset-0 bg-black/50" />
-                    <div className="absolute right-0 bottom-0 left-0 h-24 bg-gradient-to-t from-slate-50 to-transparent" />
+                    <div className="absolute right-0 bottom-0 left-0 h-24 bg-gradient-to-t from-white to-transparent" />
                     <div className="absolute bottom-8 left-6 lg:left-20">
                         <p className="mb-1 text-sm font-medium text-green-300">
                             Fasilitas Kami
@@ -61,7 +60,8 @@ export default function SaranaPrasarana() {
                 </section>
 
                 {/* Deskripsi */}
-                <section className="border-b border-slate-100 bg-white px-6 py-10 lg:px-20">
+                <section className="border-b border-slate-100 bg-white pt-6 pb-10 px-6 lg:px-20 ">
+                    <div className="absolute left-6 right-6" />
                     <div className="mx-auto max-w-6xl">
                         <p className="leading-relaxed text-slate-600">
                             RSUD Haji Makassar dilengkapi dengan sarana dan
@@ -73,7 +73,7 @@ export default function SaranaPrasarana() {
                 </section>
 
                 {/* Grid */}
-                <section className="bg-[#BAEBD4] px-6 py-16 lg:px-20">
+                <section className="bg-white pt-5 pb-20 px-6 lg:px-20">
                     <div className="mx-auto max-w-6xl">
                         <h2 className="mb-3 text-2xl font-bold text-slate-800">
                             Sarana dan Prasarana
