@@ -134,8 +134,7 @@ function ProfilDireksiTab() {
 const tabContents: Record<number, React.ReactNode> = {
     1: (
         <div className="p-6">
-            <h3 className="text-xl font-bold mb-4 text-slate-800">Struktur Organisasi RSUD Haji</h3>
-            <p className="text-slate-500 text-sm mb-4">Berikut adalah struktur organisasi rumah sakit kami:</p>
+            <h3 className="text-xl font-bold mb-4 text-slate-800">Struktur Organisasi RSUD Haji Makassar</h3>
             <div className="mb-6 overflow-hidden rounded-xl border border-slate-200 shadow-sm">
                 <iframe
                     src="/pdfs/Struktur%20RSUD%20Haji%20Makassar.pdf"
@@ -143,15 +142,6 @@ const tabContents: Record<number, React.ReactNode> = {
                     className="h-[700px] w-full"
                 />
             </div>
-            <h4 className="font-semibold mb-3 text-slate-800">Daftar Struktur:</h4>
-            <ul className="space-y-2 text-sm text-slate-600">
-                {['Direktur Utama', 'Wakil Direktur Pelayanan', 'Wakil Direktur Penunjang', 'Kepala Instalasi Rawat Jalan', 'Kepala Instalasi Rawat Inap', 'Kepala Sub Bagian Umum'].map((item, i) => (
-                    <li key={i} className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-green-600 shrink-0" />
-                        {item}
-                    </li>
-                ))}
-            </ul>
         </div>
     ),
     2: <ProfilDireksiTab />,
@@ -201,14 +191,31 @@ export default function StrukturOrganisasi() {
             <Head title="Struktur Organisasi - RSUD Haji Makassar" />
             <Navbar />
 
-            <main className="min-h-screen bg-[#BAEBD4] py-12 px-6 lg:px-20">
-                <div className="max-w-6xl mx-auto">
+            <header>
+                <section className="min-h-[50vh] bg-white">
+                    {/* Hero */}
+                    <section className="relative">
+                        <img
+                            src="/images/rsudhaji.jpg"
+                            alt="Struktur Organisasi RSUD Haji Makassar"
+                            className="h-64 w-full object-cover lg:h-80"
+                        />
+                        <div className="absolute inset-0 bg-black/50" />
+                        <div className="absolute right-0 bottom-0 left-0 h-24 bg-gradient-to-t from-white to-transparent" />
+                        <div className="absolute bottom-8 left-6 lg:left-20">
+                            <p className="mb-1 text-sm font-medium text-green-300">
+                                Profil Organisasi
+                            </p>
+                            <h1 className="text-3xl font-extrabold text-white drop-shadow-lg lg:text-5xl">
+                                Struktur Organisasi
+                            </h1>
+                        </div>
+                    </section>
+                    </section>
+            </header>
 
-                    {/* Judul */}
-                    <div className="mb-6">
-                        <h1 className="text-3xl font-extrabold text-slate-800">Struktur Organisasi</h1>
-                        <div className="w-12 h-1 bg-green-600 rounded mt-2" />
-                    </div>
+            <main className="min-h-screen bg-white pb-12 px-6 lg:px-20">
+                <div className="max-w-6xl mx-auto">
 
                     {/* Tab Buttons */}
                     <div className="flex flex-wrap gap-2 mb-4">
