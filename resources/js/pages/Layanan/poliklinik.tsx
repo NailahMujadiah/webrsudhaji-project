@@ -46,7 +46,7 @@ export default function Poliklinik() {
                 </section>
 
                 {/* Deskripsi */}
-                <section className="py-10 px-6 lg:px-20 bg-white border-b border-slate-100">
+                <section className="pt-6 pb-10 px-6 lg:px-20 bg-white border-b border-slate-100">
                     <div className="max-w-6xl mx-auto">
                         <p className="text-slate-600 leading-relaxed">
                             RSUD Haji Makassar menyediakan berbagai layanan poliklinik dengan tenaga medis profesional dan berpengalaman untuk memberikan pelayanan kesehatan terbaik bagi masyarakat.
@@ -55,7 +55,7 @@ export default function Poliklinik() {
                 </section>
 
                 {/* Grid Klinik */}
-                <section className="py-16 px-6 lg:px-20 bg-[#BAEBD4]">
+                <section className="pt-5 pb-20 px-6 lg:px-20 bg-white">
                     <div className="mx-auto w-full max-w-6xl">
                         <h2 className="text-2xl font-bold text-slate-800 mb-2">Daftar Poliklinik</h2>
                         <div className="w-12 h-1 bg-green-600 rounded mb-8" />
