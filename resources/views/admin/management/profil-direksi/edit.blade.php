@@ -8,7 +8,7 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Form Edit Profil Pejabat</h3>
+                <h3 class="card-title">Edit Profil</h3>
             </div>
             <form action="{{ route('admin.profil-direksi.update', $position->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -21,7 +21,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="nama_pejabat">Nama Pejabat <span class="text-danger">*</span></label>
+                        <label for="nama_pejabat">Nama<span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('nama_pejabat') is-invalid @enderror" id="nama_pejabat" name="nama_pejabat" value="{{ old('nama_pejabat', $profile->nama_pejabat) }}" required>
                         @error('nama_pejabat')
                             <span class="invalid-feedback">{{ $message }}</span>
@@ -67,7 +67,7 @@
                 </div>
                 <div class="card-footer">
                     <a href="{{ route('admin.profil-direksi.index') }}" class="btn btn-secondary">Batal</a>
-                    <button type="submit" class="btn btn-primary">Update Profil Pejabat</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </div>
             </form>
         </div>

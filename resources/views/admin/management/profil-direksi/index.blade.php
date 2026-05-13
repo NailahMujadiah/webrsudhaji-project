@@ -10,14 +10,14 @@
 
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Daftar Jabatan Tetap</h3>
+        <h3 class="card-title">Daftar Direksi</h3>
     </div>
     <div class="card-body table-responsive p-0">
         <table class="table table-hover mb-0">
             <thead>
                 <tr>
                     <th>Jabatan</th>
-                    <th>Nama Pejabat</th>
+                    <th>Nama</th>
                     <th>Status</th>
                     <th>Foto</th>
                     <th>Aksi</th>
@@ -29,7 +29,6 @@
                     <tr>
                         <td>
                             <div class="font-weight-bold">{{ $position->name }}</div>
-                            <small class="text-muted">Kode: {{ $position->code }}</small>
                         </td>
                         <td>
                             <div>{{ $profile?->nama_display ?? 'Belum diisi' }}</div>
