@@ -1,7 +1,7 @@
 import { Head, Link } from '@inertiajs/react'
 import { useState } from 'react';
-import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
+import Navbar from '@/components/navbar';
 
 
 interface Dokter {
