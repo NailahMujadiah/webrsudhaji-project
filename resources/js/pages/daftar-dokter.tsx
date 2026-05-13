@@ -30,8 +30,8 @@ export default function DaftarDokter({ dokters }: Props) {
             <Head title="Dokter Kami - RSUD Haji Makassar" />
             <Navbar />
             {/* <pre>{JSON.stringify(dokters, null, 2)}</pre> */}
-            <main className="min-h-screen bg-[#BAEBD4] px-6 py-12 lg:px-20">
-                <div className="mx-auto max-w-5xl rounded-3xl bg-white/60 p-8 shadow-sm backdrop-blur-sm">
+            <main className="min-h-screen bg-white px-6 py-12 lg:px-20">
+                <div className="mx-auto max-w-5xl rounded-3xl bg-[#BAEBD4]  p-8 shadow-sm backdrop-blur-sm">
                     {/* Search & Filter */}
                     <div className="mb-8 flex items-center gap-3">
                         <button
