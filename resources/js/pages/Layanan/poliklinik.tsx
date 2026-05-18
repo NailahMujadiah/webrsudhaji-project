@@ -2,25 +2,29 @@ import { Head } from '@inertiajs/react';
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
 
-const clinics = [
-    {
-        title: 'Poli Umum',
-        icon: 'fa-heart-pulse',
-        items: ['Anak', 'Obgyn', 'Jantung', 'Saraf', 'Paru', 'Kulit & Kelamin'],
-    },
-    {
-        title: 'Poli Bedah',
-        icon: 'fa-user-doctor',
-        items: ['Bedah Umum', 'Bedah Digestive', 'Bedah Ortopedi', 'Bedah Vaskuler'],
-    },
-    {
-        title: 'Poli Gigi',
-        icon: 'fa-tooth',
-        items: ['Pedodontis', 'Periodonti', 'Endodonsi', 'Prothodonti'],
-    },
-];
 
 export default function Poliklinik() {
+    const cards = [
+        ['THT', '👂', 'bg-blue-50'],
+        ['Saraf', '🧠', 'bg-blue-50'],
+        ['Penyakit Dalam', '🩺', 'bg-blue-50'],
+        ['Paru', '🫁', 'bg-blue-50'],
+        ['Bedah Digestive', '🏥', 'bg-blue-50'],
+        ['OBGYN', '🤰', 'bg-pink-50'],
+        ['Bedah Ortopedi', '🦴', 'bg-blue-50'],
+        ['Mata', '👁️', 'bg-blue-50'],
+        ['Kulit & Kelamin', '🧴', 'bg-blue-50'],
+        ['Jantung & Pembuluh Darah', '🫀', 'bg-red-50'],
+        ['Anak', '👶', 'bg-yellow-50'],
+        ['Bedah Vaskuler', '🩸', 'bg-blue-50'],
+        ['Pedodontis', '🦷', 'bg-cyan-50'],
+        ['Gigi Periodonti', '🪥', 'bg-cyan-50'],
+        ['Gigi Endodonsi', '😁', 'bg-cyan-50'],
+        ['Prothodonti', '🦷', 'bg-cyan-50'],
+        ['Gizi', '🥗', 'bg-green-50'],
+        ['Bedah Umum', '⚕️', 'bg-slate-100'],
+        ['Jiwa', '🧘', 'bg-purple-50'],
+    ];
     return (
         <>
             <Head title="Poliklinik - RSUD Haji Makassar" />
@@ -59,29 +63,19 @@ export default function Poliklinik() {
                     <div className="mx-auto w-full max-w-6xl">
                         <h2 className="text-2xl font-bold text-slate-800 mb-2">Daftar Poliklinik</h2>
                         <div className="w-12 h-1 bg-green-600 rounded mb-8" />
-                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-                            {clinics.map((clinic) => (
-                                <section
-                                    key={clinic.title}
-                                    className="rounded-2xl bg-white p-8 shadow-sm border border-slate-100 transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+                            {cards.map(([title, emoji, bg]) => (
+                                <div
+                                    key={title}
+                                    className="group bg-green-100 rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition duration-300"
                                 >
-                                    <div className="mb-6 flex justify-center">
-                                        <div className="flex h-20 w-20 items-center justify-center rounded-full border-2 border-green-600 bg-green-50">
-                                            <i className={`fa-solid ${clinic.icon} text-3xl text-green-600`} aria-hidden="true" />
+                                    <div className="flex flex-col items-center text-center">
+                                        <div className={`w-16 h-16 rounded-full ${bg} flex items-center justify-center mb-4`}>
+                                            <span className="text-3xl">{emoji}</span>
                                         </div>
+                                        <h3 className="font-semibold text-slate-700">{title}</h3>
                                     </div>
-                                    <h2 className="mb-6 text-center text-xl font-bold text-slate-800">
-                                        {clinic.title}
-                                    </h2>
-                                    <ul className="space-y-3 text-sm text-slate-600">
-                                        {clinic.items.map((item) => (
-                                            <li key={item} className="flex items-center gap-3">
-                                                <span className="h-2 w-2 rounded-full bg-green-500 shrink-0" />
-                                                <span>{item}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </section>
+                                </div>
                             ))}
                         </div>
                     </div>
