@@ -4,7 +4,7 @@ import Footer from '@/components/footer';
 import { useState } from 'react';
 
 const klinikList = [
-    { nama: 'Klinik Spesialis Bedah Umum', foto: ['/images/klinik/bedah-umum-1.jpg', '/images/klinik/bedah-umum-2.jpg'] },
+    { nama: 'Klinik Spesialis Bedah Umum', foto: ['/images/rawat-inap/bedah-umum-1.jpg', '/images/rawat-inap/bedah-umum-2.jpg'] },
     { nama: 'Klinik Spesialis Anak', foto: ['/images/klinik/anak-1.jpg', '/images/klinik/anak-2.jpg'] },
     { nama: 'Klinik Spesialis Obstetri', foto: ['/images/klinik/obstetri-1.jpg', '/images/klinik/obstetri-2.jpg'] },
     { nama: 'Klinik Spesialis Saraf', foto: ['/images/klinik/saraf-1.jpg', '/images/klinik/saraf-2.jpg'] },
