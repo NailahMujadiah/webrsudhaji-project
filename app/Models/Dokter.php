@@ -47,6 +47,12 @@ class Dokter extends Model
             return $this->normalizeSupabasePublicUrl($this->foto_dokter);
         }
 
+        // If path starts with /images/ or images/, serve from public folder
+        if (Str::startsWith($this->foto_dokter, ['/', 'images/'])) {
+            $path = Str::startsWith($this->foto_dokter, '/') ? $this->foto_dokter : '/' . $this->foto_dokter;
+            return rtrim((string) config('app.url'), '/') . $path;
+        }
+
         $url = Storage::disk((string) config('filesystems.media_disk', 'public'))->url($this->foto_dokter);
 
         return $this->normalizeSupabasePublicUrl($url);

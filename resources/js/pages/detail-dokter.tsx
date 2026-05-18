@@ -45,9 +45,12 @@ export default function DetailDokter({ dokter }: Props) {
                         {/* Info Dokter */}
                         <div className="flex items-center gap-5 mb-6">
                             <img
-                                src={dokter.foto_dokter ?? '/images/dokterdummy.jpeg'}
+                                src={dokter.foto_dokter ?? '/images/editable-doctor-vector.jpg'}
                                 alt={dokter.nama_dokter}
                                 className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md"
+                                onError={(e) => {
+                                    e.currentTarget.src = '/images/editable-doctor-vector.jpg';
+                                }}
                             />
                             <div>
                                 <h1 className="text-xl font-bold text-slate-800">{dokter.nama_dokter}</h1>
