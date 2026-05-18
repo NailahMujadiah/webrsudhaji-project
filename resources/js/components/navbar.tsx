@@ -1,5 +1,7 @@
 import { Link } from '@inertiajs/react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { useCurrentUrl } from '@/hooks/use-current-url';
+import { cn } from '@/lib/utils';
 
 const layananMenu = [
     { label: 'Poliklinik', href: '/layanan/poliklinik' },
@@ -22,6 +24,89 @@ export default function Navbar() {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [mobileLayanan, setMobileLayanan] = useState(false);
     const [mobileProfil, setMobileProfil] = useState(false);
+    const { isCurrentUrl, isCurrentOrParentUrl } = useCurrentUrl();
+    const profilCloseTimer = useRef<number | null>(null);
+    const layananCloseTimer = useRef<number | null>(null);
+
+    const clearTimer = (timerRef: React.MutableRefObject<number | null>) => {
+        if (timerRef.current !== null) {
+            window.clearTimeout(timerRef.current);
+            timerRef.current = null;
+        }
+    };
+
+    const openDropdown = (
+        setOpen: React.Dispatch<React.SetStateAction<boolean>>,
+        timerRef: React.MutableRefObject<number | null>,
+    ) => {
+        clearTimer(timerRef);
+        setOpen(true);
+    };
+
+    const closeDropdown = (
+        setOpen: React.Dispatch<React.SetStateAction<boolean>>,
+        timerRef: React.MutableRefObject<number | null>,
+    ) => {
+        clearTimer(timerRef);
+        timerRef.current = window.setTimeout(() => {
+            setOpen(false);
+            timerRef.current = null;
+        }, 140);
+    };
+
+    const topLinkClass = (active: boolean) =>
+        cn(
+            'inline-flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ease-out',
+            active
+                ? 'bg-green-600 text-white shadow-md shadow-green-200/70 ring-1 ring-green-500/20'
+                : 'text-slate-600 hover:-translate-y-0.5 hover:bg-green-50 hover:text-green-700 hover:shadow-md hover:shadow-green-100/60',
+        );
+
+    const dropdownTriggerClass = (active: boolean) =>
+        cn(
+            'inline-flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ease-out',
+            active
+                ? 'bg-green-600 text-white shadow-md shadow-green-200/70 ring-1 ring-green-500/20'
+                : 'text-slate-600 hover:-translate-y-0.5 hover:bg-green-50 hover:text-green-700 hover:shadow-md hover:shadow-green-100/60',
+        );
+
+    const dropdownPanelClass = (open: boolean, widthClass: string) =>
+        cn(
+            'absolute left-0 top-full z-50 mt-1 origin-top rounded-2xl border border-slate-100 bg-white py-2 shadow-xl shadow-slate-200/70 transition-all duration-200 ease-out',
+            widthClass,
+            open
+                ? 'pointer-events-auto translate-y-0 scale-100 opacity-100'
+                : 'pointer-events-none -translate-y-2 scale-95 opacity-0',
+        );
+
+    const submenuClass = (active: boolean) =>
+        cn(
+            'block px-4 py-2 text-sm transition-all duration-200',
+            active
+                ? 'bg-green-50 font-semibold text-green-700'
+                : 'text-slate-600 hover:bg-green-50 hover:text-green-700',
+        );
+
+    const mobileLinkClass = (active: boolean) =>
+        cn(
+            'text-sm font-medium py-2 transition-all duration-200',
+            active
+                ? 'text-green-700 font-semibold'
+                : 'text-slate-600 hover:text-green-700',
+        );
+
+    const mobileSubmenuClass = (active: boolean) =>
+        cn(
+            'text-sm py-1.5 transition-all duration-200',
+            active
+                ? 'text-green-700 font-semibold'
+                : 'text-slate-500 hover:text-green-700',
+        );
+
+    const isProfilActive = isCurrentUrl('/profil') || isCurrentUrl('/struktur-organisasi');
+    const isLayananActive = isCurrentOrParentUrl('/layanan');
+    const isEdukasiActive = isCurrentUrl('/edukasi');
+    const isDokterActive = isCurrentUrl('/daftar-dokter');
 
     return (
         <nav className="sticky top-0 z-50 shadow-sm">
@@ -58,58 +143,66 @@ export default function Navbar() {
 
                 {/* Desktop Menu */}
                 <div className="hidden md:flex items-center gap-6">
-                    <Link href="/" className="text-sm font-medium text-slate-600 hover:text-green-600 transition">
+                    <Link href="/" className={topLinkClass(isCurrentUrl('/'))}>
                         Beranda
                     </Link>
 
                     {/* Dropdown Profil */}
                     <div
                         className="relative"
-                        onMouseEnter={() => setShowProfil(true)}
-                        onMouseLeave={() => setShowProfil(false)}
+                        onMouseEnter={() => openDropdown(setShowProfil, profilCloseTimer)}
+                        onMouseLeave={() => closeDropdown(setShowProfil, profilCloseTimer)}
                     >
-                        <button className="flex items-center gap-1 text-sm font-medium text-slate-600 hover:text-green-600 transition">
+                        <button type="button" className={dropdownTriggerClass(isProfilActive)}>
                             Profil
                             <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
-                        {showProfil && (
-                            <div className="absolute top-full left-0 mt-0 w-48 bg-white rounded-xl shadow-lg border border-slate-100 py-2 z-50">
-                                {profilMenu.map((item, i) => (
-                                    <Link key={i} href={item.href} className="block px-4 py-2 text-sm text-slate-600 hover:bg-green-50 hover:text-green-600 transition">
-                                        {item.label}
-                                    </Link>
-                                ))}
-                            </div>
-                        )}
+                        <div
+                            className={dropdownPanelClass(showProfil, 'w-52')}
+                            onMouseEnter={() => openDropdown(setShowProfil, profilCloseTimer)}
+                            onMouseLeave={() => closeDropdown(setShowProfil, profilCloseTimer)}
+                        >
+                            {profilMenu.map((item, i) => (
+                                <Link key={i} href={item.href} className={submenuClass(isCurrentUrl(item.href))}>
+                                    {item.label}
+                                </Link>
+                            ))}
+                        </div>
                     </div>
 
                     {/* Dropdown Layanan */}
                     <div
                         className="relative"
-                        onMouseEnter={() => setShowLayanan(true)}
-                        onMouseLeave={() => setShowLayanan(false)}
+                        onMouseEnter={() => openDropdown(setShowLayanan, layananCloseTimer)}
+                        onMouseLeave={() => closeDropdown(setShowLayanan, layananCloseTimer)}
                     >
-                        <button className="flex items-center gap-1 text-sm font-medium text-slate-600 hover:text-green-600 transition">
+                        <button type="button" className={dropdownTriggerClass(isLayananActive)}>
                             Layanan
                             <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
-                        {showLayanan && (
-                            <div className="absolute top-full left-0 mt-0 w-56 bg-white rounded-xl shadow-lg border border-slate-100 py-2 z-50">
-                                {layananMenu.map((item, i) => (
-                                    <Link key={i} href={item.href} className="block px-4 py-2 text-sm text-slate-600 hover:bg-green-50 hover:text-green-600 transition">
-                                        {item.label}
-                                    </Link>
-                                ))}
-                            </div>
-                        )}
+                        <div
+                            className={dropdownPanelClass(showLayanan, 'w-60')}
+                            onMouseEnter={() => openDropdown(setShowLayanan, layananCloseTimer)}
+                            onMouseLeave={() => closeDropdown(setShowLayanan, layananCloseTimer)}
+                        >
+                            {layananMenu.map((item, i) => (
+                                <Link key={i} href={item.href} className={submenuClass(isCurrentUrl(item.href))}>
+                                    {item.label}
+                                </Link>
+                            ))}
+                        </div>
                     </div>
 
-                    <Link href="/edukasi" className="text-sm font-medium text-slate-600 hover:text-green-600 transition">Edukasi</Link>
-                    <Link href="/daftar-dokter" className="text-sm font-medium text-slate-600 hover:text-green-600 transition">Dokter Kami</Link>
+                    <Link href="/edukasi" className={topLinkClass(isEdukasiActive)}>
+                        Edukasi
+                    </Link>
+                    <Link href="/daftar-dokter" className={topLinkClass(isDokterActive)}>
+                        Dokter Kami
+                    </Link>
                 </div>
 
                 {/* Hamburger Button */}
@@ -136,7 +229,7 @@ export default function Navbar() {
                     <div className="flex flex-col pt-2 gap-1">
                         <Link
                             href="/"
-                            className="text-sm font-medium text-slate-600 hover:text-green-600 py-2 transition"
+                            className={mobileLinkClass(isCurrentUrl('/'))}
                             onClick={() => setMobileOpen(false)}
                         >
                             Beranda
@@ -145,7 +238,10 @@ export default function Navbar() {
                         {/* Accordion Profil */}
                         <div>
                             <button
-                                className="w-full flex items-center justify-between text-sm font-medium text-slate-600 hover:text-green-600 py-2 transition"
+                                className={cn(
+                                    'w-full flex items-center justify-between py-2 text-sm font-medium transition-all duration-200',
+                                    isProfilActive ? 'text-green-700 font-semibold' : 'text-slate-600 hover:text-green-700',
+                                )}
                                 onClick={() => setMobileProfil(!mobileProfil)}
                             >
                                 Profil
@@ -159,7 +255,7 @@ export default function Navbar() {
                                         <Link
                                             key={i}
                                             href={item.href}
-                                            className="text-sm text-slate-500 hover:text-green-600 py-1.5 transition"
+                                            className={mobileSubmenuClass(isCurrentUrl(item.href))}
                                             onClick={() => setMobileOpen(false)}
                                         >
                                             {item.label}
@@ -172,7 +268,10 @@ export default function Navbar() {
                         {/* Accordion Layanan */}
                         <div>
                             <button
-                                className="w-full flex items-center justify-between text-sm font-medium text-slate-600 hover:text-green-600 py-2 transition"
+                                className={cn(
+                                    'w-full flex items-center justify-between py-2 text-sm font-medium transition-all duration-200',
+                                    isLayananActive ? 'text-green-700 font-semibold' : 'text-slate-600 hover:text-green-700',
+                                )}
                                 onClick={() => setMobileLayanan(!mobileLayanan)}
                             >
                                 Layanan
@@ -186,7 +285,7 @@ export default function Navbar() {
                                         <Link
                                             key={i}
                                             href={item.href}
-                                            className="text-sm text-slate-500 hover:text-green-600 py-1.5 transition"
+                                            className={mobileSubmenuClass(isCurrentUrl(item.href))}
                                             onClick={() => setMobileOpen(false)}
                                         >
                                             {item.label}
@@ -198,14 +297,14 @@ export default function Navbar() {
 
                         <Link
                             href="/edukasi"
-                            className="text-sm font-medium text-slate-600 hover:text-green-600 py-2 transition"
+                            className={mobileLinkClass(isEdukasiActive)}
                             onClick={() => setMobileOpen(false)}
                         >
                             Edukasi
                         </Link>
                         <Link
                             href="/daftar-dokter"
-                            className="text-sm font-medium text-slate-600 hover:text-green-600 py-2 transition"
+                            className={mobileLinkClass(isDokterActive)}
                             onClick={() => setMobileOpen(false)}
                         >
                             Dokter Kami

@@ -120,23 +120,23 @@ export default function Beranda() {
             <Navbar />
 
             {/* 2. Konten Utama */}
-            <main className="min-h-screen bg-slate-50 selection:bg-green-500 selection:text-white">
+            <main className="overflow-x-hidden bg-slate-50 selection:bg-green-500 selection:text-white">
                 <section
-                    className="relative flex min-h-[500px] items-center bg-cover bg-center bg-no-repeat"
+                    className="relative flex min-h-[calc(100dvh-7rem)] items-center bg-cover bg-center bg-no-repeat px-6 py-12 sm:px-10 lg:px-20"
                     style={{ backgroundImage: "url('/images/rsudhaji.jpg')" }}
                 >
                     {/* Overlay gelap */}
                     <div className="absolute inset-0 bg-black/50" />
 
                     {/* Konten */}
-                    <div className="relative z-10 max-w-2xl pl-6 lg:pl-20">
-                        <h1 className="text-4lg mb-6 font-extrabold tracking-tight text-white lg:text-6xl">
+                    <div className="relative z-10 max-w-2xl">
+                        <h1 className="mb-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
                             Selamat Datang di <br />
                             <span className="text-green-400">
                                 RSUD HAJI MAKASSAR
                             </span>
                         </h1>
-                        <p className="text-lg leading-relaxed text-slate-200 lg:text-xl">
+                        <p className="max-w-xl text-lg leading-relaxed text-slate-200 lg:text-xl">
                             Silakan pilih menu di bawah ini untuk memulai
                             operasional atau melihat informasi layanan rumah
                             sakit kami.
@@ -156,27 +156,22 @@ export default function Beranda() {
                     </div>
                 </section>
 
-                <section className="bg-green-100 py-16 px-6 lg:px-20">
-                    <div className="max-w-6xl mx-auto">
-
-                        {/* Judul */}
-                        <h2 className="text-3xl text-center font-bold text-slate-900 mb-10">
+                <section className="bg-green-100 px-6 py-16 lg:px-20">
+                    <div className="mx-auto max-w-6xl">
+                        <h2 className="mb-10 text-center text-3xl font-bold text-slate-900">
                             Layanan Medis
                         </h2>
 
-                        {/* Grid Card */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                             {layananMedis.map((layanan) => (
                                 <LayananCard key={layanan.headingBottom} {...layanan} />
                             ))}
-
                         </div>
                     </div>
                 </section>
 
-                
                 {/* Video Section - YouTube Center */}
-                <section className="flex justify-center bg-slate-50 pt-4 pb-16">
+                <section className="flex justify-center bg-slate-50 px-6 pb-16 pt-4 lg:px-20">
                     <div className="aspect-video w-full max-w-5xl overflow-hidden rounded-2xl shadow-xl">
                         <iframe
                             className="h-full w-full"
