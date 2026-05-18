@@ -34,6 +34,24 @@ Route::get('/layanan/penunjang', fn() => Inertia::render('Layanan/fasilitas-penu
 
 Route::get('/daftar-dokter', [DokterController::class, 'indexWeb'])->name('daftar-dokter');
 Route::get('/detail-dokter/{id}', [DokterController::class, 'showWeb'])->name('detail-dokter');
+Route::get('/debug-detail-dokter/{id}', function ($id) {
+    $dokter = app(\App\Http\Controllers\DokterController::class)->showWeb($id);
+    return Inertia\Inertia::render('debug-detail-dokter', $dokter->getData());
+})->name('debug.detail-dokter');
+
+Route::get('/debug-json-dokter/{id}', function ($id) {
+    $dokter = \App\Models\Dokter::with('jadwalDokter')->find($id);
+    if (! $dokter) return response()->json(['error' => 'not found'], 404);
+    return response()->json([ 'dokter' => $dokter ]);
+})->name('debug.json.dokter');
+
+Route::get('/debug-count-dokter', function () {
+    $first = \App\Models\Dokter::select('id_dokter','nama_dokter')->first();
+    return response()->json([
+        'count' => \App\Models\Dokter::count(),
+        'first' => $first,
+    ]);
+})->name('debug.json.count');
 
 Route::get('/struktur-organisasi', function () {
     $positions = Position::query()
