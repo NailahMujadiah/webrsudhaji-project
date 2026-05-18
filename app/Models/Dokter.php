@@ -21,6 +21,11 @@ class Dokter extends Model
         'id_admin',
     ];
 
+    public function getRouteKeyName(): string
+    {
+        return 'id_dokter';
+    }
+
     /**
      * Get the admin that owns the dokter
      */

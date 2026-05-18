@@ -25,6 +25,7 @@ class AdminDokterController extends Controller
         $admin = Auth::guard('admin')->user();
         $dokters = Dokter::query()
             ->where('id_admin', $admin->id_admin)
+            ->select(['id_dokter', 'nama_dokter', 'spesialis', 'foto_dokter'])
             ->orderByDesc('id_dokter')
             ->paginate(10);
 

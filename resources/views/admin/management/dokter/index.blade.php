@@ -28,12 +28,18 @@
                     <tbody>
                         @forelse($dokters as $dokter)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ ($dokters->currentPage() - 1) * $dokters->perPage() + $loop->iteration }}</td>
                                 <td>{{ $dokter->nama_dokter }}</td>
                                 <td><span class="badge badge-success">{{ $dokter->spesialis }}</span></td>
                                 <td>
                                     @if($dokter->foto_dokter)
-                                        <img src="{{ $dokter->foto_dokter_url }}" alt="{{ $dokter->nama_dokter }}" style="max-width: 50px; max-height: 50px; border-radius: 50%; object-fit: cover;">
+                                        @php
+                                            // Simple URL construction for admin listing (avoid expensive accessor)
+                                            $fotoPath = str_starts_with($dokter->foto_dokter, '/') || str_starts_with($dokter->foto_dokter, 'http')
+                                                ? $dokter->foto_dokter
+                                                : asset('storage/' . $dokter->foto_dokter);
+                                        @endphp
+                                        <img src="{{ $fotoPath }}" alt="{{ $dokter->nama_dokter }}" style="max-width: 50px; max-height: 50px; border-radius: 50%; object-fit: cover;">
                                     @else
                                         <span class="badge badge-secondary">Tidak ada</span>
                                     @endif

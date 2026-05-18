@@ -17,13 +17,19 @@ interface Props {
 
 export default function DaftarDokter({ dokters }: Props) {
     const [search, setSearch] = useState('');
+    const [spesialisFilter, setSpesialisFilter] = useState('');
     const [showFilter, setShowFilter] = useState(false);
 
     const filtered = dokters.filter(
         (d) =>
-            d.nama_dokter.toLowerCase().includes(search.toLowerCase()) ||
-            d.spesialis.toLowerCase().includes(search.toLowerCase()),
+            (d.nama_dokter.toLowerCase().includes(search.toLowerCase()) ||
+                d.spesialis.toLowerCase().includes(search.toLowerCase())) &&
+            d.spesialis.toLowerCase().includes(spesialisFilter.toLowerCase()),
     );
+
+    const spesialisList = Array.from(
+        new Set(dokters.map((dokter) => dokter.spesialis)),
+    ).sort();
 
     return (
         <>
@@ -86,20 +92,43 @@ export default function DaftarDokter({ dokters }: Props) {
                     {/* Filter Panel */}
                     {showFilter && (
                         <div className="mb-6 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-                            <p className="mb-3 text-sm font-semibold text-slate-700">
-                                Filter Spesialis
-                            </p>
-                            <div className="flex flex-wrap gap-2">
-                                {[
-                                    'Semua',
-                                    'Spesialis Gizi Klinik',
-                                    'Spesialis Anak',
-                                    'Spesialis Bedah',
-                                    'Spesialis Penyakit Dalam',
-                                ].map((s, i) => (
+                            <div className="mb-3 flex items-center justify-between gap-3">
+                                <p className="text-sm font-semibold text-slate-700">
+                                    Filter Spesialis
+                                </p>
+                                {spesialisFilter && (
                                     <button
-                                        key={i}
-                                        className="rounded-full border border-green-600 px-3 py-1 text-xs font-medium text-green-700 transition hover:bg-green-600 hover:text-white"
+                                        type="button"
+                                        onClick={() => setSpesialisFilter('')}
+                                        className="text-xs font-medium text-green-700 hover:text-green-800"
+                                    >
+                                        Reset
+                                    </button>
+                                )}
+                            </div>
+
+                            <div className="flex flex-wrap gap-2">
+                                <button
+                                    type="button"
+                                    onClick={() => setSpesialisFilter('')}
+                                    className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
+                                        spesialisFilter === ''
+                                            ? 'border-green-600 bg-green-600 text-white'
+                                            : 'border-green-600 text-green-700 hover:bg-green-600 hover:text-white'
+                                    }`}
+                                >
+                                    Semua
+                                </button>
+                                {spesialisList.map((s) => (
+                                    <button
+                                        key={s}
+                                        type="button"
+                                        onClick={() => setSpesialisFilter(s)}
+                                        className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
+                                            spesialisFilter === s
+                                                ? 'border-green-600 bg-green-600 text-white'
+                                                : 'border-green-600 text-green-700 hover:bg-green-600 hover:text-white'
+                                        }`}
                                     >
                                         {s}
                                     </button>
