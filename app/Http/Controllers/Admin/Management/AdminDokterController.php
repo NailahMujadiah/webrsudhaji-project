@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Dokter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -59,6 +60,8 @@ class AdminDokterController extends Controller
             'id_admin' => $admin->id_admin,
         ]);
 
+        Cache::forget('public.dokter.list');
+
         return redirect()->route('admin.dokter.index')
             ->with('success', 'Dokter berhasil dibuat.');
     }
@@ -97,6 +100,9 @@ class AdminDokterController extends Controller
 
         $dokter->update($validated);
 
+        Cache::forget('public.dokter.list');
+        Cache::forget("public.dokter.detail.{$dokter->id_dokter}");
+
         return redirect()->route('admin.dokter.index')
             ->with('success', 'Dokter berhasil diperbarui.');
     }
@@ -116,6 +122,9 @@ class AdminDokterController extends Controller
             $dokter->jadwalDokter()->delete();
             $dokter->delete();
         });
+
+        Cache::forget('public.dokter.list');
+        Cache::forget("public.dokter.detail.{$id}");
 
         return redirect()->route('admin.dokter.index')
             ->with('success', 'Dokter dan jadwal terkait berhasil dihapus.');

@@ -7,6 +7,7 @@ use App\Models\Dokter;
 use App\Models\JadwalDokter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -73,6 +74,9 @@ class AdminJadwalDokterController extends Controller
             ]);
         }
 
+        Cache::forget('public.dokter.list');
+        Cache::forget("public.dokter.detail.{$validated['id_dokter']}");
+
         return redirect()->route('admin.jadwal.index')
             ->with('success', 'Jadwal dokter berhasil dibuat untuk hari yang dipilih.');
     }
@@ -119,6 +123,9 @@ class AdminJadwalDokterController extends Controller
             'poli' => $dokter->spesialis,
         ]);
 
+        Cache::forget('public.dokter.list');
+        Cache::forget("public.dokter.detail.{$validated['id_dokter']}");
+
         return redirect()->route('admin.jadwal.index')
             ->with('success', 'Jadwal dokter berhasil diperbarui.');
     }
@@ -130,7 +137,11 @@ class AdminJadwalDokterController extends Controller
 
         $this->authorize('belongsToAdmin', $jadwal);
 
+        $dokterId = $jadwal->id_dokter;
         $jadwal->delete();
+
+        Cache::forget('public.dokter.list');
+        Cache::forget("public.dokter.detail.{$dokterId}");
 
         return redirect()->route('admin.jadwal.index')
             ->with('success', 'Jadwal dokter berhasil dihapus.');

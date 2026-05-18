@@ -118,11 +118,11 @@ export default function DaftarDokter({ dokters }: Props) {
                                 >
                                     <div className="overflow-hidden p-3">
     <img
-        src={dokter.foto_dokter ?? '/images/dokterdummy.jpeg'}
+        src={dokter.foto_dokter ?? '/images/editable-doctor-vector.jpg'}
         alt={dokter.nama_dokter}
         className="h-48 w-full rounded-xl object-cover transition duration-300 group-hover:scale-105"
         onError={(e) => {
-            e.currentTarget.src = '/images/dokterdummy.jpeg';
+            e.currentTarget.src = '/images/editable-doctor-vector.jpg';
         }}
     />
 </div>

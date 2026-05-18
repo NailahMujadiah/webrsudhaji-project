@@ -6,40 +6,68 @@ use App\Models\Admin;
 use App\Models\Dokter;
 use App\Models\JadwalDokter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class DokterController extends Controller
 {
     public function indexWeb()
-{
-    $dokter = Dokter::orderByDesc('id_dokter')->get()->map(function ($item) {
-        return [
-            'id_dokter'   => $item->id_dokter,
-            'nama_dokter' => $item->nama_dokter,
-            'spesialis'   => $item->spesialis,
-            'foto_dokter' => $item->foto_dokter_url,
-        ];
-    });
+    {
+        $dokter = Cache::remember('public.dokter.list', now()->addMinutes(10), function () {
+            return Dokter::query()
+                ->select(['id_dokter', 'nama_dokter', 'spesialis', 'foto_dokter'])
+                ->orderByDesc('id_dokter')
+                ->get()
+                ->map(static function (Dokter $item): array {
+                    return [
+                        'id_dokter' => $item->id_dokter,
+                        'nama_dokter' => $item->nama_dokter,
+                        'spesialis' => $item->spesialis,
+                        'foto_dokter' => $item->foto_dokter_url,
+                    ];
+                })
+                ->values()
+                ->all();
+        });
 
-    return Inertia::render('daftar-dokter', [
-        'dokters' => $dokter,
-    ]);
-}
+        return Inertia::render('daftar-dokter', [
+            'dokters' => $dokter,
+        ]);
+    }
 
-public function showWeb(int $id)
-{
-    $dokter = Dokter::with('jadwalDokter')->findOrFail($id);
+    public function showWeb(int $id)
+    {
+        $dokter = Cache::remember("public.dokter.detail.{$id}", now()->addMinutes(10), function () use ($id) {
+            $dokter = Dokter::query()
+                ->select(['id_dokter', 'nama_dokter', 'spesialis', 'foto_dokter'])
+                ->with(['jadwalDokter' => function ($query) {
+                    $query->select(['id_jadwal', 'id_dokter', 'hari', 'jam_mulai', 'jam_selesai', 'poli'])
+                        ->orderBy('hari')
+                        ->orderBy('jam_mulai');
+                }])
+                ->findOrFail($id);
 
-    return Inertia::render('detail-dokter', [
-        'dokter' => [
-            'id_dokter'   => $dokter->id_dokter,
-            'nama_dokter' => $dokter->nama_dokter,
-            'spesialis'   => $dokter->spesialis,
-            'foto_dokter' => $dokter->foto_dokter_url,
-            'jadwal'      => $dokter->jadwalDokter,
-        ],
-    ]);
-}
+            return [
+                'id_dokter' => $dokter->id_dokter,
+                'nama_dokter' => $dokter->nama_dokter,
+                'spesialis' => $dokter->spesialis,
+                'foto_dokter' => $dokter->foto_dokter_url,
+                'jadwal' => $dokter->jadwalDokter->map(static function (JadwalDokter $jadwal): array {
+                    return [
+                        'id_jadwal' => $jadwal->id_jadwal,
+                        'hari' => $jadwal->hari,
+                        'jam_mulai' => $jadwal->jam_mulai,
+                        'jam_selesai' => $jadwal->jam_selesai,
+                        'poli' => $jadwal->poli,
+                    ];
+                })->values()->all(),
+            ];
+        });
+
+        return Inertia::render('detail-dokter', [
+            'dokter' => $dokter,
+        ]);
+    }
 
     public function index()
     {
@@ -71,6 +99,7 @@ public function showWeb(int $id)
         ]);
 
         $dokter = Dokter::create($validated);
+        $this->flushPublicDokterCache($dokter->id_dokter);
 
         return response()->json([
             'message' => 'Dokter berhasil dibuat.',
@@ -101,6 +130,7 @@ public function showWeb(int $id)
         ]);
 
         $dokter->update($validated);
+        $this->flushPublicDokterCache($dokter->id_dokter);
 
         return response()->json([
             'message' => 'Dokter berhasil diperbarui.',
@@ -120,6 +150,8 @@ public function showWeb(int $id)
             $dokter->delete();
         });
 
+        $this->flushPublicDokterCache($id);
+
         return response()->json([
             'message' => 'Dokter dan jadwal terkait berhasil dihapus.',
         ]);
@@ -135,5 +167,14 @@ public function showWeb(int $id)
         return response()->json([
             'admins' => $admins,
         ]);
+    }
+
+    private function flushPublicDokterCache(?int $dokterId = null): void
+    {
+        Cache::forget('public.dokter.list');
+
+        if ($dokterId !== null) {
+            Cache::forget("public.dokter.detail.{$dokterId}");
+        }
     }
 }
