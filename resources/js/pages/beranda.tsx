@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react'
+import { Head, Link } from '@inertiajs/react';
 import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
 import { useState } from 'react';
@@ -8,25 +8,25 @@ const fasilitasList = [
         title: 'Pelayanan Rawat Inap',
         desc: 'Kami akan memberikan pengobatan dan perawatan dengan suasana senyaman mungkin oleh tenaga profesional.',
         img: '/images/rawatinap.jpg',
-        href: '/layanan-fasilitas',
+        href: '/layanan/rawat-inap',
     },
     {
         title: 'IGD & Rawat Intensif',
         desc: 'Pelayanan gawat darurat 24 jam dengan tenaga medis berpengalaman dan peralatan lengkap.',
         img: '/images/igd.jpg',
-        href: '/layanan-fasilitas',
+        href: '/layanan/rawat-intensif',
     },
     {
         title: 'Fasilitas Penunjang',
         desc: 'Laboratorium, radiologi, farmasi, dan fasilitas penunjang medis lainnya.',
         img: '/images/fasilitas.jpg',
-        href: '/layanan-fasilitas',
+        href: '/layanan/penunjang',
     },
     {
         title: 'Sarana & Prasarana',
         desc: 'Gedung modern, ruang tunggu nyaman, parkir luas, dan fasilitas pendukung pasien.',
         img: '/images/sarana.jpg',
-        href: '/layanan-fasilitas',
+        href: '/layanan/sarana',
     },
 ];
 
@@ -42,7 +42,7 @@ export default function Beranda() {
             {/* 2. Konten Utama */}
             <main className="min-h-screen bg-slate-50 selection:bg-green-500 selection:text-white">
                 <section
-                    className="relative bg-cover bg-center bg-no-repeat px-6 py-20 text-left lg:py-32"
+                    className="relative flex min-h-[500px] items-center bg-cover bg-center bg-no-repeat"
                     style={{ backgroundImage: "url('/images/rsudhaji.jpg')" }}
                 >
                     {/* Overlay gelap */}
@@ -116,81 +116,107 @@ export default function Beranda() {
                 </section>
 
                 {/* Fasilitas dan Layanan */}
-<section className="py-16 px-6 lg:px-20 bg-[#BAEBD4]">
-    <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-12 items-start">
+                <section className="bg-[#BAEBD4] px-6 py-16 lg:px-20">
+                    <div className="mx-auto flex max-w-6xl flex-col items-start gap-12 lg:flex-row">
+                        {/* Kiri - Accordion */}
+                        <div className="flex-1">
+                            <h2 className="mb-2 text-3xl font-bold text-slate-800">
+                                Fasilitas dan Layanan
+                            </h2>
+                            <p className="mb-6 text-sm text-slate-600">
+                                Dalam upaya meningkatkan kualitas layanan, RSUD
+                                Haji memiliki fasilitas rawat inap, ICU dan UGD,
+                                laboratorium, perpustakaan dan fasilitas
+                                lainnya.
+                            </p>
 
-        {/* Kiri - Accordion */}
-        <div className="flex-1">
-            <h2 className="text-3xl font-bold text-slate-800 mb-2">Fasilitas dan Layanan</h2>
-            <p className="text-slate-600 text-sm mb-6">
-                Dalam upaya meningkatkan kualitas layanan, RSUD Haji memiliki fasilitas rawat inap, ICU dan UGD, laboratorium, perpustakaan dan fasilitas lainnya.
-            </p>
+                            <div className="flex flex-col">
+                                {fasilitasList.map((item, i) => (
+                                    <div
+                                        key={i}
+                                        className="border-b border-slate-400"
+                                    >
+                                        <button
+                                            onClick={() =>
+                                                setActiveIndex(
+                                                    activeIndex === i
+                                                        ? null
+                                                        : i,
+                                                )
+                                            }
+                                            className="flex w-full items-center justify-between py-4 text-left transition hover:text-green-700"
+                                        >
+                                            <span
+                                                className={`font-semibold ${activeIndex === i ? 'text-green-700' : 'text-slate-800'}`}
+                                            >
+                                                {item.title}
+                                            </span>
+                                            <span className="text-lg font-bold text-green-600">
+                                                {activeIndex === i ? '∨' : '›'}
+                                            </span>
+                                        </button>
 
-            <div className="flex flex-col">
-                {fasilitasList.map((item, i) => (
-                    <div key={i} className="border-b border-slate-400">
-                        <button
-                            onClick={() => setActiveIndex(activeIndex === i ? null : i)}
-                            className="w-full flex justify-between items-center py-4 text-left hover:text-green-700 transition"
-                        >
-                            <span className={`font-semibold ${activeIndex === i ? 'text-green-700' : 'text-slate-800'}`}>
-                                {item.title}
-                            </span>
-                            <span className="text-green-600 font-bold text-lg">
-                                {activeIndex === i ? '∨' : '›'}
-                            </span>
-                        </button>
+                                        {activeIndex === i && (
+                                            <div className="pb-4 text-sm text-slate-600">
+                                                <p>{item.desc}</p>
+                                                {item.href && (
+                                                    <Link
+                                                        href={item.href}
+                                                        className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-green-600 hover:text-green-800"
+                                                    >
+                                                        Lihat Halaman {item.title} <span>›</span>
+                                                    </Link>
+                                                )}
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
 
-                        {activeIndex === i && (
-                            <p className="text-slate-600 text-sm pb-4">{item.desc}</p>
-                        )}
+                            <div className="mt-8">
+                                <Link
+                                    href={activeIndex !== null ? fasilitasList[activeIndex].href : '/layanan-fasilitas'}
+                                    className="inline-flex items-center gap-2 rounded-lg bg-green-700 px-6 py-3 font-semibold text-white transition hover:bg-green-800"
+                                >
+                                    {activeIndex !== null
+                                        ? `Lihat ${fasilitasList[activeIndex].title}`
+                                        : 'Lihat Semua Fasilitas dan Layanan'}{' '}
+                                    {'→'}
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* Kanan - Gambar */}
+                        <div className="sticky top-24 flex-1">
+                            {activeIndex !== null ? (
+                                <img
+                                    src={fasilitasList[activeIndex].img}
+                                    alt={fasilitasList[activeIndex].title}
+                                    className="h-80 w-full rounded-2xl object-cover shadow-lg transition duration-300 lg:h-[400px]"
+                                />
+                            ) : (
+                                <div className="flex h-80 w-full items-center justify-center rounded-2xl bg-white/40 lg:h-[400px]">
+                                    <p className="text-sm text-slate-400">
+                                        Pilih layanan untuk melihat gambar
+                                    </p>
+                                </div>
+                            )}
+                        </div>
                     </div>
-                ))}
-            </div>
+                </section>
 
-            <div className="mt-8">
-                <Link
-                    href="/layanan-fasilitas"
-                    className="inline-flex items-center gap-2 bg-green-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-800 transition"
-                >
-                    Lihat Semua Fasilitas dan Layanan {'→'}
-                </Link>
-            </div>
-        </div>
-
-        {/* Kanan - Gambar */}
-        <div className="flex-1 sticky top-24">
-            {activeIndex !== null ? (
-                <img
-                    src={fasilitasList[activeIndex].img}
-                    alt={fasilitasList[activeIndex].title}
-                    className="w-full rounded-2xl shadow-lg object-cover h-80 lg:h-[400px] transition duration-300"
-                />
-            ) : (
-                <div className="w-full rounded-2xl bg-white/40 h-80 lg:h-[400px] flex items-center justify-center">
-                    <p className="text-slate-400 text-sm">Pilih layanan untuk melihat gambar</p>
-                </div>
-            )}
-        </div>
-
-    </div>
-</section>
-
-                
                 {/* Video Section - YouTube Center */}
-<section className="bg-slate-50 pt-4 pb-16 flex justify-center">
-    <div className="w-full max-w-5xl aspect-video rounded-2xl overflow-hidden shadow-xl">
-
-        <iframe
-            className="w-full h-full"
-            src="https://www.youtube.com/embed/Yy3HJPLm0lE"
-            title="Video RSUD Haji"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-        />
-
-    </div>
-</section>
+                <section className="flex justify-center bg-slate-50 pt-4 pb-16">
+                    <div className="aspect-video w-full max-w-5xl overflow-hidden rounded-2xl shadow-xl">
+                        <iframe
+                            className="h-full w-full"
+                            src="https://www.youtube.com/embed/Yy3HJPLm0lE"
+                            title="Video RSUD Haji"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                        />
+                    </div>
+                </section>
             </main>
 
             {/* 3. Footer di Paling Bawah */}

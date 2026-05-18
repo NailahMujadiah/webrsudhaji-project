@@ -4,26 +4,25 @@ import Footer from '@/components/footer';
 import { useState } from 'react';
 
 const klinikList = [
-    { nama: 'Klinik Spesialis Bedah Umum', foto: ['/images/rawat-inap/bedah-umum-1.jpg', '/images/rawat-inap/bedah-umum-2.jpg'] },
-    { nama: 'Klinik Spesialis Anak', foto: ['/images/klinik/anak-1.jpg', '/images/klinik/anak-2.jpg'] },
-    { nama: 'Klinik Spesialis Obstetri', foto: ['/images/klinik/obstetri-1.jpg', '/images/klinik/obstetri-2.jpg'] },
-    { nama: 'Klinik Spesialis Saraf', foto: ['/images/klinik/saraf-1.jpg', '/images/klinik/saraf-2.jpg'] },
-    { nama: 'Klinik Spesialis THT', foto: ['/images/klinik/tht-1.jpg', '/images/klinik/tht-2.jpg'] },
-    { nama: 'Klinik Spesialis Gigi dan Mulut', foto: ['/images/klinik/gigi-1.jpg', '/images/klinik/gigi-2.jpg'] },
-    { nama: 'Klinik Spesialis Mata', foto: ['/images/klinik/mata-1.jpg', '/images/klinik/mata-2.jpg'] },
-    { nama: 'Klinik Spesialis Kulit Kelamin', foto: ['/images/klinik/kulit-1.jpg', '/images/klinik/kulit-2.jpg'] },
-    { nama: 'Klinik Spesialis Dalam', foto: ['/images/klinik/dalam-1.jpg', '/images/klinik/dalam-2.jpg'] },
-    { nama: 'Klinik Spesialis Jiwa', foto: ['/images/klinik/jiwa-1.jpg', '/images/klinik/jiwa-2.jpg'] },
-    { nama: 'Klinik Konsultan Gizi', foto: ['/images/klinik/gizi-1.jpg', '/images/klinik/gizi-2.jpg'] },
-    { nama: 'Klinik Medical Check Up', foto: ['/images/klinik/mcu-1.jpg', '/images/klinik/mcu-2.jpg'] },
-    { nama: 'Klinik Bedah Vasculer', foto: ['/images/klinik/vasculer-1.jpg', '/images/klinik/vasculer-2.jpg'] },
-    { nama: 'Klinik Khusus Geriatri', foto: ['/images/klinik/geriatri-1.jpg', '/images/klinik/geriatri-2.jpg'] },
-    { nama: 'Klinik Spesialis Jantung', foto: ['/images/klinik/jantung-1.jpg', '/images/klinik/jantung-2.jpg'] },
-    { nama: 'Klinik Spesialis Paru & Bronchoscopy', foto: ['/images/klinik/paru-1.jpg', '/images/klinik/paru-2.jpg'] },
-    { nama: 'Klinik Ortopedi', foto: ['/images/klinik/ortopedi-1.jpg', '/images/klinik/ortopedi-2.jpg'] },
-    { nama: 'Klinik Bedah Digestive', foto: ['/images/klinik/digestive-1.jpg', '/images/klinik/digestive-2.jpg'] },
+    { nama: 'Klinik Spesialis Bedah Umum', foto: ['/images/rawat-jalan/Klinik-Spisialis-Bedah-Umum-1.png', '/images/rawat-jalan/Klinik-Spisialis-Bedah-Umum-2.png'] },
+    { nama: 'Klinik Spesialis Anak', foto: ['/images/rawat-jalan/Klinik-Spesialis-Anak-1.png', '/images/rawat-jalan/Klinik-Spesialis-Anak-2.png'] },
+    { nama: 'Klinik Spesialis Obstetri', foto: ['/images/rawat-jalan/Klinik-Spesialis-Obsetri-2.png', '/images/rawat-jalan/Klinik-Spesialis-Obsetri-3.png'] },
+    { nama: 'Klinik Spesialis Saraf', foto: ['/images/rawat-jalan/Klinik-Spesialis-Saraf-1.png', '/images/rawat-jalan/Klinik-Spesialis-Saraf-1-1.png'] },
+    { nama: 'Klinik Spesialis THT', foto: ['/images/rawat-jalan/Klinik-SPESIALIS-THT-1.png', '/images/rawat-jalan/Klinik-SPESIALIS-THT.png'] },
+    { nama: 'Klinik Spesialis Gigi dan Mulut', foto: ['/images/rawat-jalan/SPESIALIS-GIGI-1.png', '/images/rawat-jalan/SPESIALIS-GIGI.png'] },
+    { nama: 'Klinik Spesialis Mata', foto: ['/images/rawat-jalan/Klinik-Spesialis-Mata-1.png', '/images/rawat-jalan/Klinik-Spesialis-Mata-3.png'] },
+    { nama: 'Klinik Spesialis Kulit Kelamin', foto: ['/images/rawat-jalan/Klinik-Spesialis-Kulit-1.png', '/images/rawat-jalan/Klinik-Spesialis-Kulit-2.png'] },
+    { nama: 'Klinik Spesialis Dalam', foto: ['/images/rawat-jalan/Klinis-Spesialis-dalam-1.png', '/images/rawat-jalan/Klinis-Spesialis-dalam-2.png'] },
+    { nama: 'Klinik Spesialis Jiwa', foto: ['/images/rawat-jalan/Spesialis-Jiwa-1.png', '/images/rawat-jalan/Spesialis-Jiwa-1.png'] },
+    { nama: 'Klinik Konsultan Gizi', foto: ['/images/rawat-jalan/Klinik-Spesialis-Gizi.png', '/images/rawat-jalan/Klinik-Spesialis-Gizi-2.png'] },
+    { nama: 'Klinik Medical Check Up', foto: ['/images/rawat-jalan/Klinik-Medical-Cack-Up-1.png', '/images/rawat-jalan/Klinik-Medical-Cack-Up-2.png'] },
+    { nama: 'Klinik Bedah Vasculer', foto: ['/images/rawat-jalan/Klinik-Bedah-Vasculer-1.png', '/images/rawat-jalan/Klinik-Bedah-Vasculer-2.png'] },
+    { nama: 'Klinik Khusus Geriatri', foto: ['/images/rawat-jalan/Klinik-Khusus-Geriatri-1.png', '/images/rawat-jalan/Klinik-Khusus-Geriatri.png'] },
+    { nama: 'Klinik Spesialis Jantung', foto: ['/images/rawat-jalan/Klinik-Spesialis-Jantung-1.png', '/images/rawat-jalan/Klinik-Spesialis-Jantung-2.png'] },
+    { nama: 'Klinik Spesialis Paru & Bronchoscopy', foto: ['/images/rawat-jalan/Klinik-Spesialis-Paru-1.png', '/images/rawat-jalan/Klinik-Spesialis-Paru-2.png'] },
+    { nama: 'Klinik Spesialis Ortopedi', foto: ['/images/rawat-jalan/Klinik-Spesialis-Ortopedi-1.png', '/images/rawat-jalan/Klinik-Spesialis-Ortopedi-2.png'] },
+    { nama: 'Klinik Bedah Digestive', foto: ['/images/rawat-jalan/Klinik-Bedah-Umum.png', '/images/rawat-jalan/Klinik-Bedah-Umum.png'] },
 ];
-
 function KlinikCard({ nama, foto }: { nama: string; foto: string[] }) {
     const [activefoto, setActivefoto] = useState(0);
 

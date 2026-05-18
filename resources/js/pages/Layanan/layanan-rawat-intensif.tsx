@@ -4,11 +4,10 @@ import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
 
 const rawatIntensifList = [
-    { nama: 'Instalasi Rawat Intensif (ICU)', foto: ['/images/rawat-intensif/icu-1.jpg', '/images/rawat-intensif/icu-2.jpg'] },
-    { nama: 'Kamar Operasi', foto: ['/images/rawat-intensif/kamar-operasi-1.jpg', '/images/rawat-intensif/kamar-operasi-2.jpg'] },
-    { nama: 'Instalasi Gawat Darurat', foto: ['/images/rawat-intensif/igd-1.jpg', '/images/rawat-intensif/igd-2.jpg'] },
+    { nama: 'Instalasi Rawat Intensif (ICU)', foto: ['/images/rawat-intensif/ICU-RSUD-Haji-1.png', '/images/rawat-intensif/ICU-RSUD-Haji-2.png'] },
+    { nama: 'Kamar Operasi', foto: ['/images/rawat-intensif/Kamar-Operasi-1.png', '/images/rawat-intensif/Kamar-Operasi-2.png'] },
+    { nama: 'Instalasi Gawat Darurat', foto: ['/images/rawat-intensif/IGD-RSUD-Haji-1.png', '/images/rawat-intensif/IGD-RSUD-Haji-2.png'] },
 ];
-
 function RawatIntensifCard({ nama, foto }: { nama: string; foto: string[] }) {
     const [activeFoto, setActiveFoto] = useState(0);
 
@@ -89,7 +88,7 @@ export default function RawatIntensif() {
                 </section>
 
                 {/* Grid */}
-                <section className="py-16 px-6 lg:px-20 bg-[#BAEBD4]">
+                <section className="py-16 px-6 lg:px-20 bg-slate-50">
                     <div className="max-w-6xl mx-auto">
                         <h2 className="text-2xl font-bold text-slate-800 mb-2">Fasilitas Rawat Intensif</h2>
                         <div className="w-12 h-1 bg-green-600 rounded mb-8" />
