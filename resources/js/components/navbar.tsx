@@ -4,8 +4,9 @@ import { useCurrentUrl } from '@/hooks/use-current-url';
 import { cn } from '@/lib/utils';
 
 const layananMenu = [
-    { label: 'Poliklinik', href: '/layanan/poliklinik' },
+    // { label: 'Poliklinik', href: '/layanan/poliklinik' },
     { label: 'Layanan Unggulan', href: '/layanan/unggulan' },
+    { label: 'Layanan Gawat Darurat', href: '/layanan/gawat-darurat' },
     { label: 'Layanan Rawat Jalan', href: '/layanan/rawat-jalan' },
     { label: 'Layanan Rawat Inap', href: '/layanan/rawat-inap' },
     { label: 'Layanan Rawat Intensif', href: '/layanan/rawat-intensif' },
