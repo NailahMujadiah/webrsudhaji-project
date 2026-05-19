@@ -1,7 +1,32 @@
-import { Link } from '@inertiajs/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
+
+
+function useInView(once = false) {
+    const ref = useRef<HTMLDivElement>(null)
+    const [isInView, setIsInView] = useState(false)
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setIsInView(entry.isIntersecting)
+                if (entry.isIntersecting && once) {
+                    observer.unobserve(entry.target)
+                }
+            },
+            { threshold: 0.1 }
+        )
+
+        if (ref.current) {
+            observer.observe(ref.current)
+        }
+
+        return () => observer.disconnect()
+    }, [once])
+
+    return [ref, isInView] as const
+}
 
 
 type ServiceCard = {
@@ -10,8 +35,6 @@ type ServiceCard = {
     description: string
     image: string
     alt: string
-    href?: string
-    asButton?: boolean
 }
 
 const unggulanLayanan: ServiceCard[] = [
@@ -22,7 +45,6 @@ const unggulanLayanan: ServiceCard[] = [
             'Pemeriksaan bronchoscopy dengan dukungan tenaga profesional dan fasilitas medis yang memadai.',
         image: '/images/bronscopy.png',
         alt: 'Pemeriksaan Bronchoscopy',
-        href: '/layanan/unggulan',
     },
     {
         headingTop: 'Layanan',
@@ -31,7 +53,6 @@ const unggulanLayanan: ServiceCard[] = [
             'Pemeriksaan brainstem untuk mendukung diagnosis dengan hasil yang lebih akurat.',
         image: '/images/brainstem.png',
         alt: 'Pemeriksaan Brainstem',
-        asButton: true,
     },
     {
         headingTop: 'Layanan',
@@ -40,7 +61,6 @@ const unggulanLayanan: ServiceCard[] = [
             'Pemeriksaan medical body yang nyaman dengan alur layanan yang terarah.',
         image: '/images/medicalbody.png',
         alt: 'Pemeriksaan Medical Body',
-        asButton: true,
     },
 ]
 
@@ -52,7 +72,6 @@ const layananMedis: ServiceCard[] = [
             'Kami akan memberikan pengobatan dan perawatan dengan suasana senyaman mungkin oleh tenaga profesional',
         image: '/images/Klinik-Spesialis-Paru-1.png',
         alt: 'Rawat Jalan',
-        href: '/layanan/rawat-jalan',
     },
     {
         headingTop: 'Layanan',
@@ -61,7 +80,6 @@ const layananMedis: ServiceCard[] = [
             'Kami akan memberikan pengobatan dan perawatan dengan suasana senyaman mungkin oleh tenaga profesional',
         image: '/images/Rawat-Inap-Kautsar-1.png',
         alt: 'Rawat Inap',
-        asButton: true,
     },
     {
         headingTop: 'Layanan',
@@ -70,7 +88,6 @@ const layananMedis: ServiceCard[] = [
             'Kami akan memberikan pengobatan dan perawatan dengan suasana senyaman mungkin oleh tenaga profesional',
         image: '/images/Kamar-Operasi-1.png',
         alt: 'Rawat Intensif',
-        asButton: true,
     },
 ]
 
@@ -80,14 +97,18 @@ function LayananCard({
     description,
     image,
     alt,
-    href,
-    asButton,
 }: ServiceCard) {
-    const actionClassName =
-        'w-fit rounded-full bg-lime-500 px-5 py-2 text-sm font-semibold text-white transition hover:bg-lime-400'
+    const [ref, isInView] = useInView()
 
     return (
-        <div className="group relative h-[380px] overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+        <div 
+            ref={ref}
+            className={`group relative h-[380px] overflow-hidden rounded-2xl shadow-lg transition-all duration-600 hover:-translate-y-2 hover:shadow-2xl ${
+                isInView 
+                    ? 'translate-y-0 opacity-100' 
+                    : 'translate-y-10 opacity-0'
+            }`}
+        >
             <img
                 src={image}
                 alt={alt}
@@ -99,16 +120,9 @@ function LayananCard({
                     {headingTop} <br />
                     {headingBottom}
                 </h3>
-                <p className="mb-6 text-sm leading-relaxed text-slate-100">
+                <p className=" text-sm leading-relaxed text-slate-100">
                     {description}
                 </p>
-                {href ? (
-                    <Link href={href} className={actionClassName}>
-                        Read More →
-                    </Link>
-                ) : asButton ? (
-                    <button className={actionClassName}>Read More →</button>
-                ) : null}
             </div>
         </div>
     )
@@ -122,6 +136,7 @@ const backgrounds = [
 ]
 
 const [currentBg, setCurrentBg] = useState(0)
+const [heroRef, heroInView] = useInView()
 
 useEffect(() => {
     const interval = setInterval(() => {
@@ -163,7 +178,12 @@ useEffect(() => {
     {/* Content */}
     <div className="relative z-10 flex min-h-[calc(100dvh-7rem)] items-center px-6 py-12 sm:px-10 lg:px-20">
 
-        <div className="max-w-2xl animate-[fadeLeft_1s_ease-out]">
+        <div 
+            ref={heroRef}
+            className={`max-w-2xl ${
+                heroInView ? 'animate-[fadeLeft_1s_ease-out]' : 'opacity-0'
+            }`}
+        >
 
             <h1 className="mb-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
                 Selamat Datang di <br />
@@ -182,6 +202,7 @@ useEffect(() => {
         </div>
 
     </div>
+
 </section>
 
                 {/* Layanan Unggulan */}
