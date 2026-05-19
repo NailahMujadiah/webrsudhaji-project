@@ -89,14 +89,14 @@ export default function SaranaPrasarana() {
                                                     className="h-44 w-full object-cover transition duration-300 hover:scale-105"
                                                         onError={(e) => {
                                                             e.currentTarget.src =
-                                                                '/images/no-image.svg';
+                                                                '/images/rsudhaji.jpg';
                                                         }}
                                                 />
                                             </div>
                                         ))}
                                     </div>
                                     <div className="p-5">
-                                        <h2 className="mb-3 text-xl font-bold text-slate-800">
+                                        <h2 className="font-bold text-slate-800 text-sm">
                                             {facility.title}
                                         </h2>
                                     </div>

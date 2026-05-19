@@ -39,7 +39,7 @@ export default function Poliklinik() {
                         src="/images/rsudhaji.jpg"
                         alt="Poliklinik"
                         className="w-full h-64 lg:h-80 object-cover"
-                        onError={(e) => { e.currentTarget.src = '/images/no-image.svg'; }}
+                        onError={(e) => { e.currentTarget.src = '/images/rsudhaji.jpg'; }}
                     />
                     <div className="absolute inset-0 bg-black/50" />
                     <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-slate-50 to-transparent" />
