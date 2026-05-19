@@ -137,7 +137,7 @@ const tabContents: Record<number, React.ReactNode> = {
             <h3 className="text-xl font-bold mb-4 text-slate-800">Struktur Organisasi RSUD Haji Makassar</h3>
             <div className="mb-6 overflow-hidden rounded-xl border border-slate-200 shadow-sm">
                 <iframe
-                    src="/pdfs/Struktur%20RSUD%20Haji%20Makassar.pdf"
+                    src="/pdfs/Struktur-organisasi.pdf"
                     title="Struktur Organisasi RSUD Haji"
                     className="h-[700px] w-full"
                 />
@@ -169,7 +169,8 @@ const tabContents: Record<number, React.ReactNode> = {
                             { unit: 'KA. Instalasi Farmasi', pimpinan: 'dr. Kevin Saputra' },
                             { unit: 'KA. Instalasi IPS-RS', pimpinan: 'dr. Indah Permata' },
                             { unit: 'KA. Instalasi CSSD/Laundry', pimpinan: 'dr. Bima Kurniawan' },
-                            { unit: 'KA. Instalasi Rehbilitasi Medik', pimpinan: 'dr. Citra Ananda' },
+                            { unit: 'KA. Instalasi Rehabilitasi Medik', pimpinan: 'dr. Citra Ananda' },
+                            { unit: 'KA. Kamar Jenazah', pimpinan: 'dr. xxxxx' },
                         ].map((row, i) => (
                             <tr key={i} className="hover:bg-slate-50">
                                 <td className="px-4 py-3 text-slate-700">{row.unit}</td>
