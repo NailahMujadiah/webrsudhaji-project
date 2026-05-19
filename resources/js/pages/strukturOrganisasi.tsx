@@ -134,15 +134,18 @@ function ProfilDireksiTab() {
 const tabContents: Record<number, React.ReactNode> = {
     1: (
         <div className="p-6">
-            <h3 className="text-xl font-bold mb-4 text-slate-800">Struktur Organisasi RSUD Haji Makassar</h3>
-            <div className="mb-6 overflow-hidden rounded-xl border border-slate-200 shadow-sm">
-                <iframe
-                    src="/pdfs/Struktur-organisasi.pdf"
-                    title="Struktur Organisasi RSUD Haji"
-                    className="h-[700px] w-full"
-                />
-            </div>
-        </div>
+    <h3 className="mb-4 text-xl font-bold text-slate-800">
+        Struktur Organisasi RSUD Haji Makassar
+    </h3>
+
+    <div className="mx-auto mb-6 max-w-5xl overflow-hidden rounded-xl border border-slate-200 shadow-sm">
+        <iframe
+            src="/pdfs/Struktur-organisasi.pdf"
+            title="Struktur Organisasi RSUD Haji"
+            className="h-[700px] w-full"
+        />
+    </div>
+</div>
     ),
     2: <ProfilDireksiTab />,
     3: (

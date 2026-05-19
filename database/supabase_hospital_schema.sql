@@ -55,17 +55,17 @@ insert into positions (id, code, name, parent_id, sort_order, created_at, update
 values
     (1, 'director', 'Direktur', null, 1, now(), now()),
     (2, 'vice-director-medical', 'Wakil Direktur Pelayanan Medik, Keperawatan, dan Diklit', 1, 1, now(), now()),
-    (3, 'vice-director-support', 'Wakil Direktur SDM, Keuangan, dan Umum', 1, 2, now(), now()),
-    (4, 'vice-director-services', 'Wakil Direktur Pelayanan Penunjang, Kefarmasian, dan Pemasaran', 1, 3, now(), now()),
-    (5, 'head-medical-services', 'Kepala Bidang Pelayanan Medik', 2, 1, now(), now()),
-    (6, 'head-nursing', 'Kepala Bidang Keperawatan', 2, 2, now(), now()),
-    (7, 'head-education', 'Kepala Bidang Pendidikan dan Diklat', 2, 3, now(), now()),
-    (8, 'head-hr', 'Kepala Bidang SDM', 3, 1, now(), now()),
-    (9, 'head-finance', 'Kepala Bidang Keuangan', 3, 2, now(), now()),
-    (10, 'head-general', 'Kepala Bidang Umum', 3, 3, now(), now()),
-    (11, 'head-supporting-services', 'Kepala Bidang Penunjang', 4, 1, now(), now()),
-    (12, 'head-pharmacy', 'Kepala Bidang Kefarmasian', 4, 2, now(), now()),
-    (13, 'head-marketing', 'Kepala Bidang Pemasaran', 4, 3, now(), now());
+    (3, 'vice-director-support', 'Wakil Direktur Pelayanan Penunjang, Kefarmasian & Pemasaran', 1, 2, now(), now()),
+    (4, 'vice-director-services', 'Wakil Direktur SDM, Keuangan dan Umum', 1, 3, now(), now()),
+    (5, 'head-medical-services', 'Kepala Bidang Pelayanan Medik & Penunjang Medik', 2, 1, now(), now()),
+    (6, 'head-nursing', 'Kepala Bidang Pendidikan, Penelitian & Inovasi', 2, 2, now(), now()),
+    (7, 'head-education', 'Kepala Bidang Pelayanan Keperawatan dan Kebidanan', 2, 3, now(), now()),
+    (8, 'head-hr', 'Kepala Bidang Pelayanan Penunjang' now()),
+    (9, 'head-finance', 'Kepala Bidang Kefarmasian dan Peralatan Medis', 3, 2, now(), now()),
+    (10, 'head-general', 'Kepala Bidang Pemasaran dan Hubungan Masyarakat', 3, 3, now(), now()),
+    (11, 'head-supporting-services', 'Kepala Bagian Umum dan SDM', 4, 1, now(), now()),
+    (12, 'head-pharmacy', 'Kepala Bagian Perencanaan dan Evaluasi', 4, 2, now(), now()),
+    (13, 'head-marketing', 'Kepala Bagian Keuangan', 4, 3, now(), now());
 
 insert into direksi_profiles (id, position_id, nama_pejabat, foto_profil, deskripsi_singkat, is_active, created_at, updated_at)
 values
