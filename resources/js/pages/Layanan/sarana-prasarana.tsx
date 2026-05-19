@@ -5,29 +5,21 @@ import Navbar from '@/components/navbar';
 const facilities = [
     {
         title: 'Tempat Parkir',
-        description:
-            'Area parkir luas dan nyaman untuk kendaraan pasien maupun pengunjung.',
         images: ['/images/Parkir.jpg', '/images/Parkir-1.png'],
         icon: '🅿️',
     },
     {
         title: 'Ruang Tunggu Pasien',
-        description:
-            'Ruang tunggu bersih dan nyaman dilengkapi kursi serta pendingin ruangan.',
         images: ['/images/Ruang-Tunggu.png', '/images/Ruang-Tunggu-1.png'],
         icon: '🪑',
     },
     {
         title: 'Perpustakaan',
-        description:
-            'Menyediakan berbagai koleksi bacaan dan referensi kesehatan.',
         images: ['/images/Perpus.png', '/images/Perpus-1.png'],
         icon: '📚',
     },
     {
         title: 'Ruang Arsip',
-        description:
-            'Penyimpanan dokumen dan arsip rumah sakit yang tertata dengan baik.',
         images: ['/images/Arsip.png', '/images/Arsip-1.png'],
         icon: '🗂️',
     },
@@ -107,9 +99,6 @@ export default function SaranaPrasarana() {
                                         <h2 className="mb-3 text-xl font-bold text-slate-800">
                                             {facility.title}
                                         </h2>
-                                        <p className="text-sm leading-relaxed text-slate-600">
-                                            {facility.description}
-                                        </p>
                                     </div>
                                 </section>
                             ))}

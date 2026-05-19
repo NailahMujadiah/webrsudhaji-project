@@ -5,7 +5,6 @@ import Navbar from '@/components/navbar';
 
 type Facility = {
     title: string;
-    description: string;
     images: string[];
     icon: string;
 };
@@ -13,15 +12,11 @@ type Facility = {
 const facilities: Facility[] = [
     {
         title: 'Laboratorium',
-        description:
-            'Layanan pemeriksaan laboratorium lengkap dengan peralatan modern untuk diagnosis penyakit dan analisis darah.',
         images: ['/images/Laboratorium.png', '/images/Laboratorium-1.png'],
         icon: '🔬',
     },
     {
         title: 'Central Sterile Supply Departement',
-        description:
-            'Departemen sterilisasi sentral yang menjamin instrumen medis steril dan aman untuk penggunaan operasional.',
         images: [
             '/images/CSSD.png',
             '/images/CSSD-1.png',
@@ -32,29 +27,21 @@ const facilities: Facility[] = [
     },
     {
         title: 'Ruang Tunggu Pasien',
-        description:
-            'Ruang tunggu nyaman dengan fasilitas lengkap untuk kenyamanan pasien dan pengunjung.',
         images: ['/images/Ruang-Tunggu.png', '/images/Ruang-Tunggu-1.png'],
         icon: '🪑',
     },
     {
         title: 'Farmasi',
-        description:
-            'Layanan farmasi dengan obat-obatan lengkap dan apoteker profesional siap melayani.',
         images: ['/images/Farmasi.png', '/images/Farmasi-1.png'],
         icon: '💊',
     },
     {
         title: 'Perpustakaan',
-        description:
-            'Perpustakaan menyediakan koleksi bacaan, referensi kesehatan, dan sumber pembelajaran medis.',
         images: ['/images/Perpus.png', '/images/Perpus-1.png'],
         icon: '📚',
     },
     {
         title: 'Radiologi',
-        description:
-            'Pemeriksaan radiologi menggunakan teknologi X-ray dan imaging terkini untuk visualisasi medis.',
         images: [
             '/images/Radiologi.png',
             '/images/Radiologi-1.png',
@@ -65,29 +52,21 @@ const facilities: Facility[] = [
     },
     {
         title: 'Fisioterapi',
-        description:
-            'Layanan fisioterapi dan rehabilitasi medis untuk pemulihan dan pemeliharaan fungsi tubuh optimal.',
         images: ['/images/Fisioterapi.png', '/images/Fisioterapi-1.png'],
         icon: '🏋️',
     },
     {
         title: 'Instalasi Gizi',
-        description:
-            'Instalasi gizi menyediakan konsultasi dan program nutrisi khusus untuk pasien sesuai kebutuhan medis.',
         images: ['/images/Gizi.png', '/images/Gizi-1.png'],
         icon: '🥗',
     },
     {
         title: 'Instalasi Pemeriksaan',
-        description:
-            'Instalasi pemeriksaan komprehensif dengan peralatan diagnostic canggih untuk berbagai jenis pemeriksaan.',
         images: ['/images/listrik.png', '/images/listrik-2.png'],
         icon: '🩺',
     },
     {
         title: 'Rekam Medis',
-        description:
-            'Departemen rekam medis mengelola dokumen medis pasien dengan sistem terorganisir dan terjaga privasi.',
         images: ['/images/medis.png', '/images/medis-1.png'],
         icon: '📋',
     },
@@ -163,7 +142,6 @@ function FacilityCard({ facility }: { facility: Facility }) {
 
             <div className="p-5">
                 <h2 className="mb-3 text-xl font-bold text-slate-800">{facility.title}</h2>
-                <p className="text-sm leading-relaxed text-slate-600">{facility.description}</p>
             </div>
         </section>
     );
