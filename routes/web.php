@@ -29,6 +29,7 @@ Route::get('/layanan/unggulan', fn() => Inertia::render('Layanan/layanan-unggula
 Route::get('/layanan/rawat-jalan', fn() => Inertia::render('Layanan/layanan-rawat-jalan'))->name('layanan.rawat-jalan');
 Route::get('/layanan/rawat-inap', fn() => Inertia::render('Layanan/layanan-rawat-inap'))->name('layanan.rawat-inap');
 Route::get('/layanan/rawat-intensif', fn() => Inertia::render('Layanan/layanan-rawat-intensif'))->name('layanan.rawat-intensif');
+Route::get('/layanan/gawat-darurat', fn() => Inertia::render('Layanan/gawat-darurat'))->name('layanan.gawat-darurat');
 Route::get('/layanan/sarana', fn() => Inertia::render('Layanan/sarana-prasarana'))->name('layanan.sarana');
 Route::get('/layanan/penunjang', fn() => Inertia::render('Layanan/fasilitas-penunjang'))->name('layanan.penunjang');
 
@@ -36,7 +37,7 @@ Route::get('/daftar-dokter', [DokterController::class, 'indexWeb'])->name('dafta
 Route::get('/detail-dokter/{id}', [DokterController::class, 'showWeb'])->name('detail-dokter');
 Route::get('/debug-detail-dokter/{id}', function ($id) {
     $dokter = app(\App\Http\Controllers\DokterController::class)->showWeb($id);
-    return Inertia\Inertia::render('debug-detail-dokter', $dokter->getData());
+    return Inertia::render('debug-detail-dokter', $dokter->getData());
 })->name('debug.detail-dokter');
 
 Route::get('/debug-json-dokter/{id}', function ($id) {

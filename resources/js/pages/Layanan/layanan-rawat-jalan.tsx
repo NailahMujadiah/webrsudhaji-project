@@ -85,7 +85,7 @@ export default function RawatJalan() {
                 {/* Hero */}
                 <section className="relative">
                     <img
-                        src="/images/no-image.svg"
+                        src="/images/rsudhaji.jpg"
                         alt="Layanan Rawat Jalan"
                         className="w-full h-64 lg:h-80 object-cover"
                     />

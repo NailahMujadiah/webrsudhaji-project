@@ -157,7 +157,7 @@ export default function FasilitasPenunjang() {
                 {/* Hero */}
                 <section className="relative">
                     <img
-                        src="/images/no-image.svg"
+                        src="/images/rsudhaji.jpg"
                         alt="Fasilitas Penunjang"
                         className="h-64 w-full object-cover lg:h-80"
                     />
