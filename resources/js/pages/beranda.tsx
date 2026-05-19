@@ -1,6 +1,8 @@
-import { Head, Link } from '@inertiajs/react'
+import { Link } from '@inertiajs/react'
+import { useEffect, useState } from 'react'
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
+
 
 type ServiceCard = {
     headingTop: string
@@ -113,36 +115,74 @@ function LayananCard({
 }
 
 export default function Beranda() {
+
+const backgrounds = [
+    '/images/rsudhaji.jpg',
+    '/images/rsudhaji-2.png',
+]
+
+const [currentBg, setCurrentBg] = useState(0)
+
+useEffect(() => {
+    const interval = setInterval(() => {
+        setCurrentBg((prev: number) =>
+            prev === backgrounds.length - 1 ? 0 : prev + 1
+        )
+    }, 5000)
+
+    return () => clearInterval(interval)
+}, [backgrounds.length])
+
     return (
         <>
-            <Head title="Selamat Datang - RSUD Haji Makassar" />
+                
 
             <Navbar />
 
             {/* 2. Konten Utama */}
             <main className="overflow-x-hidden bg-slate-50 selection:bg-green-500 selection:text-white">
-                <section
-                    className="relative flex min-h-[calc(100dvh-7rem)] items-center bg-cover bg-center bg-no-repeat px-6 py-12 sm:px-10 lg:px-20"
-                    style={{ backgroundImage: "url('/images/rsudhaji.jpg')" }}
-                >
-                    {/* Overlay gelap */}
-                    <div className="absolute inset-0 bg-black/50" />
+                
+               <section className="relative min-h-[calc(100dvh-7rem)] overflow-hidden">
 
-                    {/* Konten */}
-                    <div className="relative z-10 max-w-2xl">
-                        <h1 className="mb-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-                            Selamat Datang di <br />
-                            <span className="text-green-400">
-                                RSUD HAJI MAKASSAR
-                            </span>
-                        </h1>
-                        <p className="max-w-xl text-lg leading-relaxed text-slate-200 lg:text-xl">
-                            Silakan pilih menu di bawah ini untuk memulai
-                            operasional atau melihat informasi layanan rumah
-                            sakit kami.
-                        </p>
-                    </div>
-                </section>
+    {/* Background */}
+    <div
+        key={currentBg}
+        className="
+            absolute inset-0
+            bg-cover bg-center bg-no-repeat
+            animate-[slideIn_1.2s_ease-out]
+        "
+        style={{
+            backgroundImage: `url(${backgrounds[currentBg]})`,
+        }}
+    />
+
+    {/* Overlay */}
+    <div className="absolute inset-0 bg-black/50" />
+
+    {/* Content */}
+    <div className="relative z-10 flex min-h-[calc(100dvh-7rem)] items-center px-6 py-12 sm:px-10 lg:px-20">
+
+        <div className="max-w-2xl animate-[fadeLeft_1s_ease-out]">
+
+            <h1 className="mb-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+                Selamat Datang di <br />
+
+                <span className="text-green-400">
+                    RSUD HAJI MAKASSAR
+                </span>
+            </h1>
+
+            <p className="max-w-xl text-lg leading-relaxed text-slate-200 lg:text-xl">
+                Silakan pilih menu di bawah ini untuk memulai
+                operasional atau melihat informasi layanan rumah
+                sakit kami.
+            </p>
+
+        </div>
+
+    </div>
+</section>
 
                 {/* Layanan Unggulan */}
                 <section className="bg-white px-6 py-16 lg:px-20">
