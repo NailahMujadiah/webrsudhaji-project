@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { Head } from '@inertiajs/react';
+import { useState } from 'react';
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
 
@@ -7,42 +7,50 @@ const rawatIntensifList = [
     { nama: 'Instalasi Rawat Intensif (ICU)', foto: ['/images/rawat-intensif/ICU-RSUD-Haji-1.png', '/images/rawat-intensif/ICU-RSUD-Haji-2.png'] },
     { nama: 'Kamar Operasi', foto: ['/images/rawat-intensif/Kamar-Operasi-1.png', '/images/rawat-intensif/Kamar-Operasi-2.png'] },
     { nama: 'Instalasi Gawat Darurat', foto: ['/images/rawat-intensif/IGD-RSUD-Haji-1.png', '/images/rawat-intensif/IGD-RSUD-Haji-2.png'] },
+    { nama: 'Intensive Coronary Care Unit (ICCU)', foto: [] },
+    { nama: 'Pediatric Intensive Care Unit (PICU)', foto: [] },
+    { nama: 'High Care Unit (HCU)', foto: [] },
 ];
 function RawatIntensifCard({ nama, foto }: { nama: string; foto: string[] }) {
     const [activeFoto, setActiveFoto] = useState(0);
+    const hasFotos = Array.isArray(foto) && foto.length > 0;
 
     return (
         <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-md transition">
             <div className="relative overflow-hidden">
                 <img
-                    src={foto[activeFoto]}
+                    src={hasFotos ? foto[activeFoto] : '/images/no-image.svg'}
                     alt={nama}
                     className="w-full h-52 object-cover transition duration-300"
-                    onError={(e) => { e.currentTarget.src = '/images/rsudhaji.jpg'; }}
+                    onError={(e) => { e.currentTarget.src = '/images/no-image.svg'; }}
                 />
-                <div className="absolute bottom-3 right-3 bg-black/50 text-white text-xs px-2 py-1 rounded-full">
-                    {activeFoto + 1} / {foto.length}
-                </div>
+                {hasFotos && (
+                    <div className="absolute bottom-3 right-3 bg-black/50 text-white text-xs px-2 py-1 rounded-full">
+                        {activeFoto + 1} / {foto.length}
+                    </div>
+                )}
             </div>
 
-            <div className="flex gap-2 px-4 pt-3">
-                {foto.map((f, i) => (
-                    <button
-                        key={i}
-                        onClick={() => setActiveFoto(i)}
-                        className={`flex-1 overflow-hidden rounded-lg border-2 transition ${
-                            activeFoto === i ? 'border-green-500' : 'border-transparent'
-                        }`}
-                    >
-                        <img
-                            src={f}
-                            alt={`${nama} foto ${i + 1}`}
-                            className="w-full h-16 object-cover"
-                            onError={(e) => { e.currentTarget.src = '/images/rsudhaji.jpg'; }}
-                        />
-                    </button>
-                ))}
-            </div>
+            {hasFotos && (
+                <div className="flex gap-2 px-4 pt-3">
+                    {foto.map((f, i) => (
+                        <button
+                            key={i}
+                            onClick={() => setActiveFoto(i)}
+                            className={`flex-1 overflow-hidden rounded-lg border-2 transition ${
+                                activeFoto === i ? 'border-green-500' : 'border-transparent'
+                            }`}
+                        >
+                            <img
+                                src={f}
+                                alt={`${nama} foto ${i + 1}`}
+                                className="w-full h-16 object-cover"
+                                onError={(e) => { e.currentTarget.src = '/images/no-image.svg'; }}
+                            />
+                        </button>
+                    ))}
+                </div>
+            )}
 
             <div className="px-4 py-4">
                 <h3 className="font-bold text-slate-800 text-sm">{nama}</h3>
@@ -66,7 +74,7 @@ export default function RawatIntensif() {
                 {/* Hero */}
                 <section className="relative">
                     <img
-                        src="/images/rsudhaji.jpg"
+                        src="/images/no-image.svg"
                         alt="Layanan Rawat Intensif"
                         className="w-full h-64 lg:h-80 object-cover"
                     />
@@ -88,7 +96,7 @@ export default function RawatIntensif() {
                 </section>
 
                 {/* Grid */}
-                <section className="py-16 px-6 lg:px-20 bg-slate-50">
+                <section className="py-16 px-6 lg:px-20 bg-slate-50"> 
                     <div className="max-w-6xl mx-auto">
                         <h2 className="text-2xl font-bold text-slate-800 mb-2">Fasilitas Rawat Intensif</h2>
                         <div className="w-12 h-1 bg-green-600 rounded mb-8" />
