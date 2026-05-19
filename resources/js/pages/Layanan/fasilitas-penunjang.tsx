@@ -101,7 +101,7 @@ function FacilityCard({ facility }: { facility: Facility }) {
                                 alt={`${facility.title} ${idx + 1}`}
                                 className="h-44 w-full object-cover transition duration-300 hover:scale-105"
                                 onError={(e) => {
-                                    e.currentTarget.src = '/images/no-image.svg';
+                                    e.currentTarget.src = '/images/rsudhaji.jpg';
                                 }}
                             />
                         </div>
@@ -141,7 +141,7 @@ function FacilityCard({ facility }: { facility: Facility }) {
             </div>
 
             <div className="p-5">
-                <h2 className="mb-3 text-xl font-bold text-slate-800">{facility.title}</h2>
+                <h2 className="font-bold text-slate-800 text-sm">{facility.title}</h2>
             </div>
         </section>
     );
@@ -157,7 +157,7 @@ export default function FasilitasPenunjang() {
                 {/* Hero */}
                 <section className="relative">
                     <img
-                        src="/images/no-image.svg"
+                        src="/images/rsudhaji.jpg"
                         alt="Fasilitas Penunjang"
                         className="h-64 w-full object-cover lg:h-80"
                     />

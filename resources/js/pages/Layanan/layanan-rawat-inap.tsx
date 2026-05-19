@@ -1,16 +1,16 @@
-import { useState } from 'react';
 import { Head } from '@inertiajs/react';
+import { useState } from 'react';
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
 
 const rawatInapList = [
-    { nama: 'Rawat Inap Ar Raodah', foto: ['/images/rawat-inap/Rawat-Inap-Raudoh-1.png', '/images/rawat-inap/Rawat-Inap-Raudoh-2.png'] },
-    { nama: 'Rawat Inap Az Zahrah', foto: ['/images/rawat-inap/Rawat-Inap-Zahrah-1.png', '/images/rawat-inap/Rawat-Inap-Zahrah.png'] },
-    { nama: 'Rawat Inap Al Khautsar', foto: ['/images/rawat-inap/Rawat-Inap-Al-Kautsar.png', '/images/rawat-inap/Rawat-Inap-Kautsar-1.png'] },
-    { nama: 'Rawat Inap Ar Raihan', foto: ['/images/rawat-inap/Rawat-Inap-Raihan-1.png', '/images/rawat-inap/Rawat-Inap-Raihan-2.png'] },
-    { nama: 'Rawat Inap Al Fajr', foto: ['/images/rawat-inap/Rawat-Inap-fajr-1.png', '/images/rawat-inap/Rawat-Inap-Fajr.png'] },
-    { nama: 'Rawat Inap Ad Duha', foto: ['/images/rawat-inap/Rawat-Inap-Dhuha-1.png', '/images/rawat-inap/Rawat-Inap-Dhuha.png'] },
-    { nama: 'Rawat Inap Rinra Sayang', foto: ['/images/rawat-inap/Rawat-Inap-Rinra-1.png', '/images/rawat-inap/Rawat-Inap-Rinra.png'] },
+    { nama: 'Rawat Inap Ar Raodah', foto: ['/images/rawat-inap/ar-raodah-1.jpg', '/images/rawat-inap/ar-raodah-2.jpg'] },
+    { nama: 'Rawat Inap Az Zahrah', foto: ['/images/rawat-inap/az-zahrah-1.jpg', '/images/rawat-inap/az-zahrah-2.jpg'] },
+    { nama: 'Rawat Inap Al Khautsar', foto: ['/images/rawat-inap/al-khautsar-1.jpg', '/images/rawat-inap/al-khautsar-2.jpg'] },
+    { nama: 'Rawat Inap Ar Raihan', foto: ['/images/rawat-inap/ar-raihan-1.jpg', '/images/rawat-inap/ar-raihan-2.jpg'] },
+    { nama: 'Rawat Inap Al Fajr', foto: ['/images/rawat-inap/al-fajr-1.jpg', '/images/rawat-inap/al-fajr-2.jpg'] },
+    { nama: 'Rawat Inap Ad Duha', foto: ['/images/rawat-inap/ad-duha-1.jpg', '/images/rawat-inap/ad-duha-2.jpg'] },
+    { nama: 'Rawat Inap Rinra Sayang', foto: ['/images/rawat-inap/rinra-sayang-1.jpg', '/images/rawat-inap/rinra-sayang-2.jpg'] },
 ];
 
 function RawatInapCard({ nama, foto }: { nama: string; foto: string[] }) {
@@ -93,7 +93,7 @@ export default function RawatInap() {
                 </section>
 
                 {/* Grid Rawat Inap */}
-                <section className="py-16 px-6 lg:px-20 bg-slate-50">
+                <section className="py-16 px-6 lg:px-20 bg-[#BAEBD4]">
                     <div className="max-w-6xl mx-auto">
                         <h2 className="text-2xl font-bold text-slate-800 mb-2">Daftar Ruang Rawat Inap</h2>
                         <div className="w-12 h-1 bg-green-600 rounded mb-8" />
