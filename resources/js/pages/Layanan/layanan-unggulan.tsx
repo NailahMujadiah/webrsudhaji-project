@@ -45,7 +45,7 @@ export default function LayananFasilitas() {
                 {/* Hero */}
                 <section className="relative">
                     <img
-                        src="/images/rsudhaji.jpg"
+                        src="/images/no-image.svg"
                         alt="Layanan Unggulan"
                         className="w-full h-64 lg:h-80 object-cover"
                     />
