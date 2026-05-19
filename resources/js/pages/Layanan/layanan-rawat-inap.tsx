@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { Head } from '@inertiajs/react';
+import { useState } from 'react';
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
 
@@ -84,7 +84,7 @@ export default function RawatInap() {
                 </section>
 
                 {/* Deskripsi */}
-                <section className="py-10 px-6 lg:px-20 bg-white border-b border-slate-100">
+                <section className="pt-6 pb-10 px-6 lg:px-20 bg-white border-b border-slate-100">
                     <div className="max-w-6xl mx-auto">
                         <p className="text-slate-600 leading-relaxed">
                             RSUD Haji Makassar menyediakan fasilitas rawat inap yang nyaman dengan nuansa Islami. Setiap ruangan dirancang untuk memberikan kenyamanan pasien dan keluarga selama masa perawatan.
@@ -93,7 +93,7 @@ export default function RawatInap() {
                 </section>
 
                 {/* Grid Rawat Inap */}
-                <section className="py-16 px-6 lg:px-20 bg-slate-50">
+                <section className="pt-5 pb-20 px-6 lg:px-20 bg-slate-50">
                     <div className="max-w-6xl mx-auto">
                         <h2 className="text-2xl font-bold text-slate-800 mb-2">Daftar Ruang Rawat Inap</h2>
                         <div className="w-12 h-1 bg-green-600 rounded mb-8" />
