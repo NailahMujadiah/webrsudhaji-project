@@ -26,7 +26,7 @@ export default function GawatDarurat() {
             <main className="min-h-screen bg-slate-50">
                 <section className="relative">
                     <img
-                        src="/images/rsudhaji.jpg"
+                        src="/images/rsudhaji.webp"
                         alt="Layanan Gawat Darurat"
                         className="w-full h-64 lg:h-80 object-cover"
                     />

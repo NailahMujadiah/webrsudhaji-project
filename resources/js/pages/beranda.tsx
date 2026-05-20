@@ -10,8 +10,8 @@ const CAROUSEL_INTERVAL = 5000
 const INTERSECTION_THRESHOLD = 0.1
 
 const BACKGROUNDS = [
-    { src: '/images/rsudhaji.jpg', position: 'center center', size: 'cover' },
-    { src: '/images/rsudhaji-2.png', position: 'center center', size: 'cover' },
+    { src: '/images/rsudhaji.webp', position: 'center center', size: 'cover' },
+    { src: '/images/rsudhaji-2.webp', position: 'center center', size: 'cover' },
 ]
 
 type ServiceCard = {
@@ -88,21 +88,21 @@ const UNGGULAN_LAYANAN: ServiceCard[] = [
         headingTop: 'Layanan',
         headingBottom: 'Bronchoscopy',
         description: 'Pemeriksaan bronchoscopy dengan dukungan tenaga profesional dan fasilitas medis yang memadai.',
-        image: '/images/bronscopy.png',
+        image: '/images/bronscopy.webp',
         alt: 'Pemeriksaan Bronchoscopy',
     },
     {
         headingTop: 'Layanan',
         headingBottom: 'Brainstem',
         description: 'Pemeriksaan brainstem untuk mendukung diagnosis dengan hasil yang lebih akurat.',
-        image: '/images/brainstem.png',
+        image: '/images/brainstem.webp',
         alt: 'Pemeriksaan Brainstem',
     },
     {
         headingTop: 'Layanan',
         headingBottom: 'Medical Body',
         description: 'Pemeriksaan medical body yang nyaman dengan alur layanan yang terarah.',
-        image: '/images/medicalbody.png',
+        image: '/images/medicalbody.webp',
         alt: 'Pemeriksaan Medical Body',
     },
 ]
@@ -112,7 +112,7 @@ const LAYANAN_MEDIS: ServiceCard[] = [
         headingTop: 'Layanan',
         headingBottom: 'Rawat Jalan',
         description: 'Kami akan memberikan pengobatan dan perawatan dengan suasana senyaman mungkin oleh tenaga profesional',
-        image: '/images/Klinik-Spesialis-Paru-1.png',
+        image: '/images/Klinik-Spesialis-Paru-1.webp',
         alt: 'Rawat Jalan',
         href: '/layanan/rawat-jalan',
     },
@@ -120,7 +120,7 @@ const LAYANAN_MEDIS: ServiceCard[] = [
         headingTop: 'Layanan',
         headingBottom: 'Rawat Inap',
         description: 'Kami akan memberikan pengobatan dan perawatan dengan suasana senyaman mungkin oleh tenaga profesional',
-        image: '/images/Rawat-Inap-Kautsar-1.png',
+        image: '/images/Rawat-Inap-Kautsar-1.webp',
         alt: 'Rawat Inap',
         href: '/layanan/rawat-inap',
     },
@@ -128,7 +128,7 @@ const LAYANAN_MEDIS: ServiceCard[] = [
         headingTop: 'Layanan',
         headingBottom: 'Rawat Intensif',
         description: 'Kami akan memberikan pengobatan dan perawatan dengan suasana senyaman mungkin oleh tenaga profesional',
-        image: '/images/Kamar-Operasi-1.png',
+        image: '/images/Kamar-Operasi-1.webp',
         alt: 'Rawat Intensif',
         href: '/layanan/rawat-intensif',
     },
@@ -275,8 +275,8 @@ export default function Beranda() {
     return (
         <>
             <Head title="Beranda - RSUD Haji Makassar">
-                <link rel="preload" as="image" href="/images/rsudhaji.jpg" />
-                <link rel="preload" as="image" href="/images/rsudhaji-2.png" />
+                <link rel="preload" as="image" href="/images/rsudhaji.webp" />
+                <link rel="preload" as="image" href="/images/rsudhaji-2.webp" />
             </Head>
 
             <Navbar />
@@ -407,7 +407,7 @@ export default function Beranda() {
                             controls
                             preload="metadata"
                             playsInline
-                            poster="/images/thumbnail.png"
+                            poster="/images/thumbnail.webp"
                         >
                             <source
                                 src="/video/RSUD-Haji-Pusat-Pelayanan-Kesehatan-Terdepan-dan-Berkualitas-di-Sulsel.mp4"

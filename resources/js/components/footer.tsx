@@ -12,7 +12,7 @@ export default function Footer() {
                     <div>
                         <Link href="/" className="flex items-center gap-2 mb-3">
                             <img
-                                src="/images/LogoHAJI.png"
+                                src="/images/LogoHAJI.webp"
                                 alt="Logo RSUD Haji"
                                 className="w-20 h-10 object-cover rounded-xl"
                             />

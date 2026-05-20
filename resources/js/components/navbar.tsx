@@ -132,7 +132,7 @@ export default function Navbar() {
                 {/* Logo */}
                 <Link href="/" className="flex items-center gap-2">
                     <img
-                        src="/images/LogoHaji.png"
+                        src="/images/LogoHAJI.webp"
                         alt="Logo RSUD Haji"
                         className="w-20 h-10 object-cover rounded-xl"
                     />

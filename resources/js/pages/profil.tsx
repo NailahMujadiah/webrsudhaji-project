@@ -23,7 +23,7 @@ export default function Profil() {
                 {/* Hero - Foto dengan gradasi */}
                 <section className="relative">
                     <img
-                        src="/images/rsudhaji.jpg"
+                        src="/images/rsudhaji.webp"
                         alt="RSUD Haji Makassar"
                         className="w-full h-72 lg:h-[450px] object-cover"
                     />

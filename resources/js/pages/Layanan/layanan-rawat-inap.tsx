@@ -23,7 +23,7 @@ function RawatInapCard({ nama, foto }: { nama: string; foto: string[] }) {
                     src={foto[activeFoto]}
                     alt={nama}
                     className="w-full h-52 object-cover transition duration-300"
-                    onError={(e) => { e.currentTarget.src = '/images/rsudhaji.jpg'; }}
+                    onError={(e) => { e.currentTarget.src = '/images/rsudhaji.webp'; }}
                 />
                 <div className="absolute bottom-3 right-3 bg-black/50 text-white text-xs px-2 py-1 rounded-full">
                     {activeFoto + 1} / {foto.length}
@@ -43,7 +43,7 @@ function RawatInapCard({ nama, foto }: { nama: string; foto: string[] }) {
                             src={f}
                             alt={`${nama} foto ${i + 1}`}
                             className="w-full h-16 object-cover"
-                            onError={(e) => { e.currentTarget.src = '/images/rsudhaji.jpg'; }}
+                            onError={(e) => { e.currentTarget.src = '/images/rsudhaji.webp'; }}
                         />
                     </button>
                 ))}
@@ -71,7 +71,7 @@ export default function RawatInap() {
                 {/* Hero */}
                 <section className="relative">
                     <img
-                        src="/images/rsudhaji.jpg"
+                        src="/images/rsudhaji.webp"
                         alt="Layanan Rawat Inap"
                         className="w-full h-64 lg:h-80 object-cover"
                     />

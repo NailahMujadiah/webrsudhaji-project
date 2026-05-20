@@ -80,7 +80,7 @@ export default function RawatIntensif() {
                 {/* Hero */}
                 <section className="relative">
                     <img
-                        src="/images/rsudhaji.jpg"
+                        src="/images/rsudhaji.webp"
                         alt="Layanan Rawat Intensif"
                         className="w-full h-64 lg:h-80 object-cover"
                     />

@@ -217,7 +217,7 @@ export default function StrukturOrganisasi() {
                     {/* Hero */}
                     <section className="relative">
                         <img
-                            src="/images/rsudhaji.jpg"
+                            src="/images/rsudhaji.webp"
                             alt="Struktur Organisasi RSUD Haji Makassar"
                             className="h-64 w-full object-cover lg:h-80"
                         />
