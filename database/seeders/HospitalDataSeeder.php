@@ -10,31 +10,31 @@ class HospitalDataSeeder extends Seeder
 {
     public function run(): void
     {
-        $admin1Id = DB::table('admin')->insertGetId([, 'id_admin'), 'id_admin')
+        $admin1Id = DB::table('admin')->insertGetId([
             'username' => 'admin',
             'password' => Hash::make('123'),
             'nama_admin' => 'Admin Utama',
-        ]);
+        ], 'id_admin');
 
-        $admin2Id = DB::table('admin')->insertGetId([, 'id_admin'), 'id_admin')
+        $admin2Id = DB::table('admin')->insertGetId([
             'username' => 'admin_operasional',
             'password' => Hash::make('password123'),
             'nama_admin' => 'Admin Operasional',
-        ]);
+        ], 'id_admin');
 
-        $dokter1Id = DB::table('dokter')->insertGetId([, 'id_dokter'), 'id_dokter')
+        $dokter1Id = DB::table('dokter')->insertGetId([
             'nama_dokter' => 'dr. Andi Pratama',
             'spesialis' => 'Penyakit Dalam',
             'foto_dokter' => 'dokter/andi-pratama.jpg',
             'id_admin' => $admin1Id,
-        ]);
+        ], 'id_dokter');
 
-        $dokter2Id = DB::table('dokter')->insertGetId([, 'id_dokter'), 'id_dokter')
+        $dokter2Id = DB::table('dokter')->insertGetId([
             'nama_dokter' => 'dr. Siti Lestari',
             'spesialis' => 'Anak',
             'foto_dokter' => 'dokter/siti-lestari.jpg',
             'id_admin' => $admin2Id,
-        ]);
+        ], 'id_dokter');
 
         DB::table('jadwal_dokter')->insert([
             [
