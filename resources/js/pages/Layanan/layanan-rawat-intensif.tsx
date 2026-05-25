@@ -80,7 +80,7 @@ export default function RawatIntensif() {
                 {/* Hero */}
                 <section className="relative">
                     <img
-                        src="/images/rsudhaji.jpg"
+                        src="/images/rsudhaji.webp"
                         alt="Layanan Rawat Intensif"
                         className="w-full h-64 lg:h-80 object-cover"
                     />
@@ -93,7 +93,7 @@ export default function RawatIntensif() {
                 </section>
 
                 {/* Deskripsi */}
-                <section className="py-10 px-6 lg:px-20 bg-white border-b border-slate-100">
+                <section className="pt-6 pb-10 px-6 lg:px-20 bg-white border-b border-slate-100">
                     <div className="max-w-6xl mx-auto">
                         <p className="text-slate-600 leading-relaxed">
                             RSUD Haji Makassar menyediakan layanan rawat intensif dengan peralatan medis canggih dan tenaga medis terlatih khusus untuk menangani pasien yang membutuhkan perawatan intensif 24 jam.
@@ -102,7 +102,7 @@ export default function RawatIntensif() {
                 </section>
 
                 {/* Grid */}
-                <section className="py-16 px-6 lg:px-20 bg-slate-50"> 
+                <section className="pt-5 pb-20 px-6 lg:px-20 bg-slate-50"> 
                     <div className="max-w-6xl mx-auto">
                         <h2 className="text-2xl font-bold text-slate-800 mb-2">Fasilitas Rawat Intensif</h2>
                         <div className="w-12 h-1 bg-green-600 rounded mb-8" />

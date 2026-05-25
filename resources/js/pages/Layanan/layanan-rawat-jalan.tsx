@@ -1,7 +1,7 @@
 import { Head } from '@inertiajs/react';
-import Navbar from '@/components/navbar';
-import Footer from '@/components/footer';
 import { useState } from 'react';
+import Footer from '@/components/footer';
+import Navbar from '@/components/navbar';
 
 const klinikList = [
     { nama: 'Klinik Spesialis Bedah Umum', foto: ['/images/rawat-jalan/Klinik-Spisialis-Bedah-Umum-1.png', '/images/rawat-jalan/Klinik-Spisialis-Bedah-Umum-2.png'] },
@@ -34,7 +34,7 @@ function KlinikCard({ nama, foto }: { nama: string; foto: string[] }) {
                     src={foto[activefoto]}
                     alt={nama}
                     className="w-full h-52 object-cover transition duration-300"
-                    onError={(e) => { e.currentTarget.src = '/images/rsudhaji.jpg'; }}
+                    onError={(e) => { e.currentTarget.src = '/images/rsudhaji.webp'; }}
                 />
                 {/* Badge nomor foto */}
                 <div className="absolute bottom-3 right-3 bg-black/50 text-white text-xs px-2 py-1 rounded-full">
@@ -56,7 +56,7 @@ function KlinikCard({ nama, foto }: { nama: string; foto: string[] }) {
                             src={f}
                             alt={`${nama} foto ${i + 1}`}
                             className="w-full h-16 object-cover"
-                            onError={(e) => { e.currentTarget.src = '/images/rsudhaji.jpg'; }}
+                            onError={(e) => { e.currentTarget.src = '/images/rsudhaji.webp'; }}
                         />
                     </button>
                 ))}
@@ -85,7 +85,7 @@ export default function RawatJalan() {
                 {/* Hero */}
                 <section className="relative">
                     <img
-                        src="/images/rsudhaji.jpg"
+                        src="/images/rsudhaji.webp"
                         alt="Layanan Rawat Jalan"
                         className="w-full h-64 lg:h-80 object-cover"
                     />
@@ -98,7 +98,7 @@ export default function RawatJalan() {
                 </section>
 
                 {/* Deskripsi */}
-                <section className="py-10 px-6 lg:px-20 bg-white border-b border-slate-100">
+                <section className="pt-6 pb-10 px-6 lg:px-20 bg-white border-b border-slate-100">
                     <div className="max-w-6xl mx-auto">
                         <p className="text-slate-600 leading-relaxed">
                             RSUD Haji Makassar menyediakan layanan rawat jalan dengan berbagai klinik spesialis yang ditangani oleh dokter-dokter berpengalaman dan profesional. Kami berkomitmen memberikan pelayanan kesehatan terbaik untuk masyarakat.
@@ -107,7 +107,7 @@ export default function RawatJalan() {
                 </section>
 
                 {/* Grid Klinik */}
-                <section className="py-16 px-6 lg:px-20">
+                <section className="pt-5 pb-20 px-6 lg:px-20">
                     <div className="max-w-6xl mx-auto">
                         <h2 className="text-2xl font-bold text-slate-800 mb-2">Daftar Klinik</h2>
                         <div className="w-12 h-1 bg-green-600 rounded mb-8" />

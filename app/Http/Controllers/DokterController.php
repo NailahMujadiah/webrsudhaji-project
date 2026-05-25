@@ -71,17 +71,28 @@ class DokterController extends Controller
 
     public function index()
     {
-        $dokter = Dokter::query()
-            ->with('admin:id_admin,nama_admin')
-            ->orderByDesc('id_dokter')
-            ->get();
-
-        $dokter->transform(function (Dokter $item) {
-            $item->jumlah_jadwal = JadwalDokter::query()
-                ->where('id_dokter', $item->id_dokter)
-                ->count();
-
-            return $item;
+        $dokter = Cache::remember('api.dokter.list', now()->addMinutes(5), function () {
+            return Dokter::query()
+                ->select(['id_dokter', 'nama_dokter', 'spesialis', 'foto_dokter', 'id_admin'])
+                ->with('admin:id_admin,nama_admin')
+                ->withCount('jadwalDokter')
+                ->orderByDesc('id_dokter')
+                ->get()
+                ->map(function (Dokter $item) {
+                    return [
+                        'id_dokter' => $item->id_dokter,
+                        'nama_dokter' => $item->nama_dokter,
+                        'spesialis' => $item->spesialis,
+                        'foto_dokter' => $item->foto_dokter_url,
+                        'jumlah_jadwal' => $item->jadwal_dokter_count ?? 0,
+                        'admin' => $item->admin ? [
+                            'id_admin' => $item->admin->id_admin,
+                            'nama_admin' => $item->admin->nama_admin,
+                        ] : null,
+                    ];
+                })
+                ->values()
+                ->all();
         });
 
         return response()->json([

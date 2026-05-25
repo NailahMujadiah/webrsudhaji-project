@@ -15,17 +15,44 @@ interface Props {
     dokters: Dokter[];
 }
 
+const normalizeSearchText = (value: string) =>
+    value
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+const toSearchTokens = (value: string) =>
+    normalizeSearchText(value).split(' ').filter(Boolean);
+
 export default function DaftarDokter({ dokters }: Props) {
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState(() => {
+        if (typeof window === 'undefined') {
+            return '';
+        }
+
+        return new URLSearchParams(window.location.search).get('search') ?? '';
+    });
     const [spesialisFilter, setSpesialisFilter] = useState('');
     const [showFilter, setShowFilter] = useState(false);
 
-    const filtered = dokters.filter(
-        (d) =>
-            (d.nama_dokter.toLowerCase().includes(search.toLowerCase()) ||
-                d.spesialis.toLowerCase().includes(search.toLowerCase())) &&
-            d.spesialis.toLowerCase().includes(spesialisFilter.toLowerCase()),
-    );
+    const filtered = dokters.filter((d) => {
+        const nameText = normalizeSearchText(d.nama_dokter);
+        const spesialisText = normalizeSearchText(d.spesialis);
+        const searchTokens = toSearchTokens(search);
+
+        const matchesSearch =
+            searchTokens.length === 0 ||
+            searchTokens.every(
+                (token) =>
+                    nameText.includes(token) || spesialisText.includes(token),
+            );
+
+        return (
+            matchesSearch &&
+            spesialisText.includes(normalizeSearchText(spesialisFilter))
+        );
+    });
 
     const spesialisList = Array.from(
         new Set(dokters.map((dokter) => dokter.spesialis)),

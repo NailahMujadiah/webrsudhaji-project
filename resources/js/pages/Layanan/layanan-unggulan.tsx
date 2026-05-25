@@ -45,7 +45,7 @@ export default function LayananFasilitas() {
                 {/* Hero */}
                 <section className="relative">
                     <img
-                        src="/images/rsudhaji.jpg"
+                        src="/images/rsudhaji.webp"
                         alt="Layanan Unggulan"
                         className="w-full h-64 lg:h-80 object-cover"
                     />
@@ -58,7 +58,7 @@ export default function LayananFasilitas() {
                 </section>
 
                 {/* Deskripsi */}
-                <section className="py-10 px-6 lg:px-20 bg-white border-b border-slate-100">
+                <section className="pt-6 pb-10 px-6 lg:px-20 bg-white border-b border-slate-100">
                     <div className="max-w-6xl mx-auto">
                         <p className="text-slate-600 leading-relaxed">
                             RSUD Haji Makassar menghadirkan layanan unggulan dengan teknologi medis modern dan dukungan tim spesialis untuk memastikan perawatan terbaik bagi pasien.
@@ -67,7 +67,7 @@ export default function LayananFasilitas() {
                 </section>
 
                 {/* Daftar Layanan Unggulan */}
-                <section className="py-16 px-6 lg:px-20">
+                <section className="pb-10 px-6 lg:px-20">
                     <div className="max-w-6xl mx-auto space-y-8">
                         {layananUnggulan.map((item, index) => (
                             <div key={index} className="bg-white rounded-2xl p-6 md:p-10 shadow-md border border-slate-100">

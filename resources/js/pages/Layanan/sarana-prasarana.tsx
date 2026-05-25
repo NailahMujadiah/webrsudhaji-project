@@ -35,7 +35,7 @@ export default function SaranaPrasarana() {
                 {/* Hero */}
                 <section className="relative">
                     <img
-                        src="/images/rsudhaji.jpg"
+                        src="/images/rsudhaji.webp"
                         alt="Sarana dan Prasarana"
                         className="h-64 w-full object-cover lg:h-80"
                     />
@@ -89,7 +89,7 @@ export default function SaranaPrasarana() {
                                                     className="h-44 w-full object-cover transition duration-300 hover:scale-105"
                                                         onError={(e) => {
                                                             e.currentTarget.src =
-                                                                '/images/rsudhaji.jpg';
+                                                                '/images/rsudhaji.webp';
                                                         }}
                                                 />
                                             </div>

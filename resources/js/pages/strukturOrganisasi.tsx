@@ -6,7 +6,7 @@ import Navbar from '@/components/navbar';
 const tabsConfig = [
     { id: 1, label: 'Struktur Organisasi dan SK' },
     { id: 2, label: 'Profil Direksi' },
-    { id: 3, label: 'Daftar Unit Kerja' },
+    { id: 3, label: 'Kepala Instalasi' },
 ];
 
 type ProfileNode = {
@@ -63,33 +63,38 @@ function ProfilDireksiTab() {
     const director = organization?.director ?? null;
     const viceDirectors = organization?.viceDirectors ?? [];
 
+    const maxChildren = Math.max(...viceDirectors.map((w) => (w.children ?? []).length), 0);
+
     return (
         <div className="p-6">
+            {/* Direktur */}
             <div className="flex justify-center mb-12">
-                <div className={`group bg-white border border-[#E5E7E9] rounded-2xl shadow-md p-6 text-center w-48 transition duration-300 hover:-translate-y-1 hover:shadow-xl ${!isActive(director) ? 'opacity-70' : ''}`}>
-                    <img
-                        src={getPhotoUrl(director)}
-                        className="mx-auto aspect-[3/4] w-32 rounded-lg border-2 border-[#E5E7E9] object-cover transition duration-300 group-hover:scale-[1.02]"
-                        alt={getDisplayName(director)}
-                    />
-                    <h3 className="mt-4 font-semibold text-gray-800">{getDisplayName(director)}</h3>
-                    <p className="text-green-600 text-sm font-medium">{getDisplayRole(director)}</p>
-                    {director?.profile?.deskripsi_singkat ? (
-                        <p className="mt-2 text-xs text-slate-500 leading-relaxed">{director.profile.deskripsi_singkat}</p>
-                    ) : null}
-                    {!isActive(director) ? <span className="mt-3 inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-500">Nonaktif</span> : null}
-                </div>
-            </div>
+    <div className={`group bg-white border border-[#E5E7E9] rounded-2xl shadow-md p-6 text-center w-full max-w-xs transition duration-300 hover:-translate-y-1 hover:shadow-xl ${!isActive(director) ? 'opacity-70' : ''}`}>
+        <img
+            src={getPhotoUrl(director)}
+            className="mx-auto aspect-[3/4] w-40 rounded-lg border-2 border-[#E5E7E9] object-cover transition duration-300 group-hover:scale-[1.02]"
+            alt={getDisplayName(director)}
+        />
+        <h3 className="mt-4 font-semibold text-gray-800">{getDisplayName(director)}</h3>
+        <p className="text-green-600 text-sm font-medium">{getDisplayRole(director)}</p>
+        {director?.profile?.deskripsi_singkat ? (
+            <p className="mt-2 text-xs text-slate-500 leading-relaxed">{director.profile.deskripsi_singkat}</p>
+        ) : null}
+        {!isActive(director) ? (
+            <span className="mt-3 inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-500">Nonaktif</span>
+        ) : null}
+    </div>
+</div>
 
             <div className="border-t-2 border-dashed border-gray-300 mb-12" />
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Baris 1: Card Wadir */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-0">
                 {viceDirectors.map((wadir, index) => {
                     const styles = viceDirectorStyles[index] ?? viceDirectorStyles[0];
-                    const children = wadir.children ?? [];
                     return (
                         <div key={wadir.id} className="flex flex-col items-center">
-                            <div className={`bg-white border border-[#E5E7E9] rounded-2xl shadow-md p-4 text-center w-full transition duration-300 hover:-translate-y-1 hover:shadow-xl border-t-4 ${styles.border} ${!isActive(wadir) ? 'opacity-70' : ''}`}>
+                            <div className={`bg-white border border-[#E5E7E9] rounded-2xl shadow-md p-4 text-center w-full h-full transition duration-300 hover:-translate-y-1 hover:shadow-xl border-t-4 ${styles.border} ${!isActive(wadir) ? 'opacity-70' : ''}`}>
                                 <img
                                     src={getPhotoUrl(wadir)}
                                     className="mx-auto aspect-[3/4] w-24 rounded-lg border-2 border-[#E5E7E9] object-cover"
@@ -101,15 +106,23 @@ function ProfilDireksiTab() {
                                     <p className="mt-2 text-[11px] text-slate-500 leading-relaxed line-clamp-3">{wadir.profile.deskripsi_singkat}</p>
                                 ) : null}
                             </div>
+                            {/* Connector ke baris children */}
+                            <div className="w-0.5 h-6 bg-gray-300 mt-3" />
+                        </div>
+                    );
+                })}
+            </div>
 
-                            <div className="w-0.5 h-6 bg-gray-300 my-3" />
-
-                            <div className="space-y-3 w-full">
-                                {children.map((kb) => (
-                                    <div
-                                        key={kb.id}
-                                        className={`bg-white border border-[#E5E7E9] rounded-2xl shadow-sm p-3 text-center transition duration-300 hover:-translate-y-1 hover:shadow-lg border-t-4 ${styles.border} ${!isActive(kb) ? 'opacity-70' : ''}`}
-                                    >
+            {/* Baris 2 dst: Children per baris, sejajar antar kolom */}
+            {Array.from({ length: maxChildren }).map((_, rowIndex) => (
+                <div key={rowIndex} className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-3">
+                    {viceDirectors.map((wadir, colIndex) => {
+                        const styles = viceDirectorStyles[colIndex] ?? viceDirectorStyles[0];
+                        const kb = (wadir.children ?? [])[rowIndex];
+                        return (
+                            <div key={`${wadir.id}-${rowIndex}`} className="flex flex-col items-center">
+                                {kb ? (
+                                    <div className={`bg-white border border-[#E5E7E9] rounded-2xl shadow-sm p-3 text-center w-full h-full transition duration-300 hover:-translate-y-1 hover:shadow-lg border-t-4 ${styles.border} ${!isActive(kb) ? 'opacity-70' : ''}`}>
                                         <img
                                             src={getPhotoUrl(kb)}
                                             className="mx-auto aspect-[3/4] w-20 rounded-lg border-2 border-[#E5E7E9] object-cover"
@@ -121,12 +134,18 @@ function ProfilDireksiTab() {
                                             <p className="mt-1 text-[11px] text-slate-500 leading-relaxed line-clamp-3">{kb.profile.deskripsi_singkat}</p>
                                         ) : null}
                                     </div>
-                                ))}
+                                ) : (
+                                    <div className="w-full" />
+                                )}
+                                {/* Connector ke baris berikutnya kalau masih ada */}
+                                {kb && rowIndex < maxChildren - 1 ? (
+                                    <div className="w-0.5 h-6 bg-gray-300 mt-3" />
+                                ) : null}
                             </div>
-                        </div>
-                    );
-                })}
-            </div>
+                        );
+                    })}
+                </div>
+            ))}
         </div>
     );
 }
@@ -134,42 +153,44 @@ function ProfilDireksiTab() {
 const tabContents: Record<number, React.ReactNode> = {
     1: (
         <div className="p-6">
-            <h3 className="text-xl font-bold mb-4 text-slate-800">Struktur Organisasi RSUD Haji Makassar</h3>
-            <div className="mb-6 overflow-hidden rounded-xl border border-slate-200 shadow-sm">
-                <iframe
-                    src="/pdfs/Struktur%20RSUD%20Haji%20Makassar.pdf"
-                    title="Struktur Organisasi RSUD Haji"
-                    className="h-[700px] w-full"
-                />
-            </div>
-        </div>
+    <h3 className="mb-4 text-xl font-bold text-slate-800">
+        Struktur Organisasi RSUD Haji Makassar
+    </h3>
+
+    <div className="mx-auto mb-6 max-w-5xl overflow-hidden rounded-xl border border-slate-200 shadow-sm">
+        <iframe
+            src="/pdfs/Struktur-organisasi.pdf"
+            title="Struktur Organisasi RSUD Haji"
+            className="h-[700px] w-full"
+        />
+    </div>
+</div>
     ),
     2: <ProfilDireksiTab />,
     3: (
         <div className="p-6">
-            <h3 className="text-xl font-bold mb-2 text-slate-800">Daftar Unit Kerja</h3>
             <div className="overflow-x-auto rounded-xl border border-slate-200">
                 <table className="min-w-full divide-y divide-slate-200 text-sm">
                     <thead className="bg-slate-100">
                         <tr>
-                            <th className="px-4 py-3 text-left font-semibold text-slate-700">Nama Unit Kerja</th>
-                            <th className="px-4 py-3 text-left font-semibold text-slate-700">Nama Pimpinan Unit Kerja</th>
+                            <th className="px-4 py-3 text-left font-semibold text-slate-700">Nama Kepala Instalasi</th>
+                            <th className="px-4 py-3 text-left font-semibold text-slate-700">Nama Pimpinan</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 bg-white">
                         {[
-                            { unit: 'KA. Instalasi Rawat Inap', pimpinan: 'dr. Andi Pratama' },
-                            { unit: 'KA. Instalasi Rawat Jalan', pimpinan: 'dr. Nabila Rahma' },
-                            { unit: 'KA. Instalasi Gawat Darurat (IGD)', pimpinan: 'dr. Fajar Nugroho' },
-                            { unit: 'KA. Instalasi OKB', pimpinan: 'dr. Siti Azzahra' },
-                            { unit: 'KA. Perawatan Intensif', pimpinan: 'dr. Rizky Maulana' },
-                            { unit: 'KA. Instalasi Radiologi', pimpinan: 'dr. Desi Lestari' },
-                            { unit: 'KA. Instalasi Gizi', pimpinan: 'dr. Ahmad Fauzan' },
-                            { unit: 'KA. Instalasi Laboratorium', pimpinan: 'dr. Tiara Maharani' },
-                            { unit: 'KA. Instalasi Farmasi', pimpinan: 'dr. Kevin Saputra' },
-                            { unit: 'KA. Instalasi IPS-RS', pimpinan: 'dr. Indah Permata' },
-                            { unit: 'KA. Instalasi CSSD/Laundry', pimpinan: 'dr. Bima Kurniawan' },
-                            { unit: 'KA. Instalasi Rehbilitasi Medik', pimpinan: 'dr. Citra Ananda' },
+                            { unit: 'Ka. Instalasi Rawat Inap', pimpinan: 'H. Isbair, S. Kep, Ns' },
+                            { unit: 'Ka. Instalasi Rawat Jalan', pimpinan: 'dr. Hj. A. Diamarni Gandhis, MARS' },
+                            { unit: 'Ka. Instalasi Gawat Darurat (IGD)', pimpinan: 'dr. Ardiansyah Sirajuddin, Sp.An' },
+                            { unit: 'Ka. Instalasi OKB', pimpinan: 'dr. Haidir Bima, Sp. B(K)V' },
+                            { unit: 'Ka. Instalasi Perawatan Intensif', pimpinan: 'dr. Kartika Handayani, Sp.An' },
+                            { unit: 'Ka. Instalasi Radiologi', pimpinan: 'dr. Raden Selma, Sp.Rad' },
+                            { unit: 'Ka. Instalasi Gizi', pimpinan: 'Yuli Yanti, S.ST' },
+                            { unit: 'Ka. Instalasi Laboratorium', pimpinan: 'dr. Saraswati Wulandari Hartono, Sp.PK' },
+                            { unit: 'Ka. Instalasi Farmasi', pimpinan: 'Hj. Fischa Rahmatullaily, S.Si, Apt' },
+                            { unit: 'Ka. Instalasi IPS - RS', pimpinan: 'Darma, S.Si' },
+                            { unit: 'Ka. Instalasi CSSD/ Laundry', pimpinan: 'Apt Salman, S.Si, M.Kes' },
+                            { unit: 'Ka. Instalasi Rehabilitasi Medik', pimpinan: 'Agung Sahari, S. Ft, Physio' },
                         ].map((row, i) => (
                             <tr key={i} className="hover:bg-slate-50">
                                 <td className="px-4 py-3 text-slate-700">{row.unit}</td>
@@ -196,7 +217,7 @@ export default function StrukturOrganisasi() {
                     {/* Hero */}
                     <section className="relative">
                         <img
-                            src="/images/rsudhaji.jpg"
+                            src="/images/rsudhaji.webp"
                             alt="Struktur Organisasi RSUD Haji Makassar"
                             className="h-64 w-full object-cover lg:h-80"
                         />
