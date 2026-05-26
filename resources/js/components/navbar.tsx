@@ -130,17 +130,13 @@ export default function Navbar() {
             {/* MAIN NAV */}
             <div className="bg-white/90 backdrop-blur-md border-b px-6 py-4 lg:px-20 flex items-center justify-between">
                 {/* Logo */}
-                <Link href="/" className="flex items-center gap-2">
-                    <img
-                        src="/images/LogoHAJI.webp"
-                        alt="Logo RSUD Haji"
-                        className="w-20 h-10 object-cover rounded-xl"
-                    />
-                    <span className="flex flex-col leading-tight text-lg font-bold tracking-tight text-slate-800">
-                        <span>RSUD HAJI</span>
-                        <span className="text-green-600">MAKASSAR</span>
-                    </span>
-                </Link>
+                <Link href="/">
+    <img
+        src="/images/LogoHAJI.webp"
+        alt="Logo RSUD Haji"
+        className="h-12 w-auto"
+    />
+</Link>
 
                 {/* Desktop Menu */}
                 <div className="hidden md:flex items-center gap-6">
