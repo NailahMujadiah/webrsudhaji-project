@@ -32,7 +32,7 @@ export default function DaftarDokter({ dokters }: Props) {
         }
 
         return new URLSearchParams(window.location.search).get('search') ?? '';
-    });
+    }); 
     const [spesialisFilter, setSpesialisFilter] = useState('');
     const [showFilter, setShowFilter] = useState(false);
 

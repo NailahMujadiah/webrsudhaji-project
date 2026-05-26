@@ -192,6 +192,13 @@ export default function Beranda() {
     
     const debouncedDoctorQuery = useDebouncedValue(doctorQuery, DEBOUNCE_DELAY)
 
+    
+const videoRef = useRef<HTMLVideoElement>(null)
+const [isPlaying, setIsPlaying] = useState(false)
+const [progress, setProgress] = useState(0)
+const [duration, setDuration] = useState(0)
+const [currentTime, setCurrentTime] = useState(0)
+
     // Load doctors on mount
     useEffect(() => {
         const controller = new AbortController()
@@ -401,33 +408,139 @@ export default function Beranda() {
                 </section>
 
                 {/* Video Section */}
-                <section className="flex justify-center bg-slate-50 px-6 pb-16 pt-4 lg:px-20">
-                    <div className="aspect-video w-full max-w-5xl overflow-hidden rounded-2xl shadow-xl relative">
-                        {videoAvailable ? (
-                            <video
-                                className="h-full w-full"
-                                controls
-                                preload="metadata"
-                                playsInline
-                                poster="/images/thumbnail.webp"
-                                onError={() => setVideoAvailable(false)}
-                            >
-                                <source
-                                    src="/video/RSUD-Haji-Pusat-Pelayanan-Kesehatan-Terdepan-dan-Berkualitas-di-Sulsel.mp4"
-                                    type="video/mp4"
-                                />
-                                Browser Anda tidak mendukung pemutaran video.
-                            </video>
-                        ) : (
-                            <div
-                                className="h-full w-full bg-black flex items-center justify-center text-white"
-                                style={{ backgroundImage: 'url(/images/thumbnail.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }}
-                            >
-                                <div className="rounded bg-black/60 px-4 py-2 text-sm font-semibold">Video tidak tersedia</div>
+<section className="flex justify-center bg-slate-50 px-6 pb-16 pt-4 lg:px-20">
+    <div className="w-full max-w-5xl">
+        <div className="rounded-2xl shadow-xl overflow-hidden bg-black">
+            {/* Video Wrapper */}
+            <div
+                className="aspect-video relative group cursor-pointer"
+                onClick={() => {
+                    const video = videoRef.current
+                    if (!video) return
+                    if (video.paused) { video.play() } else { video.pause() }
+                }}
+            >
+                {videoAvailable ? (
+                    <>
+                        <video
+                            ref={videoRef}
+                            className="h-full w-full"
+                            preload="metadata"
+                            playsInline
+                            poster="/images/thumbnail.webp"
+                            onError={() => setVideoAvailable(false)}
+                            onPlay={() => setIsPlaying(true)}
+                            onPause={() => setIsPlaying(false)}
+                            onTimeUpdate={() => {
+                                const v = videoRef.current
+                                if (!v) return
+                                setCurrentTime(v.currentTime)
+                                setProgress((v.currentTime / v.duration) * 100)
+                            }}
+                            onLoadedMetadata={() => {
+                                if (videoRef.current) setDuration(videoRef.current.duration)
+                            }}
+                        >
+                            <source
+                                src="/stream-video/Video Layanan RSUD Haji Makassar 480.mp4"
+                                type="video/mp4"
+                            />
+                        </video>
+
+                        {/* Play/Pause Button Tengah */}
+                        <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
+                            isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'
+                        }`}>
+                            <div className="rounded-full bg-black/50 p-5 backdrop-blur-sm transition-transform duration-200 hover:scale-110">
+                                {isPlaying ? (
+                                    <svg className="h-12 w-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                                    </svg>
+                                ) : (
+                                    <svg className="h-12 w-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                )}
                             </div>
-                        )}
+                        </div>
+                    </>
+                ) : (
+                    <div
+                        className="h-full w-full bg-black flex items-center justify-center text-white"
+                        style={{ backgroundImage: 'url(/images/thumbnail.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }}
+                    >
+                        <div className="rounded bg-black/60 px-4 py-2 text-sm font-semibold">Video tidak tersedia</div>
                     </div>
-                </section>
+                )}
+            </div>
+
+            {/* Bottom Controls */}
+            {videoAvailable && (
+                <div className="bg-black px-4 pb-3 pt-2">
+                    {/* Progress Bar */}
+                    <input
+                        type="range"
+                        min={0}
+                        max={100}
+                        value={progress}
+                        onChange={(e) => {
+                            const v = videoRef.current
+                            if (!v) return
+                            const newTime = (Number(e.target.value) / 100) * v.duration
+                            v.currentTime = newTime
+                            setProgress(Number(e.target.value))
+                        }}
+                        className="w-full h-1 accent-green-500 cursor-pointer"
+                    />
+                    {/* Time + Play Button */}
+<div className="flex items-center gap-3 mt-2">
+    <button
+        onClick={() => {
+            const v = videoRef.current
+            if (!v) return
+            if (v.paused) { v.play() } else { v.pause() }
+        }}
+        className="text-white"
+    >
+        {isPlaying ? (
+            <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+            </svg>
+        ) : (
+            <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+            </svg>
+        )}
+    </button>
+
+    <span className="text-xs text-slate-300 flex-1">
+        {Math.floor(currentTime / 60)}:{String(Math.floor(currentTime % 60)).padStart(2, '0')} / {Math.floor(duration / 60)}:{String(Math.floor(duration % 60)).padStart(2, '0')}
+    </span>
+
+    {/* Fullscreen Button */}
+    <button
+        onClick={() => {
+            const v = videoRef.current
+            if (!v) return
+            if (document.fullscreenElement) {
+                document.exitFullscreen()
+            } else {
+                v.requestFullscreen()
+            }
+        }}
+        className="text-white hover:text-green-400 transition-colors"
+        title="Perbesar"
+    >
+        <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+        </svg>
+    </button>
+</div>
+                </div>
+            )}
+        </div>
+    </div>
+</section>
             </main>
 
             <Footer />

@@ -171,8 +171,52 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('admin/profil-direksi', [AdminProfilDireksiController::class, 'index'])->name('admin.profil-direksi.index');
     Route::get('admin/profil-direksi/{id}/edit', [AdminProfilDireksiController::class, 'edit'])->name('admin.profil-direksi.edit');
     Route::put('admin/profil-direksi/{id}', [AdminProfilDireksiController::class, 'update'])->name('admin.profil-direksi.update');
+
 });
 
+
+
 Route::get('/dokter', [DokterController::class, 'index']);
+
+Route::get('/stream-video/{filename}', function ($filename) {
+    $path = public_path('video/' . $filename);
+    
+    if (!file_exists($path)) abort(404);
+    
+    $size = filesize($path);
+    $start = 0;
+    $end = $size - 1;
+
+    $headers = [
+        'Content-Type' => 'video/mp4',
+        'Accept-Ranges' => 'bytes',
+        'Content-Length' => $size,
+    ];
+
+    if (request()->hasHeader('Range')) {
+        preg_match('/bytes=(\d+)-(\d*)/', request()->header('Range'), $matches);
+        $start = (int) $matches[1];
+        $end = isset($matches[2]) && $matches[2] !== '' ? (int) $matches[2] : $size - 1;
+
+        $headers['Content-Range'] = "bytes $start-$end/$size";
+        $headers['Content-Length'] = $end - $start + 1;
+
+        return response()->stream(function () use ($path, $start, $end) {
+            $fp = fopen($path, 'rb');
+            fseek($fp, $start);
+            $remaining = $end - $start + 1;
+            while ($remaining > 0 && !feof($fp)) {
+                $chunk = fread($fp, min(8192, $remaining));
+                echo $chunk;
+                $remaining -= strlen($chunk);
+            }
+            fclose($fp);
+        }, 206, $headers);
+    }
+
+    return response()->stream(function () use ($path) {
+        readfile($path);
+    }, 200, $headers);
+})->where('filename', '.*');
 
 require __DIR__.'/settings.php';
