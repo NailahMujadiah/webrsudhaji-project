@@ -19,13 +19,12 @@ const layananGawatDarurat = [
 ];
 
 const igdUmumList = [
-    { nama: 'IGD Umum - Ruang Resusitasi', foto: ['/images/igd/igd-umum-1.png', '/images/igd/igd-umum-2.png'] },
-    { nama: 'IGD Umum - Ruang Observasi', foto: ['/images/igd/igd-umum-3.png', '/images/igd/igd-umum-4.png'] },
+    { nama: 'IGD Umum', foto: ['/images/igd/igd-umum-3.png', '/images/igd/igd-umum-4.png'] },
+    { nama: 'IGD Bersalin', foto: ['/images/igd/igd-bersalin-3.png', '/images/igd/igd-bersalin-4.png'] }
 ];
 
 const igdBersalinList = [
-    { nama: 'IGD Bersalin - Ruang Persalinan A', foto: ['/images/igd/igd-bersalin-1.png', '/images/igd/igd-bersalin-2.png'] },
-    { nama: 'IGD Bersalin - Ruang Persalinan B', foto: ['/images/igd/igd-bersalin-3.png', '/images/igd/igd-bersalin-4.png'] },
+    { nama: 'IGD Bersalin', foto: ['/images/igd/igd-bersalin-3.png', '/images/igd/igd-bersalin-4.png'] },
 ];
 
 function UnitCard({ nama, foto }: { nama: string; foto: string[] }) {
@@ -106,7 +105,7 @@ export default function GawatDarurat() {
 
                 <section className="py-16 px-6 lg:px-20">
                     <div className="max-w-6xl mx-auto">
-                        <h2 className="text-2xl font-bold text-slate-800 mb-2">Keunggulan Layanan Gawat Darurat</h2>
+                        {/* <h2 className="text-2xl font-bold text-slate-800 mb-2">Keunggulan Layanan Gawat Darurat</h2>
                         <div className="w-12 h-1 bg-green-600 rounded mb-8" />
                         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                             {layananGawatDarurat.map((item, index) => (
@@ -115,11 +114,11 @@ export default function GawatDarurat() {
                                     <p className="text-slate-600 leading-relaxed">{item.description}</p>
                                 </div>
                             ))}
-                        </div>
+                        </div> */}
 
                         {/* IGD Umum Grid */}
                         <div className="mt-12">
-                            <h2 className="text-2xl font-bold text-slate-800 mb-2">IGD Umum</h2>
+                            <h2 className="text-2xl font-bold text-slate-800 mb-2">Instalasi Gawat Darurat</h2>
                             <div className="w-12 h-1 bg-green-600 rounded mb-6" />
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
                                 {igdUmumList.map((item, i) => (
@@ -128,7 +127,7 @@ export default function GawatDarurat() {
                             </div>
                         </div>
 
-                        {/* IGD Bersalin Grid */}
+                        {/* IGD Bersalin Grid
                         <div className="mt-12">
                             <h2 className="text-2xl font-bold text-slate-800 mb-2">IGD Bersalin</h2>
                             <div className="w-12 h-1 bg-green-600 rounded mb-6" />
@@ -137,7 +136,7 @@ export default function GawatDarurat() {
                                     <UnitCard key={i} nama={item.nama} foto={item.foto} />
                                 ))}
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </section>
             </main>

@@ -50,8 +50,8 @@ export default function LayananFasilitas() {
                         className="w-full h-64 lg:h-80 object-cover"
                     />
                     <div className="absolute inset-0 bg-black/50" />
-                    <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-slate-50 to-transparent" />
-                    <div className="absolute bottom-8 left-6 lg:left-20">
+                    <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-slate-50 to-transparent" />
+                    <div className="absolute bottom-8 left-6 lg:left-20 z-10">
                         <p className="text-green-300 text-sm font-medium mb-1">Layanan Kami</p>
                         <h1 className="text-3xl lg:text-5xl font-extrabold text-white drop-shadow-lg">Layanan Unggulan</h1>
                     </div>
@@ -71,12 +71,12 @@ export default function LayananFasilitas() {
                     <div className="max-w-6xl mx-auto space-y-8">
                         {layananUnggulan.map((item, index) => (
                             <div key={index} className="bg-white rounded-2xl p-6 md:p-10 shadow-md border border-slate-100">
-                                <div className="flex flex-col md:flex-row gap-8 items-start">
-                                    <div className="w-full md:w-1/3">
+                                <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
+                                    <div className="w-full md:w-1/3 h-64 md:h-auto">
                                         <img
                                             src={item.mainImage}
                                             alt={item.title}
-                                            className="rounded-xl w-full object-cover shadow-sm border border-slate-100"
+                                            className="rounded-xl w-full h-full object-cover shadow-sm border border-slate-100"
                                         />
                                     </div>
 
@@ -96,7 +96,7 @@ export default function LayananFasilitas() {
                                             key={i}
                                             src={img}
                                             alt={`${item.title} thumbnail ${i + 1}`}
-                                            className="rounded-xl w-full h-24 md:h-32 object-cover shadow-sm"
+                                            className="rounded-xl w-full h-28 md:h-40 object-cover shadow-sm cursor-pointer hover:shadow-lg transition"
                                         />
                                     ))}
                                 </div>
