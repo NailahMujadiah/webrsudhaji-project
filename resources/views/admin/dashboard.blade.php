@@ -4,103 +4,141 @@
 @section('page-title', 'Dashboard Admin')
 
 @section('content')
-<div class="row">
-    <div class="col-lg-3 col-6">
-        <div class="small-box bg-info">
-            <div class="inner">
-                <h3>{{ \App\Models\Banner::where('id_admin', $admin->id_admin)->count() }}</h3>
-                <p>Total Banner</p>
+<div class="grid gap-6 xl:grid-cols-[minmax(0,1.5fr)_minmax(320px,0.85fr)]">
+    <div class="space-y-6">
+        <section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+            <div class="border-b border-slate-100 px-6 py-5">
+                <p class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Ringkasan</p>
+                <h2 class="mt-1 text-xl font-semibold text-slate-900">Konten yang Anda kelola</h2>
             </div>
-            <div class="icon">
-                <i class="fas fa-image"></i>
-            </div>
-            <a href="{{ route('admin.banner.index') }}" class="small-box-footer">Lihat <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-    </div>
 
-    <div class="col-lg-3 col-6">
-        <div class="small-box bg-success">
-            <div class="inner">
-                <h3>{{ \App\Models\Artikel::where('id_admin', $admin->id_admin)->count() }}</h3>
-                <p>Total Artikel</p>
-            </div>
-            <div class="icon">
-                <i class="fas fa-newspaper"></i>
-            </div>
-            <a href="{{ route('admin.artikel.index') }}" class="small-box-footer">Lihat <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-    </div>
+            <div class="grid gap-px bg-slate-100 md:grid-cols-2 xl:grid-cols-4">
+                <a href="{{ route('admin.banner.index') }}" class="group block bg-white p-6 transition hover:bg-slate-50">
+                    <div class="flex items-center justify-between gap-4">
+                        <div>
+                            <p class="text-sm font-medium text-slate-500">Total Banner</p>
+                            <p class="mt-2 text-3xl font-semibold text-slate-900">{{ \App\Models\Banner::where('id_admin', $admin->id_admin)->count() }}</p>
+                        </div>
+                        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50 text-sky-600 transition group-hover:bg-sky-100">
+                            <i class="fas fa-image text-lg"></i>
+                        </div>
+                    </div>
+                    <span class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-slate-500">
+                        Lihat banner
+                        <i class="fas fa-arrow-right text-xs transition group-hover:translate-x-0.5"></i>
+                    </span>
+                </a>
 
-    <div class="col-lg-3 col-6">
-        <div class="small-box bg-warning">
-            <div class="inner">
-                <h3>{{ \App\Models\Dokter::where('id_admin', $admin->id_admin)->count() }}</h3>
-                <p>Total Dokter</p>
-            </div>
-            <div class="icon">
-                <i class="fas fa-user-md"></i>
-            </div>
-            <a href="{{ route('admin.dokter.index') }}" class="small-box-footer">Lihat <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-    </div>
+                <a href="{{ route('admin.artikel.index') }}" class="group block bg-white p-6 transition hover:bg-slate-50">
+                    <div class="flex items-center justify-between gap-4">
+                        <div>
+                            <p class="text-sm font-medium text-slate-500">Total Artikel</p>
+                            <p class="mt-2 text-3xl font-semibold text-slate-900">{{ \App\Models\Artikel::where('id_admin', $admin->id_admin)->count() }}</p>
+                        </div>
+                        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 transition group-hover:bg-emerald-100">
+                            <i class="fas fa-newspaper text-lg"></i>
+                        </div>
+                    </div>
+                    <span class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-slate-500">
+                        Lihat artikel
+                        <i class="fas fa-arrow-right text-xs transition group-hover:translate-x-0.5"></i>
+                    </span>
+                </a>
 
-    <div class="col-lg-3 col-6">
-        <div class="small-box bg-danger">
-            <div class="inner">
-                <h3>{{ \App\Models\Layanan::where('id_admin', $admin->id_admin)->count() }}</h3>
-                <p>Total Layanan</p>
-            </div>
-            <div class="icon">
-                <i class="fas fa-heartbeat"></i>
-            </div>
-            <a href="{{ route('admin.layanan.index') }}" class="small-box-footer">Lihat <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-    </div>
-</div>
+                <a href="{{ route('admin.dokter.index') }}" class="group block bg-white p-6 transition hover:bg-slate-50">
+                    <div class="flex items-center justify-between gap-4">
+                        <div>
+                            <p class="text-sm font-medium text-slate-500">Total Dokter</p>
+                            <p class="mt-2 text-3xl font-semibold text-slate-900">{{ \App\Models\Dokter::where('id_admin', $admin->id_admin)->count() }}</p>
+                        </div>
+                        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-50 text-amber-600 transition group-hover:bg-amber-100">
+                            <i class="fas fa-user-md text-lg"></i>
+                        </div>
+                    </div>
+                    <span class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-slate-500">
+                        Lihat dokter
+                        <i class="fas fa-arrow-right text-xs transition group-hover:translate-x-0.5"></i>
+                    </span>
+                </a>
 
-<div class="row">
-    <div class="col-md-6">
-        <div class="card card-primary card-outline">
-            <div class="card-header">
-                <h3 class="card-title">Informasi Profil Admin</h3>
-            </div>
-            <div class="card-body">
-                <div class="form-group">
-                    <label>ID Admin</label>
-                    <p class="form-control-plaintext">{{ $admin->id_admin }}</p>
-                </div>
-                <div class="form-group">
-                    <label>Username</label>
-                    <p class="form-control-plaintext">{{ $admin->username }}</p>
-                </div>
-                <div class="form-group">
-                    <label>Nama Admin</label>
-                    <p class="form-control-plaintext">{{ $admin->nama_admin }}</p>
-                </div>
-
-                <a href="{{ route('admin.profile.edit') }}" class="btn btn-primary btn-sm">
-                    Edit Profil Admin
+                <a href="{{ route('admin.layanan.index') }}" class="group block bg-white p-6 transition hover:bg-slate-50">
+                    <div class="flex items-center justify-between gap-4">
+                        <div>
+                            <p class="text-sm font-medium text-slate-500">Total Layanan</p>
+                            <p class="mt-2 text-3xl font-semibold text-slate-900">{{ \App\Models\Layanan::where('id_admin', $admin->id_admin)->count() }}</p>
+                        </div>
+                        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-50 text-rose-600 transition group-hover:bg-rose-100">
+                            <i class="fas fa-heartbeat text-lg"></i>
+                        </div>
+                    </div>
+                    <span class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-slate-500">
+                        Lihat layanan
+                        <i class="fas fa-arrow-right text-xs transition group-hover:translate-x-0.5"></i>
+                    </span>
                 </a>
             </div>
-        </div>
+        </section>
+
+        <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <div class="flex items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Profil</p>
+                    <h2 class="mt-1 text-xl font-semibold text-slate-900">Informasi Profil Admin</h2>
+                </div>
+                <a href="{{ route('admin.profile.edit') }}" class="inline-flex items-center rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:bg-slate-50">
+                    Edit Profil
+                </a>
+            </div>
+
+            <div class="mt-6 grid gap-4 sm:grid-cols-3">
+                <div class="rounded-2xl bg-slate-50 p-4">
+                    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">ID Admin</p>
+                    <p class="mt-2 text-sm font-medium text-slate-900">{{ $admin->id_admin }}</p>
+                </div>
+                <div class="rounded-2xl bg-slate-50 p-4">
+                    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Username</p>
+                    <p class="mt-2 text-sm font-medium text-slate-900">{{ $admin->username }}</p>
+                </div>
+                <div class="rounded-2xl bg-slate-50 p-4">
+                    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Nama Admin</p>
+                    <p class="mt-2 text-sm font-medium text-slate-900">{{ $admin->nama_admin }}</p>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <div class="col-md-6">
-        <div class="card card-success card-outline">
-            <div class="card-header">
-                <h3 class="card-title">Panduan Cepat</h3>
+    <aside class="space-y-6">
+        <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <p class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Panduan Cepat</p>
+            <h2 class="mt-1 text-xl font-semibold text-slate-900">Akses menu yang sering dipakai</h2>
+
+            <div class="mt-5 space-y-2">
+                <a href="{{ route('admin.banner.index') }}" class="flex items-center justify-between rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:bg-slate-50">
+                    <span class="flex items-center gap-3"><i class="fas fa-image w-5 text-center text-slate-400"></i>Kelola Banner</span>
+                    <i class="fas fa-chevron-right text-xs text-slate-400"></i>
+                </a>
+                <a href="{{ route('admin.artikel.index') }}" class="flex items-center justify-between rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:bg-slate-50">
+                    <span class="flex items-center gap-3"><i class="fas fa-newspaper w-5 text-center text-slate-400"></i>Kelola Artikel</span>
+                    <i class="fas fa-chevron-right text-xs text-slate-400"></i>
+                </a>
+                <a href="{{ route('admin.dokter.index') }}" class="flex items-center justify-between rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:bg-slate-50">
+                    <span class="flex items-center gap-3"><i class="fas fa-user-md w-5 text-center text-slate-400"></i>Kelola Dokter</span>
+                    <i class="fas fa-chevron-right text-xs text-slate-400"></i>
+                </a>
+                <a href="{{ route('admin.layanan.index') }}" class="flex items-center justify-between rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:bg-slate-50">
+                    <span class="flex items-center gap-3"><i class="fas fa-heartbeat w-5 text-center text-slate-400"></i>Kelola Layanan</span>
+                    <i class="fas fa-chevron-right text-xs text-slate-400"></i>
+                </a>
+                <a href="{{ route('admin.kontak.index') }}" class="flex items-center justify-between rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:bg-slate-50">
+                    <span class="flex items-center gap-3"><i class="fas fa-phone w-5 text-center text-slate-400"></i>Kelola Kontak</span>
+                    <i class="fas fa-chevron-right text-xs text-slate-400"></i>
+                </a>
+                <a href="{{ route('admin.jadwal.index') }}" class="flex items-center justify-between rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:bg-slate-50">
+                    <span class="flex items-center gap-3"><i class="fas fa-calendar w-5 text-center text-slate-400"></i>Kelola Jadwal Dokter</span>
+                    <i class="fas fa-chevron-right text-xs text-slate-400"></i>
+                </a>
             </div>
-            <div class="card-body">
-                <ul class="list-unstyled">
-                    <li><i class="fas fa-chevron-right"></i> <a href="{{ route('admin.banner.index') }}">Kelola Banner</a></li>
-                    <li><i class="fas fa-chevron-right"></i> <a href="{{ route('admin.artikel.index') }}">Kelola Artikel</a></li>
-                    <li><i class="fas fa-chevron-right"></i> <a href="{{ route('admin.dokter.index') }}">Kelola Dokter</a></li>
-                    <li><i class="fas fa-chevron-right"></i> <a href="{{ route('admin.layanan.index') }}">Kelola Layanan</a></li>
-                    <li><i class="fas fa-chevron-right"></i> <a href="{{ route('admin.kontak.index') }}">Kelola Kontak</a></li>
-                    <li><i class="fas fa-chevron-right"></i> <a href="{{ route('admin.jadwal.index') }}">Kelola Jadwal Dokter</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+        </section>
+    </aside>
 </div>
 @endsection
