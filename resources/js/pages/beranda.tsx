@@ -188,6 +188,7 @@ export default function Beranda() {
     const [doctorQuery, setDoctorQuery] = useState('')
     const [doctorOptions, setDoctorOptions] = useState<DokterItem[]>([])
     const [highlightIndex, setHighlightIndex] = useState(-1)
+    const [videoAvailable, setVideoAvailable] = useState(true)
     
     const debouncedDoctorQuery = useDebouncedValue(doctorQuery, DEBOUNCE_DELAY)
 
@@ -401,20 +402,30 @@ export default function Beranda() {
 
                 {/* Video Section */}
                 <section className="flex justify-center bg-slate-50 px-6 pb-16 pt-4 lg:px-20">
-                    <div className="aspect-video w-full max-w-5xl overflow-hidden rounded-2xl shadow-xl">
-                        <video
-                            className="h-full w-full"
-                            controls
-                            preload="metadata"
-                            playsInline
-                            poster="/images/thumbnail.webp"
-                        >
-                            <source
-                                src="/video/RSUD-Haji-Pusat-Pelayanan-Kesehatan-Terdepan-dan-Berkualitas-di-Sulsel.mp4"
-                                type="video/mp4"
-                            />
-                            Browser Anda tidak mendukung pemutaran video.
-                        </video>
+                    <div className="aspect-video w-full max-w-5xl overflow-hidden rounded-2xl shadow-xl relative">
+                        {videoAvailable ? (
+                            <video
+                                className="h-full w-full"
+                                controls
+                                preload="metadata"
+                                playsInline
+                                poster="/images/thumbnail.webp"
+                                onError={() => setVideoAvailable(false)}
+                            >
+                                <source
+                                    src="/video/RSUD-Haji-Pusat-Pelayanan-Kesehatan-Terdepan-dan-Berkualitas-di-Sulsel.mp4"
+                                    type="video/mp4"
+                                />
+                                Browser Anda tidak mendukung pemutaran video.
+                            </video>
+                        ) : (
+                            <div
+                                className="h-full w-full bg-black flex items-center justify-center text-white"
+                                style={{ backgroundImage: 'url(/images/thumbnail.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }}
+                            >
+                                <div className="rounded bg-black/60 px-4 py-2 text-sm font-semibold">Video tidak tersedia</div>
+                            </div>
+                        )}
                     </div>
                 </section>
             </main>

@@ -10,16 +10,12 @@ export default function Footer() {
 
                     {/* Kolom 1 - Logo & Alamat */}
                     <div>
-                        <Link href="/" className="flex items-center gap-2 mb-3">
+                        <Link href="/" className="flex items-center mb-3">
                             <img
                                 src="/images/LogoHAJI.webp"
                                 alt="Logo RSUD Haji"
-                                className="w-20 h-10 object-cover rounded-xl"
+                                className="w-50 h-13"
                             />
-                            <span className="flex flex-col leading-tight font-extrabold text-slate-800 text-lg">
-                                <span>RSUD HAJI</span>
-                                <span>MAKASSAR</span>
-                            </span>
                         </Link>
                         <p className="text-slate-700 text-xs leading-relaxed">
                             Jl. Dg. Ngeppe, Balang Baru, Kec. Tamalate, Kota Makassar, Sulawesi Selatan 90122
@@ -32,7 +28,7 @@ export default function Footer() {
                         <div className="flex flex-col gap-3">
                             {[
                                 { icon: '🗓️', label: 'Visi dan Misi', href: '/profil' },
-                                { icon: '📋', label: 'Layanan Unggulan', href: '/layanan-unggulan' },
+                                { icon: '📋', label: 'Layanan Unggulan', href: '/layanan/unggulan' },
                                 { icon: '🩺', label: 'Dokter Kami', href: '/daftar-dokter' },
                             ].map((item, i) => (
                                 <Link
