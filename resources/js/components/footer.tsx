@@ -66,10 +66,10 @@ export default function Footer() {
                     <div>
                         <h4 className="font-bold text-slate-800 mb-4">Ikuti kami</h4>
                         <div className="flex gap-4 mb-6 text-3xl text-slate-800">
-                            <a href="#" className="hover:text-blue-600 transition"><FaFacebook /></a>
-                            <a href="#" className="hover:text-sky-500 transition"><FaTwitter /></a>
-                            <a href="#" className="hover:text-pink-500 transition"><FaInstagram /></a>
-                            <a href="#" className="hover:text-red-600 transition"><FaYoutube /></a>
+                            <a href="https://www.facebook.com/people/RSUD-Haji-Makassar-Pemprov-Sulsel/61559860927158/" className="hover:text-blue-600 transition"><FaFacebook /></a>
+                            <a href="https://x.com/Uptrsudhajimks?t=mIPpEiV31C1Gbq0Pg3VWhQ" className="hover:text-sky-500 transition"><FaTwitter /></a>
+                            <a href="https://www.instagram.com/rsudhaji_sulsel" className="hover:text-pink-500 transition"><FaInstagram /></a>
+                            <a href="https://www.youtube.com/@upt_rsudhaji_makassar" className="hover:text-red-600 transition"><FaYoutube /></a>
                         </div>
 
                         <p className="font-bold text-slate-800 text-sm mb-3">Dapatkan Aplikasi SIPAKARAJA</p>
