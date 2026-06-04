@@ -4,85 +4,180 @@
 @section('page-title', 'Edit Dokter')
 
 @section('content')
-<div class="row">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Form Edit Dokter</h3>
-            </div>
-            <form action="{{ route('admin.dokter.update', $dokter->id_dokter) }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="nama_dokter">Nama Dokter <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control @error('nama_dokter') is-invalid @enderror" id="nama_dokter" name="nama_dokter" value="{{ old('nama_dokter', $dokter->nama_dokter) }}" required>
-                        @error('nama_dokter')
-                            <span class="invalid-feedback">{{ $message }}</span>
-                        @enderror
-                    </div>
+<div class="max-w-3xl mx-auto">
+    <section class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
 
-                    <div class="form-group">
-                        <label for="spesialis">Spesialis <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control @error('spesialis') is-invalid @enderror" id="spesialis" name="spesialis" value="{{ old('spesialis', $dokter->spesialis) }}" required>
-                        @error('spesialis')
-                            <span class="invalid-feedback">{{ $message }}</span>
-                        @enderror
-                    </div>
+        <div class="border-b border-slate-100 px-4 py-3">
+            <p class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Form</p>
+            <h2 class="mt-1 text-xl font-semibold text-slate-900">Edit Dokter</h2>
+        </div>
 
-                    <div class="form-group">
-                        <label>Foto Dokter Saat Ini</label>
-                        <div class="mb-2">
-                            @if($dokter->foto_dokter)
-                                <img id="foto-dokter-preview" src="{{ $dokter->foto_dokter_url }}" alt="{{ $dokter->nama_dokter }}" class="img-thumbnail" style="max-width: 160px; max-height: 160px; object-fit: cover; border-radius: 12px;">
-                            @else
-                                <img id="foto-dokter-preview" src="" alt="{{ $dokter->nama_dokter }}" class="img-thumbnail" style="max-width: 160px; max-height: 160px; object-fit: cover; border-radius: 12px; display: none;">
-                            @endif
+        <form action="{{ route('admin.dokter.update', $dokter->id_dokter) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <div class="space-y-5 px-6 py-5">
+
+                {{-- Nama Dokter --}}
+                <div class="space-y-1.5">
+                    <label for="nama_dokter" class="block text-sm font-medium text-slate-700">
+                        Nama Dokter <span class="text-rose-500">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        id="nama_dokter"
+                        name="nama_dokter"
+                        value="{{ old('nama_dokter', $dokter->nama_dokter) }}"
+                        required
+                        class="h-10 w-full rounded-2xl border px-4 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-100 transition
+                            {{ $errors->has('nama_dokter') ? 'border-rose-300 bg-rose-50 focus:border-rose-300' : 'border-slate-200 bg-slate-50 focus:border-slate-300 focus:bg-white' }}"
+                        placeholder="Tulis nama lengkap dokter..."
+                    >
+                    @error('nama_dokter')
+                        <p class="text-xs text-rose-500">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                {{-- Spesialis --}}
+                <div class="space-y-1.5">
+                    <label for="spesialis" class="block text-sm font-medium text-slate-700">
+                        Spesialis <span class="text-rose-500">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        id="spesialis"
+                        name="spesialis"
+                        value="{{ old('spesialis', $dokter->spesialis) }}"
+                        required
+                        class="h-10 w-full rounded-2xl border px-4 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-100 transition
+                            {{ $errors->has('spesialis') ? 'border-rose-300 bg-rose-50 focus:border-rose-300' : 'border-slate-200 bg-slate-50 focus:border-slate-300 focus:bg-white' }}"
+                        placeholder="Contoh: Dokter Umum, Spesialis Anak..."
+                    >
+                    @error('spesialis')
+                        <p class="text-xs text-rose-500">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                {{-- Upload Foto Dokter --}}
+                <div class="space-y-1.5">
+                    <label for="foto_dokter" class="block text-sm font-medium text-slate-700">
+                        Foto Dokter
+                    </label>
+
+                    @php
+                        $fotoSaat = null;
+                        if ($dokter->foto_dokter) {
+                            $fotoSaat = str_starts_with($dokter->foto_dokter, '/') || str_starts_with($dokter->foto_dokter, 'http')
+                                ? $dokter->foto_dokter
+                                : asset('storage/' . $dokter->foto_dokter);
+                        }
+                    @endphp
+
+                    <label
+                        for="foto_dokter"
+                        class="relative h-56 w-full cursor-pointer overflow-hidden rounded-2xl border border-dashed border-slate-300 bg-slate-50 transition hover:border-slate-400 hover:bg-slate-100"
+                    >
+                        {{-- Preview: foto baru atau foto existing --}}
+                        <img
+                            id="preview-image"
+                            src="{{ $fotoSaat ?? '' }}"
+                            alt="Preview"
+                            class="{{ $fotoSaat ? '' : 'hidden' }} h-full w-full object-cover absolute inset-0 z-10"
+                        >
+
+                        {{-- Placeholder --}}
+                        <div
+                            id="upload-placeholder"
+                            class="absolute inset-0 flex flex-col items-center justify-center text-center z-0 {{ $fotoSaat ? 'hidden' : '' }}"
+                        >
+                            <span class="flex h-20 w-20 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-400 shadow-sm">
+                                <i class="fas fa-cloud-arrow-up text-4xl"></i>
+                            </span>
+                            <span class="mt-3 text-sm font-medium text-slate-600">
+                                Klik untuk pilih foto baru
+                            </span>
+                            <span class="text-xs text-slate-400">
+                                Format JPG, PNG, atau WEBP. Maksimal 2MB.
+                            </span>
                         </div>
 
-                        <label for="foto_dokter">Ganti Foto Dokter</label>
-                        <input type="file" class="form-control-file @error('foto_dokter') is-invalid @enderror" id="foto_dokter" name="foto_dokter" accept=".jpg,.jpeg,.png,.webp">
-                        <small class="form-text text-muted">Kosongkan jika tidak ingin mengganti foto. Format JPG, PNG, atau WEBP. Maksimal 2MB.</small>
-                        @error('foto_dokter')
-                            <span class="invalid-feedback d-block">{{ $message }}</span>
-                        @enderror
-                    </div>
+                        <input
+                            type="file"
+                            id="foto_dokter"
+                            name="foto_dokter"
+                            accept=".jpg,.jpeg,.png,.webp"
+                            class="sr-only"
+                            onchange="updateFileName(this)"
+                        >
+                    </label>
+
+                    {{-- Info foto saat ini --}}
+                    @if($fotoSaat)
+                        <p id="file-name" class="text-xs text-slate-500">
+                            <i class="fas fa-image mr-1"></i>
+                            Foto saat ini tersimpan. Pilih file baru untuk menggantinya.
+                        </p>
+                    @else
+                        <p id="file-name" class="text-xs text-slate-500 hidden"></p>
+                    @endif
+
+                    @error('foto_dokter')
+                        <p class="text-xs text-rose-500">{{ $message }}</p>
+                    @enderror
                 </div>
-                <div class="card-footer">
-                    <a href="{{ route('admin.dokter.index') }}" class="btn btn-secondary">Batal</a>
-                    <button type="submit" class="btn btn-primary">Update Dokter</button>
-                </div>
-            </form>
-        </div>
-    </div>
+
+            </div>
+
+            {{-- Footer Actions --}}
+            <div class="flex items-center justify-end gap-3 border-t border-slate-100 px-6 py-3">
+                <a href="{{ route('admin.dokter.index') }}"
+                   class="inline-flex h-10 items-center gap-2 rounded-2xl border border-slate-200 px-5 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:bg-slate-50">
+                    <i class="fas fa-arrow-left text-xs"></i>
+                    Batal
+                </a>
+                <button type="submit"
+                    class="inline-flex h-10 items-center gap-2 rounded-2xl bg-slate-900 px-5 text-sm font-medium text-white transition hover:bg-slate-700">
+                    <i class="fas fa-floppy-disk text-xs"></i>
+                    Simpan Perubahan
+                </button>
+            </div>
+        </form>
+
+    </section>
 </div>
-@endsection
 
-@section('scripts')
 <script>
-    (function () {
-        const input = document.getElementById('foto_dokter');
-        const preview = document.getElementById('foto-dokter-preview');
+    function updateFileName(input) {
+        const label = document.getElementById('file-name');
+        const preview = document.getElementById('preview-image');
+        const placeholder = document.getElementById('upload-placeholder');
 
-        if (!input || !preview) {
-            return;
-        }
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
 
-        input.addEventListener('change', function (event) {
-            const file = event.target.files && event.target.files[0];
-
-            if (!file) {
+            if (file.size > 2 * 1024 * 1024) {
+                alert('Ukuran file tidak boleh lebih dari 2MB.');
+                input.value = '';
                 return;
             }
 
-            const objectUrl = URL.createObjectURL(file);
-            preview.src = objectUrl;
-            preview.style.display = 'inline-block';
-
-            preview.onload = function () {
-                URL.revokeObjectURL(objectUrl);
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.classList.remove('hidden');
+                placeholder.classList.add('hidden');
             };
-        });
-    })();
+            reader.readAsDataURL(file);
+
+            label.textContent = 'File dipilih: ' + file.name;
+            label.classList.remove('hidden');
+
+        } else {
+            label.classList.add('hidden');
+            preview.classList.add('hidden');
+            preview.src = '';
+            placeholder.classList.remove('hidden');
+        }
+    }
 </script>
+
 @endsection
