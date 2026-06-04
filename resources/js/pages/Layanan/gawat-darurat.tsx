@@ -1,30 +1,11 @@
-import { useState } from 'react';
 import { Head } from '@inertiajs/react';
+import { useState } from 'react';
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
-
-const layananGawatDarurat = [
-    {
-        title: 'Pelayanan 24 Jam',
-        description: 'Instalasi Gawat Darurat RSUD Haji Makassar siap melayani pasien kapan pun diperlukan, dengan respon cepat dan penanganan segera.',
-    },
-    {
-        title: 'Tenaga Medis Spesialis',
-        description: 'Tim dokter, perawat, dan tenaga kesehatan terlatih tersedia untuk menangani kondisi kritis dan keadaan darurat medis.',
-    },
-    {
-        title: 'Fasilitas Penunjang Lengkap',
-        description: 'Dilengkapi laboratorium, radiologi, dan farmasi untuk mendukung diagnosis dan perawatan darurat secara efektif.',
-    },
-];
 
 const igdUmumList = [
     { nama: 'IGD Umum', foto: ['/images/igd/igd-umum-3.png', '/images/igd/igd-umum-4.png'] },
     { nama: 'IGD Bersalin', foto: ['/images/igd/igd-bersalin-3.png', '/images/igd/igd-bersalin-4.png'] }
-];
-
-const igdBersalinList = [
-    { nama: 'IGD Bersalin', foto: ['/images/igd/igd-bersalin-3.png', '/images/igd/igd-bersalin-4.png'] },
 ];
 
 function UnitCard({ nama, foto }: { nama: string; foto: string[] }) {

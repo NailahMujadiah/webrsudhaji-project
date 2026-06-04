@@ -32,4 +32,20 @@ class Artikel extends Model
 
         return asset('storage/' . $this->gambar_artikel);
     }
+
+    /**
+     * Backwards-compatible accessor for `thumbnail` attribute used in views.
+     */
+    public function getThumbnailAttribute(): ?string
+    {
+        return $this->gambar_artikel;
+    }
+
+    /**
+     * Backwards-compatible accessor for `thumbnail_url` used in views.
+     */
+    public function getThumbnailUrlAttribute(): ?string
+    {
+        return $this->getGambarArtikelUrlAttribute();
+    }
 }

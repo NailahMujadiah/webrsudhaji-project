@@ -122,7 +122,7 @@ Route::middleware('guest:admin')->group(function () {
     Route::post('/admin/login', [AuthenticatedSessionController::class, 'store'])->name('admin.login.store');
 });
 
-Route::middleware('auth:admin')->group(function () {
+Route::middleware([\App\Http\Middleware\EnsureAdminAuthenticated::class])->group(function () {
     Route::get('/admin/dashboard', function () {
         return view('admin.dashboard', [
             'admin' => Auth::guard('admin')->user(),
