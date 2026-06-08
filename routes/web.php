@@ -104,6 +104,12 @@ Route::get('/edukasi', function () {
     return Inertia::render('edukasi');
 });
 
+Route::get('/edukasi/{id}', function ($id) {
+    return Inertia::render('detail-artikel', [
+        'id_artikel' => (int) $id,
+    ]);
+});
+
 Route::get('/layanan-fasilitas', function () {
     return Inertia::render('layananFasilitas');
 });

@@ -122,8 +122,7 @@ export default function Navbar() {
                     </span>
                 </div>
                 <div className="flex gap-4">
-                    <a href="#" className="hover:text-green-200">Emergency</a>
-                    <a href="#" className="hover:text-green-200">Bantuan</a>
+                    <a href="tel:081352507039" className="hover:text-green-200">Ambulans Peduli</a>
                 </div>
             </div>
 

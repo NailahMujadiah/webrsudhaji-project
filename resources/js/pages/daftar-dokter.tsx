@@ -32,9 +32,8 @@ export default function DaftarDokter({ dokters }: Props) {
         }
 
         return new URLSearchParams(window.location.search).get('search') ?? '';
-    }); 
+    });
     const [spesialisFilter, setSpesialisFilter] = useState('');
-    const [showFilter, setShowFilter] = useState(false);
 
     const filtered = dokters.filter((d) => {
         const nameText = normalizeSearchText(d.nama_dokter);
@@ -62,86 +61,98 @@ export default function DaftarDokter({ dokters }: Props) {
         <>
             <Head title="Dokter Kami - RSUD Haji Makassar" />
             <Navbar />
-            {/* <pre>{JSON.stringify(dokters, null, 2)}</pre> */}
-            <main className="min-h-screen bg-white px-6 py-12 lg:px-20">
-                <div className="mx-auto max-w-5xl rounded-3xl bg-[#BAEBD4]  p-8 shadow-sm backdrop-blur-sm">
-                    {/* Search & Filter */}
-                    <div className="mb-8 flex items-center gap-3">
-                        <button
-                            onClick={() => setShowFilter(!showFilter)}
-                            className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-4 w-4"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M4 6h16M7 12h10M10 18h4"
-                                />
-                            </svg>
-                            Filter
-                        </button>
+            <main className="min-h-screen bg-slate-50">
 
-                        <div className="flex flex-1 items-center overflow-hidden rounded-xl border border-slate-300 bg-white">
-                            <input
-                                type="text"
-                                placeholder="Nama Dokter, Spesialis"
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)}
-                                className="flex-1 bg-transparent px-4 py-3 text-sm text-slate-700 outline-none"
-                            />
-                            <button className="flex items-center gap-2 bg-green-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-green-700">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-4 w-4"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"
-                                    />
-                                </svg>
-                                Cari
-                            </button>
-                        </div>
+                {/* Hero */}
+                <section className="relative">
+                    <img
+                        src="/images/rsudhaji.webp"
+                        alt="Dokter Kami"
+                        className="w-full h-64 lg:h-80 object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/50" />
+                    <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-slate-50 to-transparent" />
+                    <div className="absolute bottom-8 left-6 lg:left-20">
+                        <p className="text-emerald-300 text-sm font-medium mb-1">Tenaga Medis</p>
+                        <h1 className="text-3xl lg:text-5xl font-extrabold text-white drop-shadow-lg">Dokter Kami</h1>
                     </div>
+                </section>
 
-                    {/* Filter Panel */}
-                    {showFilter && (
-                        <div className="mb-6 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-                            <div className="mb-3 flex items-center justify-between gap-3">
-                                <p className="text-sm font-semibold text-slate-700">
-                                    Filter Spesialis
+                {/* Deskripsi */}
+                <section className="pt-6 pb-10 px-6 lg:px-20 bg-white border-b border-slate-100">
+                    <div className="max-w-6xl mx-auto">
+                        <p className="text-slate-600 leading-relaxed">
+                            Temukan dokter terbaik untuk kebutuhan kesehatan Anda. Cari dokter berdasarkan nama atau spesialis, dan gunakan filter untuk menemukan dokter dengan keahlian yang tepat.
+                        </p>
+                    </div>
+                </section>
+
+                <div className="px-6 py-10 lg:px-20">
+                <div className="mx-auto max-w-6xl space-y-8">
+
+                    <section>
+                        {/* Search + Filter digabung dalam satu card */}
+                        <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm shadow-slate-200/40">
+                            {/* Header card */}
+                            <div className="flex items-center gap-3">
+                                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                                        <circle cx="10" cy="10" r="6" />
+                                        <path d="M21 21l-4.35-4.35" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p className="text-sm font-semibold text-slate-900">Cari Dokter</p>
+                                    <p className="text-xs text-slate-500">Nama dokter atau spesialis</p>
+                                </div>
+                            </div>
+
+                            {/* Input pencarian */}
+                            <div className="mt-4 flex items-center gap-3 rounded-3xl border border-slate-200 bg-slate-50 px-4 py-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 flex-shrink-0 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+                                </svg>
+                                <input
+                                    type="text"
+                                    placeholder="Cari nama atau spesialis..."
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    className="h-10 flex-1 bg-transparent text-sm text-slate-800 outline-none placeholder:text-slate-400"
+                                />
+                                <button
+                                    className="rounded-2xl bg-emerald-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700"
+                                    type="button"
+                                >
+                                    Cari
+                                </button>
+                            </div>
+
+                            {/* Divider */}
+                            <div className="my-4 border-t border-slate-100" />
+
+                            {/* Filter spesialis */}
+                            <div className="flex items-center justify-between gap-3">
+                                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                                    Filter spesialis
                                 </p>
                                 {spesialisFilter && (
                                     <button
                                         type="button"
                                         onClick={() => setSpesialisFilter('')}
-                                        className="text-xs font-medium text-green-700 hover:text-green-800"
+                                        className="rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 transition hover:bg-emerald-100"
                                     >
                                         Reset
                                     </button>
                                 )}
                             </div>
-
-                            <div className="flex flex-wrap gap-2">
+                            <div className="mt-3 flex flex-wrap gap-2">
                                 <button
                                     type="button"
                                     onClick={() => setSpesialisFilter('')}
-                                    className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
+                                    className={`rounded-full border px-4 py-1.5 text-xs font-medium transition ${
                                         spesialisFilter === ''
-                                            ? 'border-green-600 bg-green-600 text-white'
-                                            : 'border-green-600 text-green-700 hover:bg-green-600 hover:text-white'
+                                            ? 'border-emerald-600 bg-emerald-600 text-white'
+                                            : 'border-slate-200 bg-slate-100 text-slate-700 hover:border-emerald-600 hover:bg-emerald-50'
                                     }`}
                                 >
                                     Semua
@@ -151,61 +162,71 @@ export default function DaftarDokter({ dokters }: Props) {
                                         key={s}
                                         type="button"
                                         onClick={() => setSpesialisFilter(s)}
-                                        className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
+                                        className={`rounded-full border px-4 py-1.5 text-xs font-medium transition ${
                                             spesialisFilter === s
-                                                ? 'border-green-600 bg-green-600 text-white'
-                                                : 'border-green-600 text-green-700 hover:bg-green-600 hover:text-white'
+                                                ? 'border-emerald-600 bg-emerald-600 text-white'
+                                                : 'border-slate-200 bg-slate-100 text-slate-700 hover:border-emerald-600 hover:bg-emerald-50'
                                         }`}
                                     >
                                         {s}
                                     </button>
                                 ))}
                             </div>
-                        </div>
-                    )}
 
-                    {/* Grid Dokter */}
+                            {/* Info hasil filter (opsional, tampil hanya jika ada filter aktif) */}
+                            {(spesialisFilter || search) && (
+                                <div className="mt-4 flex flex-wrap gap-2">
+                                    <span className="rounded-2xl bg-slate-100 px-3 py-1 text-xs text-slate-600">
+                                        Total dokter: {dokters.length}
+                                    </span>
+                                    <span className="rounded-2xl bg-emerald-50 px-3 py-1 text-xs text-emerald-700">
+                                        Hasil: {filtered.length}
+                                    </span>
+                                    {spesialisFilter && (
+                                        <span className="rounded-2xl bg-emerald-100 px-3 py-1 text-xs text-emerald-800">
+                                            Spesialis: {spesialisFilter}
+                                        </span>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    </section>
+
                     {filtered.length > 0 ? (
-                        <div className="grid grid-cols-2 gap-5 md:grid-cols-3">
+                        <section>
+                        <h2 className="text-2xl font-bold text-slate-800 mb-2">Daftar Dokter</h2>
+                        <div className="w-12 h-1 bg-emerald-600 rounded mb-8" />
+                        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
                             {filtered.map((dokter) => (
                                 <div
                                     key={dokter.id_dokter}
-                                    className="group overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition hover:shadow-md"
+                                    className="group overflow-hidden rounded-4xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                                 >
-                                    <div className="overflow-hidden p-3">
-    <img
-        src={dokter.foto_dokter ?? '/images/editable-doctor-vector.jpg'}
-        alt={dokter.nama_dokter}
-        className="h-48 w-full rounded-xl object-cover transition duration-300 group-hover:scale-105"
-        onError={(e) => {
-            e.currentTarget.src = '/images/editable-doctor-vector.jpg';
-        }}
-    />
-</div>
-                                    <div className="p-4">
-                                        <p className="mb-1 text-sm font-bold text-slate-800">
-                                            {dokter.nama_dokter}
-                                        </p>
-                                        <div className="flex items-center gap-1 text-xs text-slate-500">
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                className="h-4 w-4 text-green-600"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                stroke="currentColor"
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth={2}
-                                                    d="M9 12h6m-3-3v6m9-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"
-                                                />
-                                            </svg>
-                                            {dokter.spesialis}
+                                    <div className="relative overflow-hidden">
+                                        <img
+                                            src={dokter.foto_dokter ?? '/images/editable-doctor-vector.jpg'}
+                                            alt={dokter.nama_dokter}
+                                            className="h-56 w-full object-cover transition duration-500 group-hover:scale-105"
+                                            onError={(e) => {
+                                                e.currentTarget.src = '/images/editable-doctor-vector.jpg';
+                                            }}
+                                        />
+                                        <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-slate-900/80 to-transparent p-4 text-white">
+                                            <p className="text-sm font-semibold line-clamp-2">{dokter.nama_dokter}</p>
+                                            <p className="mt-1 text-xs text-slate-200">{dokter.spesialis}</p>
+                                        </div>
+                                    </div>
+                                    <div className="space-y-4 p-5">
+                                        <div className="flex items-center justify-between gap-3">
+                                            <div>
+                                                <p className="text-xs uppercase tracking-[0.18em] text-slate-400">Spesialis</p>
+                                                <p className="mt-2 text-sm font-medium text-slate-800">{dokter.spesialis}</p>
+                                            </div>
+                                            <span className="rounded-2xl bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">Tersedia</span>
                                         </div>
                                         <Link
                                             href={`/detail-dokter/${dokter.id_dokter}`}
-                                            className="mt-3 block w-full rounded-lg bg-green-600 py-2 text-center text-xs font-semibold text-white transition hover:bg-green-700"
+                                            className="block rounded-3xl bg-emerald-600 px-4 py-3 text-center text-sm font-semibold text-white transition hover:bg-emerald-700"
                                         >
                                             Selengkapnya
                                         </Link>
@@ -213,15 +234,16 @@ export default function DaftarDokter({ dokters }: Props) {
                                 </div>
                             ))}
                         </div>
+                        </section>
                     ) : (
-                        <div className="py-20 text-center text-slate-400">
-                            <p className="text-lg font-medium">
-                                Dokter tidak ditemukan
-                            </p>
-                            <p className="mt-1 text-sm">Coba kata kunci lain</p>
-                        </div>
+                        <section className="rounded-4xl border border-dashed border-slate-300 bg-white p-16 text-center shadow-sm">
+                            <p className="text-xl font-semibold text-slate-900">Dokter tidak ditemukan</p>
+                            <p className="mt-2 text-sm text-slate-500">Coba gunakan kata kunci atau filter lain untuk mencari dokter.</p>
+                        </section>
                     )}
                 </div>
+                </div>
+
             </main>
 
             <Footer />
