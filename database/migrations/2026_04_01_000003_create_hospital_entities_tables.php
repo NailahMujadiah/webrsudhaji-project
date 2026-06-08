@@ -49,46 +49,10 @@ return new class extends Migration
 
             $table->foreign('id_admin')->references('id_admin')->on('admin')->onDelete('cascade');
         });
-
-        Schema::create('layanan', function (Blueprint $table) {
-            $table->increments('id_layanan');
-            $table->string('nama_layanan', 255);
-            $table->string('kategori', 255);
-            $table->text('deskripsi');
-            $table->string('gambar_layanan', 255)->nullable();
-            $table->unsignedInteger('id_admin');
-
-            $table->foreign('id_admin')->references('id_admin')->on('admin')->onDelete('cascade');
-        });
-
-        Schema::create('banner', function (Blueprint $table) {
-            $table->increments('id_banner');
-            $table->string('judul', 255);
-            $table->string('gambar_banner', 255)->nullable();
-            $table->text('deskripsi')->nullable();
-            $table->unsignedInteger('id_admin');
-
-            $table->foreign('id_admin')->references('id_admin')->on('admin')->onDelete('cascade');
-        });
-
-        Schema::create('kontak', function (Blueprint $table) {
-            $table->increments('id_kontak');
-            $table->string('telepon', 50);
-            $table->string('email', 255);
-            $table->text('alamat');
-            $table->string('whatsapp', 50)->nullable();
-            $table->string('link_maps', 255)->nullable();
-            $table->unsignedInteger('id_admin');
-
-            $table->foreign('id_admin')->references('id_admin')->on('admin')->onDelete('cascade');
-        });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('kontak');
-        Schema::dropIfExists('banner');
-        Schema::dropIfExists('layanan');
         Schema::dropIfExists('artikel');
         Schema::dropIfExists('jadwal_dokter');
         Schema::dropIfExists('dokter');
