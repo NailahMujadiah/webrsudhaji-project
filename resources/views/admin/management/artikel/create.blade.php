@@ -112,7 +112,7 @@
             id="preview-image"
             src=""
             alt="Preview"
-            class="hidden h-full w-full object-cover absolute inset-0 z-10"  {{-- ✅ tambah absolute + z-10 --}}
+            class="hidden h-full w-full object-cover absolute inset-0 z-10"
         >
 
         {{-- Placeholder --}}
@@ -137,12 +137,60 @@
             name="gambar_artikel"
             accept=".jpg,.jpeg,.png,.webp"
             class="sr-only"
-            onchange="updateFileName(this)"
+            onchange="updateFileName(this, 'preview-image', 'upload-placeholder', 'file-name')"
         >
     </label>
 
     <p id="file-name" class="text-xs text-slate-500 hidden"></p>
     @error('gambar_artikel')
+        <p class="text-xs text-rose-500">{{ $message }}</p>
+    @enderror
+</div>
+
+                {{-- Upload Thumbnail --}}
+<div class="space-y-1.5">
+    <label for="thumbnail" class="block text-sm font-medium text-slate-700">
+        Upload Thumbnail Artikel
+    </label>
+
+    <label
+        for="thumbnail"
+        class="relative h-56 w-full cursor-pointer overflow-hidden rounded-2xl border border-dashed border-slate-300 bg-slate-50 transition hover:border-slate-400 hover:bg-slate-100"
+    >
+        <img
+            id="thumbnail-preview"
+            src=""
+            alt="Thumbnail preview"
+            class="hidden h-full w-full object-cover absolute inset-0 z-10"
+        >
+
+        <div
+            id="thumbnail-upload-placeholder"
+            class="absolute inset-0 flex flex-col items-center justify-center text-center z-0"
+        >
+            <span class="flex h-20 w-20 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-400 shadow-sm">
+                <i class="fas fa-image text-4xl"></i>
+            </span>
+            <span class="mt-3 text-sm font-medium text-slate-600">
+                Klik untuk pilih thumbnail
+            </span>
+            <span class="text-xs text-slate-400">
+                Format JPG, PNG, atau WEBP. Maksimal 2MB.
+            </span>
+        </div>
+
+        <input
+            type="file"
+            id="thumbnail"
+            name="thumbnail"
+            accept=".jpg,.jpeg,.png,.webp"
+            class="sr-only"
+            onchange="updateFileName(this, 'thumbnail-preview', 'thumbnail-upload-placeholder', 'thumbnail-file-name')"
+        >
+    </label>
+
+    <p id="thumbnail-file-name" class="text-xs text-slate-500 hidden"></p>
+    @error('thumbnail')
         <p class="text-xs text-rose-500">{{ $message }}</p>
     @enderror
 </div>
@@ -168,15 +216,14 @@
 </div>
 
 <script>
-    function updateFileName(input) {
-        const label = document.getElementById('file-name');
-        const preview = document.getElementById('preview-image');
-        const placeholder = document.getElementById('upload-placeholder');
+    function updateFileName(input, previewId, placeholderId, labelId) {
+        const label = document.getElementById(labelId);
+        const preview = document.getElementById(previewId);
+        const placeholder = document.getElementById(placeholderId);
 
         if (input.files && input.files[0]) {
             const file = input.files[0];
 
-            // Validasi ukuran file (maks 2MB)
             if (file.size > 2 * 1024 * 1024) {
                 alert('Ukuran file tidak boleh lebih dari 2MB.');
                 input.value = '';
@@ -196,9 +243,13 @@
 
         } else {
             label.classList.add('hidden');
-            preview.classList.add('hidden');
-            preview.src = '';
-            placeholder.classList.remove('hidden');
+            if (preview) {
+                preview.classList.add('hidden');
+                preview.src = '';
+            }
+            if (placeholder) {
+                placeholder.classList.remove('hidden');
+            }
         }
     }
 </script>

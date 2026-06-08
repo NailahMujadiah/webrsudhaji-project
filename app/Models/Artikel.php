@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Artikel extends Model
@@ -15,9 +16,15 @@ class Artikel extends Model
         'judul',
         'isi_artikel',
         'gambar_artikel',
+        'thumbnail',
         'kategori',
         'tanggal',
         'id_admin',
+    ];
+
+    protected $appends = [
+        'gambar_artikel_url',
+        'thumbnail_url',
     ];
 
     public function getGambarArtikelUrlAttribute(): ?string
@@ -27,10 +34,16 @@ class Artikel extends Model
         }
 
         if (Str::startsWith($this->gambar_artikel, ['http://', 'https://'])) {
-            return $this->gambar_artikel;
+            return $this->normalizeSupabasePublicUrl($this->gambar_artikel);
         }
 
-        return asset('storage/' . $this->gambar_artikel);
+        $disk = Storage::disk((string) config('filesystems.media_disk', 'public'));
+        if (method_exists($disk, 'url')) {
+            $url = $disk->url($this->gambar_artikel);
+            return $this->normalizeSupabasePublicUrl($url);
+        }
+
+        return null;
     }
 
     /**
@@ -38,7 +51,7 @@ class Artikel extends Model
      */
     public function getThumbnailAttribute(): ?string
     {
-        return $this->gambar_artikel;
+        return $this->attributes['thumbnail'] ?? $this->gambar_artikel;
     }
 
     /**
@@ -46,6 +59,42 @@ class Artikel extends Model
      */
     public function getThumbnailUrlAttribute(): ?string
     {
-        return $this->getGambarArtikelUrlAttribute();
+        $thumbnail = $this->thumbnail;
+
+        if (empty($thumbnail)) {
+            return $this->getGambarArtikelUrlAttribute();
+        }
+
+        if (Str::startsWith($thumbnail, ['http://', 'https://'])) {
+            return $this->normalizeSupabasePublicUrl($thumbnail);
+        }
+
+        $disk = Storage::disk((string) config('filesystems.media_disk', 'public'));
+        if (method_exists($disk, 'url')) {
+            $url = $disk->url($thumbnail);
+            return $this->normalizeSupabasePublicUrl($url);
+        }
+
+        return null;
+    }
+
+    private function normalizeSupabasePublicUrl(string $url): string
+    {
+        if (! Str::contains($url, '/storage/v1/s3/')) {
+            return $url;
+        }
+
+        $supabaseUrl = rtrim((string) env('SUPABASE_URL'), '/');
+        $bucket = trim((string) env('AWS_BUCKET'));
+
+        if ($supabaseUrl === '' || $bucket === '') {
+            return $url;
+        }
+
+        $prefix = $supabaseUrl . '/storage/v1/object/public/' . $bucket . '/';
+        $path = parse_url($url, PHP_URL_PATH) ?: '';
+        $path = preg_replace('#^/storage/v1/s3/' . preg_quote($bucket, '#') . '/#', '', $path) ?? ltrim($path, '/');
+
+        return $prefix . ltrim($path, '/');
     }
 }

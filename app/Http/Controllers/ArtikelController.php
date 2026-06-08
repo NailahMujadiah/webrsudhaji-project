@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Artikel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ArtikelController extends Controller
 {
+    private function mediaDisk(): string
+    {
+        return (string) config('filesystems.media_disk', 'public');
+    }
     public function index()
     {
         $artikel = Artikel::query()
@@ -35,7 +40,7 @@ class ArtikelController extends Controller
                 'gambar_artikel' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             ]);
 
-            $validated['gambar_artikel'] = $request->file('gambar_artikel')->store('artikel', 'public');
+            $validated['gambar_artikel'] = $request->file('gambar_artikel')->store('artikel', $this->mediaDisk());
         } elseif (! empty($validated['gambar_artikel'])) {
             $request->validate([
                 'gambar_artikel' => ['string', 'max:255'],
@@ -86,11 +91,11 @@ class ArtikelController extends Controller
                 'gambar_artikel' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             ]);
 
-            if (! empty($artikel->gambar_artikel) && Storage::disk('public')->exists($artikel->gambar_artikel)) {
-                Storage::disk('public')->delete($artikel->gambar_artikel);
+            if (! empty($artikel->gambar_artikel) && ! Str::startsWith($artikel->gambar_artikel, ['http://', 'https://']) && Storage::disk($this->mediaDisk())->exists($artikel->gambar_artikel)) {
+                Storage::disk($this->mediaDisk())->delete($artikel->gambar_artikel);
             }
 
-            $validated['gambar_artikel'] = $request->file('gambar_artikel')->store('artikel', 'public');
+            $validated['gambar_artikel'] = $request->file('gambar_artikel')->store('artikel', $this->mediaDisk());
         } elseif (array_key_exists('gambar_artikel', $validated) && ! empty($validated['gambar_artikel'])) {
             $request->validate([
                 'gambar_artikel' => ['string', 'max:255'],

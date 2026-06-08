@@ -14,9 +14,20 @@ interface Artikel {
     kategori: string;
     tanggal: string;
     gambar_artikel: string | null;
+    gambar_artikel_url?: string | null;
+    thumbnail?: string | null;
+    thumbnail_url?: string | null;
 }
 
 const formatImageUrl = (artikel: Artikel) => {
+    if (artikel.gambar_artikel_url) {
+        return artikel.gambar_artikel_url;
+    }
+
+    if (artikel.thumbnail_url) {
+        return artikel.thumbnail_url;
+    }
+
     if (!artikel.gambar_artikel) {
         return '/images/no-image.svg';
     }
