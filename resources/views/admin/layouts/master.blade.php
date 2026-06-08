@@ -157,13 +157,8 @@
                     @foreach ([
                         'Navigasi' => [
                             ['route' => 'admin.dashboard',           'icon' => 'fa-gauge-high',  'label' => 'Dashboard',      'match' => 'admin.dashboard'],
-                            ['route' => 'admin.profile.edit',        'icon' => 'fa-user-gear',   'label' => 'Profil Admin',   'match' => 'admin.profile.*'],
                             ['route' => 'admin.media-manager.index', 'icon' => 'fa-photo-film',  'label' => 'Media Manager',  'match' => 'admin.media-manager.*'],
-                        ],
-                        'Management Konten' => [
                             ['route' => 'admin.artikel.index',       'icon' => 'fa-newspaper',   'label' => 'Artikel',        'match' => 'admin.artikel.*'],
-                        ],
-                        'Management Rumah Sakit' => [
                             ['route' => 'admin.dokter.index',         'icon' => 'fa-user-md',    'label' => 'Dokter',         'match' => 'admin.dokter.*'],
                             ['route' => 'admin.profil-direksi.index', 'icon' => 'fa-id-badge',   'label' => 'Profil Direksi', 'match' => 'admin.profil-direksi.*'],
                             ['route' => 'admin.jadwal.index',         'icon' => 'fa-calendar',   'label' => 'Jadwal Dokter',  'match' => 'admin.jadwal.*'],
