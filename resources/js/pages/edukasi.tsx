@@ -105,24 +105,17 @@ export default function Edukasi() {
                     </div>
                 </section>
 
-                <section className="pt-6 pb-10 px-6 lg:px-20 bg-white border-b border-slate-100">
-                    <div className="max-w-6xl mx-auto">
-                        <p className="text-slate-600 leading-relaxed">
-                            Temukan informasi kesehatan terbaru, tips medis, dan update rumah sakit yang membantu Anda menjaga kesehatan keluarga.
-                        </p>
-                    </div>
-                </section>
 
                 <section className="border-b border-slate-200 bg-white py-10 shadow-sm">
                     <div className="mx-auto max-w-6xl px-6 lg:px-8">
                         <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-                            <div className="max-w-3xl">
+                            {/* <div className="max-w-3xl">
                                 <p className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-700">Edukasi</p>
                                 <h1 className="mt-4 text-3xl font-extrabold text-slate-900 sm:text-4xl">Artikel Kesehatan dan Berita RSUD Haji Makassar</h1>
                                 <p className="mt-4 text-sm leading-7 text-slate-600 sm:text-base">
                                     Artikel yang ditayangkan di halaman ini otomatis mengambil data dari admin. Upload artikel melalui dashboard admin agar muncul di sini.
                                 </p>
-                            </div>
+                            </div> */}
 
                             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                                 <div className="relative w-full sm:w-80">
@@ -172,7 +165,7 @@ export default function Edukasi() {
                     <div className="flex flex-col gap-6">
                         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                             <div>
-                                <h2 className="text-xl font-bold text-slate-900">Artikel Kesehatan Terbaru</h2>
+                                <h2 className="text-xl font-bold text-slate-900">Artikel Kesehatan</h2>
                                 <div className="mt-2 h-1 w-16 rounded-full bg-emerald-600"></div>
                             </div>
                         </div>
