@@ -119,6 +119,7 @@
 </style>
 
 </head>
+
 <body class="min-h-screen bg-background text-foreground antialiased">
 @php($currentAdmin = Auth::guard('admin')->user())
 
@@ -312,17 +313,7 @@
                         </div>
                     @endif
 
-                    {{-- Success Alert --}}
-                    @if (session('success'))
-                        <div class="rounded-lg border border-emerald-200 bg-emerald-50 px-5 py-4 text-emerald-700" role="alert">
-                            <div class="flex items-center justify-between gap-4">
-                                <p class="text-sm font-medium">{{ session('success') }}</p>
-                                <button type="button" class="text-emerald-500 hover:text-emerald-700" data-dismiss="alert">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        </div>
-                    @endif
+                    {{-- Success Alert removed --}}
 
                     @yield('content')
                 </div>
@@ -423,6 +414,89 @@
         syncSidebar();
     });
 </script>
+
+{{-- ======================== TOAST NOTIFICATION ======================== --}}
+@if (session('success') || session('error'))
+<div id="toast" style="
+    position: fixed !important;
+    bottom: 1.5rem !important;
+    right: 1.5rem !important;
+    z-index: 99999 !important;
+    display: flex !important;
+    align-items: center;
+    gap: 0.75rem;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid {{ session('error') ? '#ef4444' : '#22c55e' }};
+    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    min-width: 18rem;
+    max-width: 22rem;
+    animation: toastIn 0.35s ease;
+    pointer-events: all;
+">
+    @if (session('error'))
+        <div style="color: #ef4444; flex-shrink: 0;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+        </div>
+    @else
+        <div style="color: #22c55e; flex-shrink: 0;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+        </div>
+    @endif
+
+    <div style="flex: 1; min-width: 0;">
+        <p style="margin: 0 !important; font-size: 0.875rem; font-weight: 600; color: #0f172a; line-height: 1.4;">
+            {{ session('error') ? 'Gagal!' : 'Berhasil!' }}
+        </p>
+        <p style="margin: 0 !important; font-size: 0.8rem; color: #64748b; line-height: 1.4;">
+            {{ session('success') ?? session('error') }}
+        </p>
+    </div>
+
+    <button onclick="closeToast()" style="
+        background: none !important; border: none !important; cursor: pointer;
+        color: #94a3b8; padding: 0; line-height: 1; flex-shrink: 0;
+    ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+    </button>
+</div>
+
+<style>
+    #toast { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif !important; }
+    @keyframes toastIn {
+        from { opacity: 0; transform: translateY(1rem); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<script>
+    function closeToast() {
+        const toast = document.getElementById('toast');
+        if (!toast) return;
+        toast.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(1rem)';
+        setTimeout(() => toast.remove(), 300);
+    }
+    setTimeout(closeToast, 4000);
+</script>
+@endif
+
 @yield('scripts')
 </body>
 </html>
