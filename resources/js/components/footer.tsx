@@ -48,10 +48,10 @@ export default function Footer() {
                         <h4 className="font-bold text-slate-800 mb-4">Layanan kami</h4>
                         <ul className="flex flex-col gap-2 text-sm text-slate-700">
                             {[
-                                { label: 'Layanan Unggulan', href: '/layanan-fasilitas' },
-                                { label: 'Layanan Rawat Inap', href: '/layanan-fasilitas' },
-                                { label: 'Layanan Rawat Jalan', href: '/layanan-fasilitas' },
-                                { label: 'Layanan Rawat Intensif', href: '/layanan-fasilitas' },
+                                { label: 'Layanan Unggulan', href: '/layanan/unggulan' },
+                                { label: 'Layanan Rawat Inap', href: '/layanan/rawat-inap' },
+                                { label: 'Layanan Rawat Jalan', href: '/layanan/rawat-jalan' },
+                                { label: 'Layanan Rawat Intensif', href: '/layanan/rawat-intensif' },
                             ].map((item, i) => (
                                 <li key={i}>
                                     <Link href={item.href} className="hover:text-green-700 transition">
