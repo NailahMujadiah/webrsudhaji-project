@@ -33,6 +33,41 @@
             </span>
         </div>
 
+        {{-- Search --}}
+        <div class="border-b border-border px-6 py-4">
+            <form method="GET" action="{{ route('admin.dokter.index') }}" class="flex flex-col gap-3 sm:flex-row sm:items-center">
+                <div class="relative flex-1">
+                    <span class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-muted-foreground">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.3-4.3"/>
+                        </svg>
+                    </span>
+                    <input
+                        type="search"
+                        name="search"
+                        value="{{ $search }}"
+                        placeholder="Cari nama dokter..."
+                        class="h-10 w-full rounded-md border border-border bg-background pl-9 pr-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    >
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button type="submit"
+                            class="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">
+                        Cari
+                    </button>
+                    @if($search !== '')
+                        <a href="{{ route('admin.dokter.index') }}"
+                           class="inline-flex h-10 items-center justify-center rounded-md border border-border bg-background px-4 text-sm font-medium text-foreground transition-colors hover:bg-muted">
+                            Reset
+                        </a>
+                    @endif
+                </div>
+            </form>
+        </div>
+
         {{-- Table --}}
         <div class="overflow-x-auto">
             <table class="w-full text-sm">
@@ -136,11 +171,20 @@
                                             <circle cx="12" cy="7" r="4"/>
                                         </svg>
                                     </div>
-                                    <p class="text-sm text-muted-foreground">Belum ada data dokter</p>
-                                    <a href="{{ route('admin.dokter.create') }}"
-                                       class="text-sm text-primary hover:underline underline-offset-4">
-                                        Tambah dokter pertama
-                                    </a>
+                                    <p class="text-sm text-muted-foreground">
+                                        {{ $search !== '' ? 'Tidak ada dokter yang cocok dengan pencarian.' : 'Belum ada data dokter' }}
+                                    </p>
+                                    @if($search !== '')
+                                        <a href="{{ route('admin.dokter.index') }}"
+                                           class="text-sm text-primary hover:underline underline-offset-4">
+                                            Tampilkan semua dokter
+                                        </a>
+                                    @else
+                                        <a href="{{ route('admin.dokter.create') }}"
+                                           class="text-sm text-primary hover:underline underline-offset-4">
+                                            Tambah dokter pertama
+                                        </a>
+                                    @endif
                                 </div>
                             </td>
                         </tr>
