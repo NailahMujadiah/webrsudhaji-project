@@ -3,11 +3,8 @@
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\MediaManagerController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
-use App\Http\Controllers\Admin\Management\AdminBannerController;
 use App\Http\Controllers\Admin\Management\AdminArtikelController;
 use App\Http\Controllers\Admin\Management\AdminDokterController;
-use App\Http\Controllers\Admin\Management\AdminLayananController;
-use App\Http\Controllers\Admin\Management\AdminKontakController;
 use App\Http\Controllers\Admin\Management\AdminJadwalDokterController;
 use App\Http\Controllers\Admin\Management\AdminProfilDireksiController;
 use App\Http\Controllers\DokterController;
@@ -144,11 +141,6 @@ Route::middleware([\App\Http\Middleware\EnsureAdminAuthenticated::class])->group
     Route::post('/admin/logout', [AuthenticatedSessionController::class, 'destroy'])->name('admin.logout');
 
     // Management CRUD Routes
-    Route::resource('admin/banner', AdminBannerController::class, [
-        'names' => 'admin.banner',
-        'parameters' => ['banner' => 'id_banner'],
-    ])->except(['show']);
-
     Route::resource('admin/artikel', AdminArtikelController::class, [
         'names' => 'admin.artikel',
         'parameters' => ['artikel' => 'id_artikel'],
@@ -157,16 +149,6 @@ Route::middleware([\App\Http\Middleware\EnsureAdminAuthenticated::class])->group
     Route::resource('admin/dokter', AdminDokterController::class, [
         'names' => 'admin.dokter',
         'parameters' => ['dokter' => 'id_dokter'],
-    ])->except(['show']);
-
-    Route::resource('admin/layanan', AdminLayananController::class, [
-        'names' => 'admin.layanan',
-        'parameters' => ['layanan' => 'id_layanan'],
-    ])->except(['show']);
-
-    Route::resource('admin/kontak', AdminKontakController::class, [
-        'names' => 'admin.kontak',
-        'parameters' => ['kontak' => 'id_kontak'],
     ])->except(['show']);
 
     Route::resource('admin/jadwal-dokter', AdminJadwalDokterController::class, [

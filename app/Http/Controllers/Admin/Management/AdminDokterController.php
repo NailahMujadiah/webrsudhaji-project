@@ -20,16 +20,22 @@ class AdminDokterController extends Controller
         return (string) config('filesystems.media_disk', 'public');
     }
 
-    public function index(): View
+    public function index(Request $request): View
     {
         $admin = Auth::guard('admin')->user();
+        $search = trim((string) $request->query('search', ''));
+
         $dokters = Dokter::query()
             ->where('id_admin', $admin->id_admin)
+            ->when($search !== '', function ($query) use ($search) {
+                $query->where('nama_dokter', 'like', '%' . $search . '%');
+            })
             ->select(['id_dokter', 'nama_dokter', 'spesialis', 'foto_dokter'])
             ->orderByDesc('id_dokter')
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
-        return view('admin.management.dokter.index', compact('dokters', 'admin'));
+        return view('admin.management.dokter.index', compact('dokters', 'admin', 'search'));
     }
 
     public function create(): View

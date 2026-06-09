@@ -21,6 +21,9 @@ class EnsureAdminAuthenticated
             return redirect()->guest(route('admin.login'));
         }
 
+        // Ensure authorization/policy calls use the admin guard for admin routes
+        Auth::shouldUse('admin');
+
         return $next($request);
     }
 }

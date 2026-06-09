@@ -15,7 +15,7 @@
         <form action="{{ route('admin.dokter.update', $dokter->id_dokter) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <div class="space-y-5 px-6 py-5">
+            <div class="space-y-5 px-6 py-3">
 
                 {{-- Nama Dokter --}}
                 <div class="space-y-1.5">
