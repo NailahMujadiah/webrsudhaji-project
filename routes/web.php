@@ -21,7 +21,6 @@ Route::get('/beranda', function () {
 Route::get('/profil', function () {
     return Inertia::render('profil');
 });
-Route::get('/layanan/poliklinik', fn() => Inertia::render('Layanan/poliklinik'))->name('layanan.poliklinik');
 Route::get('/layanan/unggulan', fn() => Inertia::render('Layanan/layanan-unggulan'))->name('layanan.unggulan');
 Route::get('/layanan/rawat-jalan', fn() => Inertia::render('Layanan/layanan-rawat-jalan'))->name('layanan.rawat-jalan');
 Route::get('/layanan/rawat-inap', fn() => Inertia::render('Layanan/layanan-rawat-inap'))->name('layanan.rawat-inap');
