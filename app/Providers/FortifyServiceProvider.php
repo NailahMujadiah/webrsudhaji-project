@@ -22,7 +22,7 @@ class FortifyServiceProvider extends ServiceProvider
     {
         // Prevent Fortify from automatically registering its routes early
         // so we can fully disable the built-in /login endpoints.
-        Fortify::ignoreRoutes();
+        // Fortify::ignoreRoutes();
     }
 
     /**

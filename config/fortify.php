@@ -131,7 +131,7 @@ return [
     */
 
     // Disable Fortify view routes (e.g. GET /login) if not needed
-    'views' => false,
+    'views' => true,
 
     /*
     |--------------------------------------------------------------------------
