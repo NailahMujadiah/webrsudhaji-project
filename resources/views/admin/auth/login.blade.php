@@ -188,7 +188,7 @@
     {{-- Logo / Brand --}}
     <div style="text-align: center; margin-bottom: 1.5rem;">
     <a href="{{ url('/') }}" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.75rem;">
-        <img src="{{ asset('images/logohaji.webp') }}" alt="Logo RSUD Haji" style="height: 4rem; width: auto;">
+        <img src="{{ asset('images/LogoHAJI.webp') }}" alt="Logo RSUD Haji" style="height: 4rem; width: auto;">
     </a>
 </div>
 
