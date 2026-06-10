@@ -139,7 +139,7 @@
                 <div class="border-b border-sidebar-border px-4 py-3">
                     <a href="{{ route('admin.dashboard') }}"
                        class="flex items-center gap-3 text-sidebar-foreground no-underline">
-                        <img src="{{ asset('images/LOGOHAJI2.png') }}"
+                        <img src="{{ asset('images/LogoHAJI2.PNG') }}"
                              alt="Logo RSUD Haji"
                              class="h-11 w-11 rounded-xl object-contain">
                         <span data-sidebar-label>
