@@ -113,12 +113,12 @@ export default function Navbar() {
             {/* TOP BAR */}
             <div className="bg-[#2D8A5B] text-white py-2 px-6 lg:px-20 flex justify-between items-center text-xs md:text-sm">
                 <div className="flex gap-4">
-                    <span className="flex items-center gap-1">
+                    {/* <span className="flex items-center gap-1">
                         📞 (0411) 8111411
                     </span>
                     <span className="hidden md:flex items-center gap-1">
                         ✉️ info@rsudhaji.com
-                    </span>
+                    </span> */}
                 </div>
                 <div className="flex gap-4">
                     <a href="tel:081352507039" className="hover:text-green-200">Ambulans Peduli</a>
@@ -220,7 +220,7 @@ export default function Navbar() {
 
             {/* Mobile Menu */}
             {mobileOpen && (
-                <div className="md:hidden bg-white border-b border-slate-100 px-6 pb-4">
+                <div className="md:hidden bg-white border-b border-slate-100 px-6 pb-4 w-full overflow-hidden">
                     <div className="flex flex-col pt-2 gap-1">
                         <Link
                             href="/"

@@ -14,7 +14,7 @@ export default function Footer() {
                             <img
                                 src="/images/LogoHAJI.webp"
                                 alt="Logo RSUD Haji"
-                                className="w-50 h-13"
+                                className="h-12 w-auto max-w-full"
                             />
                         </Link>
                         <p className="text-slate-700 text-xs leading-relaxed">
