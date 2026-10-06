@@ -22,9 +22,8 @@ export default defineConfig({
             },
         }),
         tailwindcss(),
-        wayfinder({
-            formVariants: true,
-        }),
+        // Matikan total wayfinder jika sedang dibuild oleh Vercel
+        ...(process.env.VERCEL ? [] : [wayfinder({ formVariants: true })]),
     ],
     esbuild: {
         jsx: 'automatic',
