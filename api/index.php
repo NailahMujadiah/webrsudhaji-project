@@ -44,9 +44,15 @@ try {
     $kernel->terminate($request, $response);
 
 } catch (\Throwable $e) {
-    echo "<h1>PHP Fatal Error / Exception:</h1>";
-    echo "<p><strong>Message:</strong> " . $e->getMessage() . "</p>";
-    echo "<p><strong>File:</strong> " . $e->getFile() . ":" . $e->getLine() . "</p>";
-    echo "<pre>" . $e->getTraceAsString() . "</pre>";
-    exit(1);
+    // Tulis ke stderr supaya muncul di Runtime Logs Vercel
+    error_log($e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine());
+    error_log($e->getTraceAsString());
+
+    // Tampilkan di browser (sementara, hapus setelah debugging)
+    http_response_code(500);
+    echo "<h1>Error</h1>";
+    echo "<p><strong>Message:</strong> " . htmlspecialchars($e->getMessage()) . "</p>";
+    echo "<p><strong>File:</strong> " . htmlspecialchars($e->getFile()) . ":" . $e->getLine() . "</p>";
+    echo "<pre>" . htmlspecialchars($e->getTraceAsString()) . "</pre>";
+    // JANGAN pakai exit(1)
 }
