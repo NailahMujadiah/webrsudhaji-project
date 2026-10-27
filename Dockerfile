@@ -1,6 +1,7 @@
 
 FROM php:8.3-apache
 
+# Install system dependencies and PHP extensions
 RUN apt-get update && apt-get install -y \
     git unzip curl \
     libpq-dev libicu-dev libzip-dev libxml2-dev \
@@ -16,18 +17,6 @@ RUN apt-get update && apt-get install -y \
 COPY --from=node:22-bookworm-slim /usr/local/bin/node /usr/local/bin/node
 COPY --from=node:22-bookworm-slim /usr/local/lib/node_modules /usr/local/lib/node_modules
 
-# Install Laravel dependencies
-RUN composer install --no-dev --optimize-autoloader --no-interaction
-
-# Install frontend dependencies
-RUN npm install
-
-# Build React + Vite assets
-RUN npm run build
-
-# Verify Vite manifest exists
-RUN test -f public/build/manifest.json
-
 RUN ln -sf /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
     && ln -sf /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
 
@@ -36,15 +25,19 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
+# Copy project files
 COPY . .
 
 # Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Build React and Vite assets
+# Install frontend dependencies and build Vite assets
 RUN npm ci && npm run build
 
-# Configure Apache
+# Verify that Vite generated the manifest
+RUN test -f public/build/manifest.json
+
+# Configure Apache to serve Laravel public directory on port 8000
 RUN sed -i 's#DocumentRoot /var/www/html#DocumentRoot /var/www/html/public#' \
     /etc/apache2/sites-available/000-default.conf \
     && sed -i 's/AllowOverride None/AllowOverride All/g' \
@@ -53,6 +46,7 @@ RUN sed -i 's#DocumentRoot /var/www/html#DocumentRoot /var/www/html/public#' \
     && sed -i 's/<VirtualHost \*:80>/<VirtualHost *:8000>/' \
     /etc/apache2/sites-available/000-default.conf
 
+# Set Laravel writable directories
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R ug+rwX storage bootstrap/cache
 
