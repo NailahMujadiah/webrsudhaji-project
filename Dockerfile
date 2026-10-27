@@ -2,10 +2,12 @@
 FROM php:8.3-apache
 
 # Install system dependencies and PHP extensions
+
 RUN apt-get update && apt-get install -y \
-    git unzip curl \
+    git unzip curl pkg-config \
     libpq-dev libicu-dev libzip-dev libxml2-dev \
     libpng-dev libjpeg62-turbo-dev libfreetype6-dev \
+    libonig-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
        pdo_pgsql mbstring bcmath exif pcntl \
