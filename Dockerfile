@@ -16,6 +16,18 @@ RUN apt-get update && apt-get install -y \
 COPY --from=node:22-bookworm-slim /usr/local/bin/node /usr/local/bin/node
 COPY --from=node:22-bookworm-slim /usr/local/lib/node_modules /usr/local/lib/node_modules
 
+# Install Laravel dependencies
+RUN composer install --no-dev --optimize-autoloader --no-interaction
+
+# Install frontend dependencies
+RUN npm install
+
+# Build React + Vite assets
+RUN npm run build
+
+# Verify Vite manifest exists
+RUN test -f public/build/manifest.json
+
 RUN ln -sf /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
     && ln -sf /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
 
