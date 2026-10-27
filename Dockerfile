@@ -1,16 +1,19 @@
 
 FROM php:8.3-apache
 
+
 RUN apt-get update && apt-get install -y \
-    git unzip curl \
+    git unzip curl pkg-config \
     libpq-dev libicu-dev libzip-dev libxml2-dev \
     libpng-dev libjpeg62-turbo-dev libfreetype6-dev \
+    libonig-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
        pdo_pgsql mbstring bcmath exif pcntl \
        intl gd zip opcache \
     && a2enmod rewrite \
     && rm -rf /var/lib/apt/lists/*
+
 
 # Install Node.js and npm
 COPY --from=node:22-bookworm-slim /usr/local/bin/node /usr/local/bin/node
